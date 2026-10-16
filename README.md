@@ -1,10 +1,12 @@
 # 📈 Traders Journal (Desktop App — KING Edition)
 
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x64-0078D6?logo=windows&logoColor=white)](https://github.com)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x64-0078D6?logo=windows&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
+[![Download EXE](https://img.shields.io/badge/Download-Windows%20Installer%20(.EXE)-00C853?logo=windows&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)
+[![Release](https://img.shields.io/github/v/release/damsarachethiyaa-dev/Traders-Journal?color=success&logo=github)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)
 [![Runtime](https://img.shields.io/badge/Runtime-Electron%2041%20%7C%20Node.js-23272D?logo=electron&logoColor=white)](https://electronjs.org)
 [![Sync](https://img.shields.io/badge/Terminal-MetaTrader%205%20Auto--Sync-00A651?logo=tradingview&logoColor=white)](https://www.metatrader5.com)
-[![Privacy](https://img.shields.io/badge/Privacy-100%25%20Localhost%20%7C%20Zero%20Cloud-success)](https://github.com)
-[![License](https://img.shields.io/badge/Edition-KING%20Lifetime%20Edition-FFD700?logo=crown&logoColor=black)](https://github.com)
+[![Privacy](https://img.shields.io/badge/Privacy-100%25%20Localhost%20%7C%20Zero%20Cloud-success)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
+[![License](https://img.shields.io/badge/Edition-KING%20Lifetime%20Edition-FFD700?logo=crown&logoColor=black)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
 
 > **Created by Chethiya Rathnasekara**  
 > *A privacy-first, professional desktop trading journal and analytics workstation with direct MetaTrader 5 real-time synchronization. 100% offline, zero subscriptions, zero cloud data leaks.*
@@ -55,18 +57,20 @@ Most commercial trading journals charge expensive recurring monthly fees, requir
 
 ## 🚀 Quick Start & Installation (For Users)
 
-### Pre-Built Executables (`dist/` folder)
+### 📥 Download Pre-Built Executables
 
-You can find the ready-to-use binaries in the `dist/` directory:
+You can download the ready-to-install Windows executables directly from the official GitHub Releases page:
+
+👉 **[Download Latest Windows Installer & Portable Edition](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)**
 
 1. **Standard Windows Installer (Recommended for Everyone):**
-   - File: `dist/Traders-Journal-Setup-1.0.0.exe`
+   - File: `Traders-Journal-Setup-1.0.0.exe` (~148 MB)
    - Double-click to install with a standard Windows wizard.
-   - Creates a **Desktop Shortcut** and a **Start Menu Shortcut**.
-   - Automatically supports clean updates and uninstallation.
+   - Automatically adds a **Desktop Shortcut** and a **Start Menu Shortcut**.
+   - Supports seamless future updates and clean uninstallation.
 
 2. **Portable Executable:**
-   - File: `dist/Traders-Journal-Portable-1.0.0.exe`
+   - File: `Traders-Journal-Portable-1.0.0.exe` (~148 MB)
    - Runs instantly without installation or admin privileges.
    - Ideal for running from a USB thumb drive or portable folder.
 
