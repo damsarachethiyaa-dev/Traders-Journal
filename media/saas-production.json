@@ -1,0 +1,48 @@
+{
+  "status": "completed",
+  "workflow": "Higgsfield native Higgsedit (without AE)",
+  "video": {
+    "media_id": "5c6b2759-1e45-4460-b133-a59706dfbe04",
+    "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/5c6b2759-1e45-4460-b133-a59706dfbe04.mp4",
+    "width": 1280,
+    "height": 720,
+    "fps": 60,
+    "frames": 1440,
+    "duration": 24,
+    "bytes": 9216705,
+    "integrated_lufs": -14.1,
+    "true_peak_dbfs": -1.8
+  },
+  "editable_project": {
+    "media_id": "d3e9fede-6902-4266-aa9c-8570fdee1821",
+    "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/d3e9fede-6902-4266-aa9c-8570fdee1821.zip",
+    "editable_text_layers": 84,
+    "animation_tracks": 138,
+    "assets": 16,
+    "screen_internal_elements": "raster captures"
+  },
+  "creator": "Chethiya Rathnasekara",
+  "local_video": "C:/GPT/local/media/traders-journal-saas-720p.mp4",
+  "source": "C:/GPT/local/tools/promo/saas-edit.js",
+  "app_intro": "C:/GPT/local/media/traders-journal-intro.mp4",
+  "native_window_requested": [
+    1280,
+    720
+  ],
+  "builds": [
+    "dist/win-unpacked",
+    "dist/video-edition/win-unpacked"
+  ],
+  "tests": {
+    "unit": 5,
+    "source_intro": true,
+    "source_startup": true,
+    "source_hidden": true,
+    "packaged_intro": true,
+    "packaged_startup": true,
+    "packaged_hidden": true,
+    "editable_assets": true,
+    "desktop_visual": true,
+    "desktop_sound_toggle": true
+  }
+}

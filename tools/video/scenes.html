@@ -1,0 +1,565 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Traders Journal – MT5 setup video</title>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<style>
+:root{--bg:#09090b;--card:#0e0e10;--card2:#131315;--cell:#141416;--border:#1c1c1f;--border2:#27272a;--text:#ececee;--muted:#8b8b93;--faint:#55555c;--blue:#3b82f6;--green:#22c55e;--green2:#19d38a;--red:#f05252;--amber:#f59e0b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',Consolas,monospace;--head:'Space Grotesk','Inter',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;overflow:hidden}
+#stage{position:relative;width:1280px;height:720px;overflow:hidden;background:radial-gradient(1000px 520px at 50% -10%,#16203a 0%,#0a0b10 62%,#07070a 100%);font:13px/1.4 var(--sans);color:var(--text);-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;display:none}
+.cam{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0}
+.ov{position:absolute;inset:0;pointer-events:none}
+.win{position:absolute;border-radius:12px;background:var(--bg);border:1px solid #2d2e34;box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.03);overflow:hidden;left:70px;top:62px;width:1140px;height:560px}
+.tb{position:absolute;left:0;right:0;top:0;height:32px;display:flex;align-items:center;gap:8px;padding:0 14px;font-size:11.5px;color:var(--muted);border-bottom:1px solid var(--border);background:#0b0b0d}
+.tb:after{content:"–    ▢    ✕";margin-left:auto;letter-spacing:2px;color:#777}
+.appmark{width:9px;height:11px;border:1.6px solid #ddd;border-radius:2px}
+/* ---- app ---- */
+.side{position:absolute;left:0;top:32px;bottom:0;width:176px;border-right:1px solid var(--border);padding:16px 14px;background:var(--bg)}
+.logo{display:flex;align-items:center;gap:9px;font:700 15px var(--head);margin-bottom:14px;white-space:nowrap}
+.logo .mark{width:16px;height:19px;border:2px solid #fff;border-radius:3px;position:relative;display:inline-block}
+.addbtn{height:28px;border:1px solid var(--blue);color:var(--blue);background:rgba(59,130,246,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:500;margin-bottom:12px}
+.nav{display:flex;align-items:center;gap:9px;padding:7px 8px;font-size:11.5px;font-weight:500;border-radius:6px;color:#d8d8dc;margin-bottom:2px}
+.nav i{font-style:normal;width:14px;text-align:center;color:var(--muted)}
+.nav.on{background:#17171a;font-weight:600;color:#fff}.nav.on i{color:var(--blue)}
+.sidefoot{position:absolute;left:14px;bottom:14px;font-size:10.5px;color:var(--faint)}
+.main{position:absolute;left:176px;top:32px;right:0;bottom:0;overflow:hidden}
+.pg{position:absolute;inset:0;padding:22px 24px;opacity:0;visibility:hidden}
+.ph{display:flex;align-items:center;gap:12px;margin-bottom:16px}.ph h2{font:700 20px var(--head)}
+.live{font-size:11px;color:var(--green2);font-weight:600}
+.tiles4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;height:74px}
+.tile small{display:block;font-size:9.5px;letter-spacing:1.2px;color:var(--muted);font-weight:600}
+.tile b{display:block;font:700 19px var(--head);margin-top:5px;white-space:nowrap}
+.tile span{display:block;font-size:10.5px;color:var(--muted);margin-top:1px}
+.green{color:var(--green2)}.red{color:var(--red)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.pt{font-weight:600;font-size:12px;margin-bottom:8px}
+.eq{height:300px;position:relative}
+.empty{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:12px}
+.trh,.trr{display:grid;grid-template-columns:1.2fr .8fr 1fr .8fr 1fr;padding:0 16px;align-items:center}
+.trh{height:34px;font-size:10px;letter-spacing:1px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border)}
+.trr{height:38px;font-size:12.5px;border-bottom:1px solid #151517;background:var(--card)}
+.trr b{font-weight:600}.buy{color:var(--green2)}.sell{color:var(--red)}
+/* connections */
+.scr{position:absolute;left:24px;right:24px;top:22px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:20px}
+.direct{border-color:#1f3a6e;background:linear-gradient(180deg,#0c1220,#0e0e10)}
+.dh{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.mtl{width:36px;height:36px;border-radius:9px;background:#1d2c4d;color:#7fb0ff;display:grid;place-items:center;font:700 12px var(--head)}
+.dh b{font-size:14.5px;display:block}.dh small{font-size:11px;color:var(--muted)}
+.bdg{margin-left:auto;font-size:11px;font-weight:700;border-radius:999px;padding:5px 12px}
+.bdg.off{background:#241517;color:#f58a8a;border:1px solid #4a2326}
+.bdg.on{background:#0f2a1b;color:#2ee06f;border:1px solid #1d5a35}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.tiles .tile{background:#08080a;height:70px}
+.acts{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.btn{height:32px;padding:0 14px;border-radius:8px;border:1px solid var(--border2);background:#17171a;color:#fff;font:600 12px var(--sans);display:inline-flex;align-items:center;gap:6px}
+.btn.pri{background:var(--blue);border-color:var(--blue)}.btn.pri.press{background:#2563eb;box-shadow:inset 0 2px 4px rgba(0,0,0,.4)}
+.btn.dng{color:#f87171;margin-left:auto}
+.chk{display:inline-flex;align-items:center;gap:8px;font-size:12px}
+.box{width:16px;height:16px;border:1.5px solid #5a5a62;border-radius:4px;display:inline-grid;place-items:center;font-size:11px;color:#fff;font-style:normal}
+.chk.on .box,.box.on{background:var(--blue);border-color:var(--blue)}
+.lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px}
+.log{background:#060607;border:1px solid var(--border);border-radius:8px;padding:8px 12px;height:96px;overflow:hidden;font:500 11px/1.75 var(--mono)}
+.lr{display:flex;gap:12px;color:#a0a0a8}.lr span:first-child{color:#5d5d66;min-width:64px}.lr.ok{color:#2ee06f}.lr.info{color:#7fb0ff}.lr.warn{color:#f5b84b}
+.eah{font-weight:600;font-size:13px;color:#cfcfd4;margin-bottom:14px}
+.ea{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.cl{font-size:11px;font-weight:600;color:#a8a8b0;margin:0 0 6px}
+.inp{height:34px;border:1px solid var(--border2);background:#08080a;border-radius:8px;padding:0 12px;display:flex;align-items:center;font-size:12.5px;margin-bottom:14px}
+.ver{border:1px solid var(--blue);background:rgba(59,130,246,.1);border-radius:8px;padding:8px 12px;margin-bottom:14px}.ver b{display:block;font-size:12.5px}.ver small{color:var(--muted);font-size:10.5px}
+.gen{height:38px;width:100%;border-radius:8px;background:var(--blue);color:#fff;font:700 12.5px var(--sans);display:grid;place-items:center}
+.gen.press{background:#2563eb}
+.ro{display:flex;gap:10px;font-size:11px;color:#a8a8b0;background:#0a0a0c;border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:14px;line-height:1.55}.ro b{color:#e8e8ec}
+.res{opacity:0}
+.codebox{border:1px dashed #2f4f8f;background:#0b1424;border-radius:10px;padding:14px;text-align:center;margin-bottom:12px}
+.codebox small{display:block;font-size:10px;letter-spacing:1.3px;color:#7f9fd6;font-weight:700}
+.codebox b{display:block;font:700 28px var(--mono);letter-spacing:4px;margin:6px 0 4px;color:#fff}
+.codebox span{font-size:11px;color:var(--muted)}
+.dl{height:38px;border-radius:8px;background:var(--blue);display:flex;align-items:center;justify-content:center;gap:8px;font:700 12.5px var(--sans);color:#fff}
+.dl.press{background:#2563eb}
+.dl.hidden{opacity:.0}
+/* caret */
+.typing:after{content:"";display:inline-block;width:1.5px;height:1.05em;background:currentColor;margin-left:1px;vertical-align:-2px}
+/* ---- MT5 ---- */
+.mt5{background:#1a1b1f;border-color:#34353b}.mt5 .tb{background:#232429;color:#aaa;border-color:#34353b}
+.mbar{position:absolute;left:0;right:0;top:32px;height:24px;background:#25262b;border-bottom:1px solid #34353b;display:flex;align-items:center;padding:0 8px;gap:2px;font-size:11.5px;color:#d5d5d8}
+.mbar span{padding:3px 9px;border-radius:3px}.mbar span.hot{background:#3b3d46}
+.tbar{position:absolute;left:0;right:0;top:56px;height:32px;background:#202126;border-bottom:1px solid #34353b;display:flex;align-items:center;gap:6px;padding:0 10px;font-size:11px;color:#c8c8cc}
+.tbar i{width:22px;height:18px;border-radius:4px;background:#2d2f37;display:inline-block}
+.tbar .algo{padding:4px 10px;border-radius:4px;background:#2d2f37;display:inline-flex;gap:6px;align-items:center;margin-left:8px}.algo u{width:9px;height:9px;border-radius:50%;background:#e5534b;display:inline-block}
+.mid{position:absolute;left:0;right:0;top:88px;height:302px;display:flex}
+.lp{width:208px;border-right:1px solid #34353b;display:flex;flex-direction:column;background:#1e1f24}
+.pane{flex:1;overflow:hidden;font-size:10.8px;color:#cfcfd3;border-bottom:1px solid #34353b}
+.pane h5{font:600 10.5px var(--sans);background:#27282e;padding:4px 8px;color:#b9b9bf;border-bottom:1px solid #34353b}
+.mwr{display:flex;justify-content:space-between;padding:3px 10px;font:500 10.5px var(--mono)}.mwr b{color:#7dd3fc;font-weight:500}
+.nvr{padding:3px 10px;white-space:nowrap}.nvr.l2{padding-left:26px}.nvr.l3{padding-left:42px}
+.chartw{position:relative;flex:1;background:#0f1013}
+.ctitle{position:absolute;left:12px;top:8px;font:600 11px var(--mono);color:#d5d5d8}
+.smile{position:absolute;right:14px;top:6px;font-size:18px;color:#ffd24a}
+.toolbox{position:absolute;left:0;right:0;top:390px;height:148px;background:#1e1f24;border-top:1px solid #34353b}
+.tabs{display:flex;background:#25262b;border-bottom:1px solid #34353b;font-size:11px}
+.tabs span{padding:5px 14px;color:#a8a8ae;border-right:1px solid #34353b}.tabs span.on{background:#1e1f24;color:#fff}.tabs span.hot{background:#3b3d46;color:#fff}
+.tbl{width:100%;border-collapse:collapse;font:500 10.8px var(--mono);color:#d0d0d4}.tbl th{text-align:left;font:600 10.5px var(--sans);color:#9a9aa2;padding:4px 10px;border-bottom:1px solid #34353b}.tbl td{padding:3px 10px}
+.pl{color:#4ade80}.mi{color:#f87171}
+.exlog{padding:8px 12px;font:500 11px/1.7 var(--mono);color:#b5b5ba}.exlog .g{color:#4ade80}
+.stbar{position:absolute;left:0;right:0;bottom:0;height:22px;background:#25262b;border-top:1px solid #34353b;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:11px;color:#a8a8ae}
+.conn{font:600 11px var(--mono)}.conn.bad{color:#f87171}.conn.good{color:#4ade80}
+.dd{position:absolute;background:#2a2b31;border:1px solid #44454d;border-radius:6px;padding:4px;box-shadow:0 12px 30px rgba(0,0,0,.5);font-size:11.5px;color:#e5e5e8;width:230px}
+.dd div{padding:5px 12px;border-radius:4px;display:flex;justify-content:space-between}.dd em{font-style:normal;color:#8a8a92}.dd div.hot{background:#3b6fd4;color:#fff}.dd hr{border:0;border-top:1px solid #44454d;margin:4px 0}
+/* light dialogs */
+.dlg{position:absolute;background:#f3f3f3;color:#171717;border:1px solid #8c8c8c;border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.55);font:12px var(--sans);overflow:hidden}
+.dlg .dt{height:30px;background:#fff;display:flex;align-items:center;padding:0 12px;font-size:12px;border-bottom:1px solid #e0e0e0}
+.dlg .dt:after{content:"✕";margin-left:auto;color:#666}
+.dlg .bd{padding:16px 18px}
+.dlg .fld{display:grid;grid-template-columns:90px 1fr;align-items:center;gap:8px;margin-bottom:10px}
+.dlg .in{height:26px;border:1px solid #9a9a9a;background:#fff;border-radius:3px;padding:0 8px;display:flex;align-items:center;font-size:12px}
+.dlg .bt{height:28px;min-width:84px;padding:0 14px;border:1px solid #adadad;background:#e6e6e6;border-radius:4px;display:inline-grid;place-items:center;font-size:12px}
+.dlg .bt.def{border-color:#2563eb;background:#dbe8ff}
+.dlg .tabs2{display:flex;gap:2px;border-bottom:1px solid #bbb;margin-bottom:12px}.dlg .tabs2 span{padding:5px 12px;border:1px solid transparent;font-size:11.5px;color:#333}.dlg .tabs2 span.on{background:#fff;border-color:#bbb;border-bottom-color:#fff;margin-bottom:-1px}.dlg .tabs2 span.hot{background:#dbe8ff}
+.cb{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px}.cb i{width:14px;height:14px;border:1px solid #666;background:#fff;display:inline-grid;place-items:center;font-size:11px;font-style:normal;color:#fff}.cb i.on{background:#2563eb;border-color:#2563eb}
+.lst{border:1px solid #9a9a9a;background:#fff;height:90px;margin-top:8px;font:12px var(--mono)}.lst div{padding:4px 8px;height:24px;display:flex;align-items:center}
+.itbl{width:100%;border-collapse:collapse;font:12px var(--sans);background:#fff;border:1px solid #9a9a9a}.itbl th{background:#ececec;text-align:left;padding:4px 8px;font-weight:600;border-bottom:1px solid #bbb}.itbl td{padding:5px 8px;border-bottom:1px solid #eee;font-family:var(--mono);font-size:11.5px}
+/* explorer, editor */
+.exp{position:absolute;background:#202124;border:1px solid #3a3b40;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.65);overflow:hidden;font-size:11.5px;color:#e5e5e8}
+.exp .et{height:30px;display:flex;align-items:center;padding:0 12px;background:#2a2b30;font-size:11.5px;color:#cfcfd4;gap:8px}
+.exp .addr{margin:8px 10px;height:28px;border:1px solid #3a3b40;border-radius:6px;background:#17181b;display:flex;align-items:center;padding:0 10px;gap:6px;color:#b9b9bf;font-size:11.5px;white-space:nowrap;overflow:hidden}.addr b{color:#fff;font-weight:600}
+.exp .row{display:flex;align-items:center;gap:10px;height:28px;padding:0 14px;font-size:12px}.exp .row i{width:16px;height:13px;border-radius:2px;background:#e8b94a;display:inline-block;font-style:normal}.exp .row i.f{width:12px;height:15px;background:#8fb4ff}.exp .row u{margin-left:auto;text-decoration:none;color:#8a8a92;font-size:11px}
+.exp .row.sel{background:#2f4a7d}
+.ed{background:#1b1c20}
+.edtool{position:absolute;left:0;right:0;top:32px;height:34px;background:#25262b;border-bottom:1px solid #34353b;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:11.5px;color:#d5d5d8}
+.edtool span{padding:5px 10px;border-radius:4px;background:#2d2f37}.edtool span.hot{background:#3b6fd4;color:#fff}
+.edside{position:absolute;left:0;top:66px;bottom:150px;width:230px;border-right:1px solid #34353b;background:#1e1f24;padding:8px 0;font-size:11.5px;color:#cfcfd3}
+.edside div{padding:3px 12px;white-space:nowrap}.edside .l2{padding-left:28px}.edside .l3{padding-left:44px}.edside .hot{background:#2f4a7d;color:#fff}
+.code{position:absolute;left:230px;right:0;top:66px;bottom:150px;padding:12px 18px;font:500 12px/1.7 var(--mono);color:#cfd3dc;white-space:pre;overflow:hidden}.code .k{color:#c586c0}.code .s{color:#ce9178}.code .c{color:#6a9955}.code .t{color:#4ec9b0}
+.edlog{position:absolute;left:0;right:0;bottom:0;height:150px;border-top:1px solid #34353b;background:#18191c}
+.edlog .exlog{font-size:11.5px}
+/* overlay widgets */
+.ring{position:absolute;border:2.5px solid #3b82f6;border-radius:10px;box-shadow:0 0 0 4px rgba(59,130,246,.22),0 0 24px rgba(59,130,246,.5);visibility:hidden}
+.tip{position:absolute;background:#3b82f6;color:#fff;border-radius:10px;padding:8px 14px;font:600 14px/1.3 var(--sans);box-shadow:0 10px 30px rgba(0,0,0,.45);visibility:hidden;white-space:nowrap}
+.tip .ar{position:absolute;width:12px;height:12px;background:#3b82f6;transform:rotate(45deg)}
+.tip.g{background:#16a34a}.tip.g .ar{background:#16a34a}
+.keys{position:absolute;left:0;right:0;top:566px;display:flex;justify-content:center;gap:10px;visibility:hidden}
+.keys span{min-width:54px;height:46px;padding:0 16px;border-radius:10px;background:linear-gradient(#f4f4f6,#d4d5da);color:#17181c;font:700 19px var(--sans);display:grid;place-items:center;box-shadow:0 5px 0 #8e8f97,0 12px 24px rgba(0,0,0,.45)}
+.cur{position:absolute;left:0;top:0;width:22px;height:26px;visibility:hidden;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5));z-index:9}
+.rip{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:3px solid rgba(255,255,255,.85);visibility:hidden;z-index:8}
+.chip{position:absolute;display:flex;align-items:center;gap:8px;background:#101114;border:1px solid #2a2c33;border-radius:999px;padding:9px 16px 9px 12px;font:600 14px var(--sans);box-shadow:0 10px 30px rgba(0,0,0,.5);visibility:hidden;white-space:nowrap}
+.chip b{color:#22c55e;font-size:15px}
+/* hud */
+#hud{position:absolute;inset:0;pointer-events:none;z-index:50}
+#chip{position:absolute;left:34px;top:20px;height:30px;padding:0 14px 0 10px;border-radius:999px;background:rgba(20,22,28,.85);border:1px solid #2c2f38;display:flex;align-items:center;gap:8px;font:600 12.5px var(--sans);color:#dfe3ee;opacity:0}
+#chip i{width:8px;height:8px;border-radius:50%;background:#3b82f6;box-shadow:0 0 10px #3b82f6}
+#brand{position:absolute;right:34px;top:24px;font:700 14px var(--head);color:#9aa0b4;display:flex;align-items:center;gap:8px}
+#brand .mark{width:12px;height:15px;border:1.8px solid #9aa0b4;border-radius:2px;display:inline-block}
+#cap{position:absolute;left:50%;bottom:34px;width:1020px;margin-left:-510px;text-align:center;opacity:0}
+#cap span{display:inline-block;background:rgba(6,7,10,.78);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:11px 22px;font:500 21px/1.38 var(--sans);color:#fff;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+#pstr{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,6,10,.86);gap:8px}
+#pstr .pb{width:120px;height:120px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 20px 60px rgba(0,0,0,.6);margin-bottom:14px}
+#pstr .pb i{display:block;border-style:solid;border-width:22px 0 22px 36px;border-color:transparent transparent transparent #3b82f6;margin-left:10px}
+#pstr b{font:700 34px var(--head)}#pstr span{font:500 18px var(--sans);color:#aab2c8}
+#tick{position:absolute;left:0;top:0;width:2px;height:2px}
+#prog{position:absolute;left:0;bottom:0;height:4px;background:#3b82f6;width:0}
+/* title scenes */
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.big{font:700 62px/1.05 var(--head);letter-spacing:-1.5px;text-align:center}
+.sub{font:500 22px var(--sans);color:#9aa3bd;text-align:center;margin-top:14px}
+.mcard{position:absolute;width:420px;height:210px;border-radius:18px;background:#0e1018;border:1px solid #232634;padding:26px 28px;box-shadow:0 24px 70px rgba(0,0,0,.5);visibility:hidden}
+.mcard h3{font:700 26px var(--head);margin:10px 0 8px}.mcard p{font-size:15.5px;color:#9aa3bd;line-height:1.55}
+.mcard .n{display:inline-block;font:700 12px var(--sans);letter-spacing:1.5px;color:#7fb0ff;background:rgba(59,130,246,.14);border-radius:999px;padding:4px 12px}
+.mcard.rec{border-color:#2d5bb8;box-shadow:0 24px 70px rgba(37,99,235,.28)}
+.bigico{width:76px;height:76px;border-radius:20px;display:grid;place-items:center;font:700 22px var(--head)}
+.step7{position:absolute;display:flex;align-items:center;gap:14px;height:56px;width:470px;border-radius:14px;background:#0e1018;border:1px solid #232634;padding:0 18px;font:600 18px var(--sans);visibility:hidden}
+.step7 em{font-style:normal;width:32px;height:32px;border-radius:50%;background:#1b3a78;color:#9cc2ff;display:grid;place-items:center;font:700 15px var(--head)}
+.tcard{position:absolute;width:380px;height:240px;border-radius:18px;background:#0e1018;border:1px solid #232634;padding:26px;visibility:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.tcard .ic{font-size:34px;margin-bottom:14px}.tcard h4{font:700 22px/1.25 var(--head);margin-bottom:10px}.tcard p{font-size:15px;color:#9aa3bd;line-height:1.55}.tcard code{font:600 13.5px var(--mono);color:#9cc2ff;background:#15233f;border-radius:5px;padding:2px 6px}
+.ck{display:flex;align-items:center;gap:16px;font:600 26px var(--sans);margin:12px 0;visibility:hidden}.ck b{width:38px;height:38px;border-radius:50%;background:#16a34a;display:grid;place-items:center;font-size:21px}
+.floatcard{position:absolute;width:520px;border-radius:16px;background:#0e1018;border:1px solid #2d5bb8;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 40px rgba(37,99,235,.25);padding:22px 26px;visibility:hidden}
+.floatcard .row1{display:flex;align-items:center;gap:12px;font:700 17px var(--head)}
+.floatcard .bignum{font:700 44px var(--head);margin-top:12px}.floatcard small{color:#9aa3bd;font-size:13px}
+.fileghost{position:absolute;display:flex;align-items:center;gap:8px;background:#2f4a7d;border-radius:6px;padding:5px 12px;font-size:12px;color:#fff;visibility:hidden;z-index:7;box-shadow:0 8px 20px rgba(0,0,0,.5)}
+.tray{position:absolute;width:300px;border-radius:12px;background:#1c1d22;border:1px solid #34353b;padding:14px 16px;box-shadow:0 20px 60px rgba(0,0,0,.6);visibility:hidden;font-size:13px}
+.tray b{display:block;font-size:13.5px;margin-bottom:3px}.tray small{color:#9a9aa2;font-size:11.5px}
+.tray .tr{display:flex;gap:12px;align-items:center}.tray .tri{width:30px;height:30px;border-radius:8px;background:#1d2c4d;display:grid;place-items:center;color:#7fb0ff;font:700 10px var(--head)}
+</style></head>
+<body>
+<div id="stage"><div id="hud"><div id="brand"><span class="mark"></span>Traders Journal</div><div id="chip"><i></i><span></span></div><div id="cap"><span></span></div><div id="prog"></div><div id="tick"></div><div id="pstr"><div class="pb"><i></i></div><b>Watch the full setup video</b><span>5:23 · Direct Local Sync + Expert Advisor</span></div></div></div>
+<script>
+const W=1280,H=720;
+const stage=document.getElementById('stage');
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const prog=(t,t0,d)=>clamp((t-t0)/d);
+const eIO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eO=x=>1-Math.pow(1-x,3);
+const lerp=(a,b,p)=>a+(b-a)*p;
+const money=(n,d=2)=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+let TL=null;
+
+/* ========== Scene class & overlay helpers ========== */
+class Sc{
+ constructor(info,html){this.info=info;this.id=info.id;this.D=info.dur;this.L=info.lines;
+  this.el=document.createElement('div');this.el.className='scene';this.el.innerHTML=`<div class="cam">${html}</div><div class="ov"></div>`;
+  stage.insertBefore(this.el,document.getElementById('hud'));this.cam=this.el.querySelector('.cam');this.ov=this.el.querySelector('.ov');this.k={};this.cache={};
+  this.cur=this.mk('cur','svg','cur');this.cur.setAttribute('viewBox','0 0 22 26');this.cur.innerHTML='<path d="M2 1 L2 19 L6.5 15 L9.5 22 L12.5 20.7 L9.6 14 L16 14 Z" fill="#fff" stroke="#000" stroke-width="1.4" stroke-linejoin="round"/>';
+  this.rip=this.mk('rip','div','rip');}
+ q(s){return this.el.querySelector(s)}
+ qa(s){return [...this.el.querySelectorAll(s)]}
+ t0(i){return this.L[i].t0}
+ mk(key,tag,cls,html){if(!this.k[key]){const e=tag==='svg'?document.createElementNS('http://www.w3.org/2000/svg','svg'):document.createElement(tag);e.setAttribute('class',cls);if(html)e.innerHTML=html;this.ov.appendChild(e);this.k[key]=e}return this.k[key]}
+ rect(target){const sr=stage.getBoundingClientRect();
+  if(Array.isArray(target))return{x:target[0],y:target[1],w:target[2]||0,h:target[3]||0};
+  const e=typeof target==='string'?this.q(target):target;if(!e)return{x:640,y:360,w:0,h:0};
+  const r=e.getBoundingClientRect();return{x:r.left-sr.left,y:r.top-sr.top,w:r.width,h:r.height}}
+ /* simple appear/disappear */
+ fx(el,t,t0,d=.5,kind='rise',t1=1e9,d1=.3){if(typeof el==='string')el=this.q(el);const p=eO(prog(t,t0,d));let o=p;if(t>t1)o*=1-prog(t,t1,d1);
+  el.style.opacity=o;el.style.visibility=o>.002?'visible':'hidden';
+  const y=kind==='rise'?(1-p)*16:kind==='drop'?-(1-p)*16:0,s=kind==='pop'?.93+.07*p:1,x=kind==='left'?-(1-p)*40:kind==='right'?(1-p)*40:0;
+  el.style.transform=`translate(${x}px,${y}px) scale(${s})`;return o}
+ type(el,text,t,t0,cps=14){if(typeof el==='string')el=this.q(el);const n=clamp(Math.floor((t-t0)*cps),0,text.length);const s=text.slice(0,n);if(el.textContent!==s)el.textContent=s;el.classList.toggle('typing',t>=t0&&n<text.length)}
+ num(el,t,t0,d,a,b,fmt){if(typeof el==='string')el=this.q(el);const p=eO(prog(t,t0,d));const s=fmt(lerp(a,b,p));if(el.textContent!==s)el.textContent=s}
+ ring(key,target,t,t0,t1,pad=6){const e=this.mk('ring_'+key,'div','ring');const o=this.fx(e,t,t0,.35,'none',t1,.3);if(o<.002)return;const r=this.rect(target);
+  e.style.left=(r.x-pad)+'px';e.style.top=(r.y-pad)+'px';e.style.width=(r.w+pad*2)+'px';e.style.height=(r.h+pad*2)+'px';e.style.transform=`scale(${1+.012*Math.sin(t*6)})`}
+ tip(key,target,text,side,t,t0,t1,cls=''){const e=this.mk('tip_'+key,'div','tip '+cls,'<span class="tx"></span><i class="ar"></i>');e.querySelector('.tx').textContent=text;
+  const o=this.fx(e,t,t0,.4,'none',t1,.3);if(o<.002)return;const r=this.rect(target),w=e.offsetWidth,h=e.offsetHeight,ar=e.querySelector('.ar');let L,T;
+  const cx=r.x+r.w/2,cy=r.y+r.h/2;
+  if(side==='bottom'){L=cx-w/2;T=r.y+r.h+16}else if(side==='top'){L=cx-w/2;T=r.y-h-16}else if(side==='right'){L=r.x+r.w+16;T=cy-h/2}else{L=r.x-w-16;T=cy-h/2}
+  L=clamp(L,14,W-w-14);T=clamp(T,56,H-h-90);
+  if(side==='bottom'||side==='top'){ar.style.left=clamp(cx-L-6,10,w-22)+'px';ar.style[side==='bottom'?'top':'bottom']='-6px'}else{ar.style.top=clamp(cy-T-6,8,h-20)+'px';ar.style[side==='right'?'left':'right']='-6px'}
+  e.style.left=L+'px';e.style.top=T+'px';e.style.transform=`translateY(${(1-eO(prog(t,t0,.4)))*8}px)`}
+ keys(key,labels,t,t0,t1){const e=this.mk('keys_'+key,'div','keys',labels.map(l=>`<span>${l}</span>`).join(''));this.fx(e,t,t0,.3,'rise',t1,.25)}
+ cursor(t,pts){ /* pts: [time,target,click?] */
+  const P=pts.map(p=>{const r=this.rect(p[1]);const pos=Array.isArray(p[1])&&p[1].length===2?{x:p[1][0],y:p[1][1]}:{x:r.x+r.w*.5,y:r.y+r.h*.5};return{t:p[0],x:pos.x,y:pos.y,c:!!p[2]}});
+  let x=P[0].x,y=P[0].y;
+  for(let i=0;i<P.length-1;i++){const a=P[i],b=P[i+1];if(t>=a.t&&t<=b.t){const p=eIO(prog(t,a.t,b.t-a.t));x=lerp(a.x,b.x,p);y=lerp(a.y,b.y,p)}else if(t>b.t){x=b.x;y=b.y}}
+  const vis=t>=P[0].t-.2?clamp((t-(P[0].t-.2))/.3):0;
+  let press=0,ripP=-1,rx=0,ry=0;
+  for(const p of P)if(p.c){const dt=t-p.t;if(dt>-.08&&dt<.16)press=1;if(dt>=0&&dt<.55){ripP=dt/.55;rx=p.x;ry=p.y}}
+  this.cur.style.visibility=vis>0?'visible':'hidden';this.cur.style.opacity=vis;this.cur.style.transform=`translate(${x}px,${y}px) scale(${press?.86:1})`;
+  if(ripP>=0){this.rip.style.visibility='visible';this.rip.style.opacity=1-ripP;this.rip.style.transform=`translate(${rx}px,${ry}px) scale(${.4+ripP*1.1})`}else this.rip.style.visibility='hidden';
+  return{x,y}}
+ camera(t,keys){let s=keys[0][1],fx=keys[0][2],fy=keys[0][3];
+  for(let i=0;i<keys.length-1;i++){const a=keys[i],b=keys[i+1];if(t>=a[0]&&t<=b[0]){const p=eIO(prog(t,a[0],b[0]-a[0]));s=lerp(a[1],b[1],p);fx=lerp(a[2],b[2],p);fy=lerp(a[3],b[3],p)}else if(t>b[0]){s=b[1];fx=b[2];fy=b[3]}}
+  let tx=clamp(640-fx*s,W-W*s,0),ty=clamp(345-fy*s,H-H*s,0);this.cam.style.transform=`translate(${tx}px,${ty}px) scale(${s})`}
+ page(t,seq){let cur=seq[0][1];for(const [tt,n] of seq)if(t>=tt)cur=n;let last=-1e9;for(const [tt] of seq)if(t>=tt)last=tt;
+  this.qa('.pg').forEach(p=>{const on=p.dataset.pg===cur;const o=on?eO(prog(t,last,.3)):0;p.style.opacity=o;p.style.visibility=o>.002?'visible':'hidden'});
+  this.qa('.nav').forEach(n=>n.classList.toggle('on',n.dataset.nav===cur));return cur}
+ render(t){const D=this.D;this.el.style.display='block';this.el.style.opacity=Math.min(prog(t,0,.35),1-prog(t,D-.35,.35));this.fn(t);this.fn(t)}
+}
+
+/* ========== reusable markup ========== */
+const NAVS=[['Dashboard','◧'],['Trade Logging','☰'],['Daily Journal','✎'],['Analytics','◔'],['Connections','⇄'],['Settings','⚙']];
+const TRADES=[['XAUUSD','Buy','Oct 15','0.20',386.00],['EURUSD','Sell','Oct 14','1.00',-82.00],['GBPJPY','Buy','Oct 14','0.50',124.50],['NAS100','Buy','Oct 13','0.10',211.30],['USDJPY','Sell','Oct 13','0.80',-46.20],['XAUUSD','Sell','Oct 12','0.20',98.40],['BTCUSD','Buy','Oct 11','0.05',302.10],['EURUSD','Buy','Oct 11','1.00',57.60]];
+function eqPath(){const pts=[0,6,4,14,10,22,16,30,24,28,40,52,46,64,60,58,78,90,100,120,112,140,150,172,166,200,214,240];let d='';const n=pts.length;const w=870,h=190;pts.forEach((v,i)=>{const x=i/(n-1)*w,y=h-v/250*h;d+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)+' '});return d}
+function dashPage(){return `<div class="pg" data-pg="Dashboard"><div class="ph"><h2>Dashboard</h2><span class="live">● Live</span></div>
+<div class="tiles4"><div class="tile"><small>NET P&amp;L</small><b class="dpl">$0.00</b></div><div class="tile"><small>WIN RATE</small><b class="dwr">0%</b></div><div class="tile"><small>TRADES</small><b class="dtr">0</b></div><div class="tile"><small>PROFIT FACTOR</small><b class="dpf">—</b></div></div>
+<div class="panel eq"><div class="pt">Equity curve</div><svg viewBox="0 0 870 210" width="870" height="210" style="margin-top:6px"><defs><linearGradient id="gq" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#22c55e" stop-opacity=".35"/><stop offset="1" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>
+${[0,1,2,3].map(i=>`<line x1="0" x2="870" y1="${i*63+4}" y2="${i*63+4}" stroke="#1c1c1f"/>`).join('')}
+<path class="eqa" d="${eqPath()} L870 190 L0 190 Z" fill="url(#gq)" opacity="0"/><path class="eql" pathLength="1" d="${eqPath()}" fill="none" stroke="#22c55e" stroke-width="2.6" stroke-linejoin="round" stroke-dasharray="1" stroke-dashoffset="1"/></svg><div class="empty">No trades yet · connect MetaTrader to import your history</div></div></div>`}
+function tradesPage(){return `<div class="pg" data-pg="Trade Logging"><div class="ph"><h2>Trade Logging</h2><span class="live">● Live</span></div><div class="trh"><span>SYMBOL</span><span>SIDE</span><span>DATE</span><span>VOLUME</span><span>NET P&amp;L</span></div>${TRADES.map(r=>`<div class="trr"><b>${r[0]}</b><span class="${r[1]==='Buy'?'buy':'sell'}">${r[1]}</span><span>${r[2]}</span><span>${r[3]}</span><b class="${r[4]>0?'green':'red'}">${r[4]>0?'+':'−'}$${Math.abs(r[4]).toFixed(2)}</b></div>`).join('')}</div>`}
+function directCard(){return `<div class="card direct"><div class="dh"><div class="mtl">MT5</div><div><b>MetaTrader 5 Direct Local Sync</b><small>Reads your trades straight from the terminal on this PC</small></div><span class="bdg off">○ Disconnected</span></div>
+<div class="tiles"><div class="tile"><small>ACCOUNT</small><b class="v1">—</b><span class="s1">—</span></div><div class="tile"><small>SERVER</small><b class="v2">—</b><span class="s2">—</span></div><div class="tile"><small>BALANCE</small><b class="v3">$0.00</b><span class="s3">Start: $0.00</span></div><div class="tile"><small>SYNCED POSITIONS</small><b class="v4">0</b><span class="s4">Waiting for sync</span></div></div>
+<div class="acts"><button class="btn pri sync">⟳ Sync Now</button><span class="chk auto"><i class="box"></i>Live Auto-Sync (Every 3s)</span><button class="btn dng disc">🗑 Disconnect</button></div>
+<div class="lbl">Recent Sync Activity</div><div class="log"></div></div>`}
+function eaCard(){return `<div class="card eacard"><div class="eah">Alternative: MQL5 Expert Advisor Sync</div><div class="ea"><div>
+<div class="cl">Connection name</div><div class="inp"><span class="nm">MetaTrader Account</span></div>
+<div class="cl">Terminal version</div><div class="ver"><b>MetaTrader 5</b><small>Local connector included</small></div>
+<div class="cl">Import history from</div><div class="inp selbox" style="justify-content:space-between"><span class="hist">All available history</span><span>▾</span></div>
+<div class="gen genbtn">Generate connection code</div></div>
+<div><div class="ro"><span>🛡</span><div>MT5 sends trade history directly to this PC. No cloud account or upload.<br><b>Read-only: this connector cannot place, edit, or close a trade.</b></div></div>
+<div class="res"><div class="codebox"><small>YOUR CONNECTION CODE</small><b class="code1">K7QM-93XD</b><span>Single-use · expires in <i class="cdn" style="font-style:normal">30:00</i></span></div><div class="dl dlbtn">⬇ Download connector (code pre-filled)</div></div></div></div></div>`}
+function connPage(){return `<div class="pg" data-pg="Connections"><div class="scr">${directCard()}${eaCard()}</div></div>`}
+function appWin(pages){return `<div class="win app"><div class="tb"><span class="appmark"></span><span>Traders Journal</span></div><div class="side"><div class="logo"><span class="mark"></span>Traders Journal</div><div class="addbtn">＋ Add Trade</div>${NAVS.map(n=>`<div class="nav" data-nav="${n[0]}"><i>${n[1]}</i>${n[0]}</div>`).join('')}<div class="sidefoot">● Local · Live</div></div><div class="main">${pages}</div></div>`}
+/* direct card painter */
+function paintDirect(s,st){const c=s.q('.direct');const b=c.querySelector('.bdg');b.className='bdg '+(st.on?'on':'off');b.textContent=st.on?'● Connected · Live':'○ Disconnected';
+ const set=(sel,v)=>{const e=c.querySelector(sel);if(e.textContent!==v)e.textContent=v};
+ set('.v1',st.acc||'—');set('.s1',st.name||'—');set('.v2',st.srv||'—');set('.s2',st.comp||'—');set('.v3',st.bal||'$0.00');set('.s3','Start: '+(st.start||'$0.00'));set('.v4',String(st.pos||0));set('.s4',st.live||'Waiting for sync');
+ c.querySelector('.v3').className='v3'+(st.on?' green':'');
+ c.querySelector('.sync').classList.toggle('press',!!st.press);
+ c.querySelector('.auto').classList.toggle('on',!!st.auto);c.querySelector('.auto .box').textContent=st.auto?'✓':'';c.querySelector('.auto .box').classList.toggle('on',!!st.auto);
+ const html=(st.logs||[]).slice(-5).map(l=>`<div class="lr ${l[2]||''}"><span>${l[0]}</span><span>${l[1]}</span></div>`).join('');const lg=c.querySelector('.log');if(lg.dataset.h!==html){lg.dataset.h=html;lg.innerHTML=html}}
+/* MT5 */
+function candles(w,h,n,seed){let s=seed;const r=()=>((s=(s*1664525+1013904223)%4294967296)/4294967296);let p=100,a=[];for(let i=0;i<n;i++){const o=p,c=o+(r()-.46)*14;a.push([o,c,Math.max(o,c)+r()*7,Math.min(o,c)-r()*7]);p=c}
+ const mn=Math.min(...a.map(x=>x[3])),mx=Math.max(...a.map(x=>x[2]));const y=v=>h-24-(v-mn)/(mx-mn)*(h-60),cw=(w-70)/n;let g='';for(let i=0;i<7;i++)g+=`<line x1="0" x2="${w}" y1="${i*h/6}" y2="${i*h/6}" stroke="#1a1c22"/>`;
+ a.forEach((k,i)=>{const x=i*cw+cw/2,up=k[1]>=k[0],col=up?'#26a69a':'#ef5350';g+=`<line x1="${x}" x2="${x}" y1="${y(k[2])}" y2="${y(k[3])}" stroke="${col}"/><rect x="${x-cw*.32}" y="${y(Math.max(k[0],k[1]))}" width="${cw*.64}" height="${Math.max(2,Math.abs(y(k[0])-y(k[1])))}" fill="${col}"/>`});
+ return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${g}</svg>`}
+function mt5Win(extra=''){return `<div class="win mt5"><div class="tb"><span>MetaTrader 5 — <span class="ttl">Broker-Demo</span></span></div>
+<div class="mbar"><span class="mFile">File</span><span>View</span><span>Insert</span><span>Charts</span><span class="mTools">Tools</span><span>Window</span><span>Help</span></div>
+<div class="tbar"><i></i><i></i><i></i><i></i><span style="width:1px;height:18px;background:#3a3b42"></span><i></i><i></i><span class="algo"><u></u>Algo Trading</span><span style="margin-left:auto;color:#777">New Order</span></div>
+<div class="mid"><div class="lp"><div class="pane"><h5>Market Watch</h5><div class="mw">${[['EURUSD','1.08642'],['GBPUSD','1.27315'],['USDJPY','149.882'],['XAUUSD','2641.52'],['NAS100','20418.4'],['BTCUSD','67214.0']].map(r=>`<div class="mwr"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}</div></div>
+<div class="pane navp"><h5>Navigator</h5><div class="nvr">▾ MetaTrader 5</div><div class="nvr l2">▸ Accounts</div><div class="nvr l2">▸ Indicators</div><div class="nvr l2">▾ Expert Advisors</div><div class="nvr l3">Examples</div><div class="nvr l3 eaitem" style="visibility:hidden;color:#fff">TradersJournalSync_MT5</div><div class="nvr l2">▸ Scripts</div></div></div>
+<div class="chartw"><div class="ctitle">XAUUSD, H1 <span class="eatag" style="color:#8fb4ff"></span></div><div class="smile" style="opacity:0">☺</div><div class="cnd">${candles(930,302,62,7)}</div></div></div>
+<div class="toolbox"><div class="tabs"><span class="tTrade on">Trade</span><span>History</span><span>Journal</span><span class="tExp">Experts</span></div>
+<div class="paneTrade"><table class="tbl"><tr><th>Symbol</th><th>Ticket</th><th>Time</th><th>Type</th><th>Volume</th><th>Price</th><th>S/L</th><th>T/P</th><th>Profit</th></tr>
+<tr><td>XAUUSD</td><td>82014567</td><td>2026.10.15 14:02</td><td>buy</td><td>0.20</td><td>2634.10</td><td>2628.00</td><td>2650.00</td><td class="pl">42.10</td></tr>
+<tr><td>EURUSD</td><td>82014890</td><td>2026.10.15 15:31</td><td>sell</td><td>1.00</td><td>1.08710</td><td>1.08900</td><td>1.08400</td><td class="mi">-18.40</td></tr>
+<tr><td>GBPJPY</td><td>82015233</td><td>2026.10.15 16:12</td><td>buy</td><td>0.50</td><td>189.455</td><td>189.100</td><td>190.200</td><td class="pl">24.50</td></tr></table></div>
+<div class="paneExp exlog" style="display:none"></div></div>
+<div class="stbar"><span>For Help, press F1</span><span class="conn good">▂▃▅▇ 42.18 ms</span></div>${extra}</div>`}
+const urlTxt='http://127.0.0.1:8765';
+function loginDlg(){return `<div class="dlg dlogin" style="left:380px;top:120px;width:380px"><div class="dt">Login</div><div class="bd"><div class="fld"><span>Login</span><div class="in"><span class="f1"></span></div></div><div class="fld"><span>Password</span><div class="in"><span class="f2"></span></div></div><div class="fld"><span>Server</span><div class="in" style="justify-content:space-between">Broker-Demo <span>▾</span></div></div><div class="cb"><i class="on">✓</i>Save account information</div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><span class="bt def okb">OK</span><span class="bt">Cancel</span></div></div></div>`}
+
+/* ========== scenes ========== */
+const SCN=[];
+function def(id,html,fn){const info=TL.scenes.find(s=>s.id===id);const s=new Sc(info,html);s.fn=fn.bind(s);SCN.push(s);return s}
+const NAVSEL=n=>`.nav[data-nav="${n}"]`;
+
+function build(){
+/* ---------- INTRO ---------- */
+const abs='position:absolute;left:0;width:1280px;text-align:center;';
+def('intro',`<div class="bigico" id="i-logo" style="position:absolute;left:602px;top:130px;background:#fff"><span style="width:30px;height:36px;border:5px solid #09090b;border-radius:6px;display:block"></span></div>
+<div class="big" id="i-t1" style="${abs}top:250px">Connect MetaTrader 5</div><div class="sub" id="i-t2" style="${abs}top:332px">to Traders Journal · full setup guide</div>
+<div id="i-flow" style="position:absolute;left:340px;top:440px;width:600px;height:80px;display:flex;align-items:center;justify-content:space-between;visibility:hidden"><div class="bigico" style="background:#1d2c4d;color:#7fb0ff">MT5</div><div style="flex:1;height:4px;margin:0 22px;position:relative;background:#1c2a46;border-radius:2px;overflow:hidden"><i style="position:absolute;top:0;height:4px;width:90px;background:linear-gradient(90deg,transparent,#3b82f6);border-radius:2px" id="i-pulse"></i></div><div class="bigico" style="background:#fff"><span style="width:24px;height:29px;border:4px solid #09090b;border-radius:5px;display:block"></span></div></div>
+<div class="mcard rec" id="i-m1" style="left:190px;top:280px"><span class="n">RECOMMENDED</span><h3>Direct Local Sync</h3><p>Reads trades straight from MT5 on this PC. No code, no extra files. About 1 minute.</p></div>
+<div class="mcard" id="i-m2" style="left:670px;top:280px"><span class="n" style="color:#c9cfdf;background:#1b1e29">ALTERNATIVE</span><h3>Expert Advisor</h3><p>A small read-only connector inside MT5. Seven one-time steps.</p></div>
+<div class="chip" style="left:240px;top:526px"><b>✓</b>Read-only</div><div class="chip" style="left:450px;top:526px"><b>✓</b>Stays on your PC</div><div class="chip" style="left:700px;top:526px"><b>✓</b>One-time setup</div>`,function(t){
+ const s=this,L1=s.t0(1),L2=s.t0(2),L3=s.t0(3);
+ const sh=eIO(prog(t,L2-.3,.9));
+ const lg=s.fx('#i-logo',t,.2,.7,'pop');s.q('#i-logo').style.opacity=lg*(1-sh);
+ s.fx('#i-t1',t,.5,.7);s.q('#i-t1').style.top=lerp(250,50,sh)+'px';s.q('#i-t1').style.fontSize=lerp(62,44,sh)+'px';
+ s.fx('#i-t2',t,.9,.7);s.q('#i-t2').style.opacity=eO(prog(t,.9,.7))*(1-sh);
+ s.fx('#i-flow',t,L1,.6,'rise');s.q('#i-flow').style.top=lerp(440,120,sh)+'px';s.q('#i-flow').style.transform=`scale(${lerp(1,.8,sh)})`;
+ s.q('#i-pulse').style.left=((t*.9%1)*130-15)+'%';
+ s.fx('#i-m1',t,L2+.6,.7,'rise');s.fx('#i-m2',t,L2+5.6,.7,'rise');
+ s.qa('.chip').forEach((c,i)=>s.fx(c,t,L3+.2+i*.7,.5,'rise'));
+});
+
+/* ---------- D1: open MT5 & log in ---------- */
+def('d1',mt5Win(loginDlg()),function(t){
+ const s=this,L=i=>s.t0(i),win=s.q('.mt5');s.fx(win,t,.2,.8,'rise');
+ const conn=s.q('.conn');const login=L(2)+4.2,done=login+.5,live=login+1.6;
+ conn.textContent=t<done?'No connection':t<live?'Connecting…':'▂▃▅▇ 42.18 ms';conn.className='conn '+(t<done?'bad':t<live?'':'good');
+ s.q('.ttl').textContent=t<live?'MetaTrader 5':'12345678 — Broker-Demo: Demo Account · Hedge';
+ const dlg=s.q('.dlogin');s.fx(dlg,t,L(2)+.1,.45,'pop',login+.4,.3);
+ s.type('.f1','12345678',t,L(2)+1.4,9);s.type('.f2','••••••••••',t,L(2)+2.6,10);
+ s.q('.okb').style.background=t>login-.05&&t<login+.3?'#9cc2ff':'';
+ s.cursor(t,[[L(2)-.8,[820,420]],[L(2)+1.0,'.dlogin .f1'],[login-.6,'.dlogin .okb'],[login,'.dlogin .okb',true],[login+1.4,[760,520]]]);
+ const run=prog(t,live,.8);s.q('.cnd').style.opacity=run;s.q('.mw').style.opacity=run;s.q('.paneTrade').style.opacity=run;s.q('.algo u').style.background=t>live?'#e5534b':'#e5534b';
+ s.q('.navp').style.opacity=1;
+ s.ring('conn','.conn',t,L(4)+.5,L(4)+6.8,8);s.tip('conn','.conn','Connection speed = you are logged in','top',t,L(4)+.9,L(4)+6.8,'g');
+ s.camera(t,[[0,1,640,345],[L(4)-.4,1,640,345],[L(4)+.7,2.1,1090,610],[L(4)+6.6,2.1,1090,610],[L(4)+7.6,1,640,345]]);
+});
+
+/* ---------- common app state for direct sync ---------- */
+const base={acc:'12345678',name:'Demo Trader',srv:'Broker-Demo',comp:'Broker Ltd.',start:'$10,000.00'};
+const T0='02:09:';
+/* ---------- D2: open Connections ---------- */
+def('d2',appWin(dashPage()+tradesPage()+connPage()),function(t){
+ const s=this,L=i=>s.t0(i);const go=3.6;
+ s.fx('.app',t,.1,.6,'rise');
+ s.page(t,[[0,'Dashboard'],[go,'Connections']]);
+ paintDirect(s,{on:false,logs:[]});
+ s.cursor(t,[[.8,[860,330]],[go-.15,NAVSEL('Connections'),true],[go+1.2,[640,200]]]);
+ s.ring('nav',NAVSEL('Connections'),t,L(0)+1.4,go+.1,4);
+ s.ring('card','.direct .dh',t,L(1)+.2,L(1)+4.2,8);s.tip('card','.direct .dh','MetaTrader 5 Direct Local Sync','bottom',t,L(1)+.5,L(1)+4.2);
+ s.ring('bdg','.direct .bdg',t,L(2)+.2,L(2)+4.4,8);s.tip('bdg','.direct .bdg','Disconnected until MT5 is linked','bottom',t,L(2)+.5,L(2)+4.4);
+ ['No connection code','No download','No WebRequest setting'].forEach((x,i)=>{const e=s.mk('c'+i,'div','chip','<b>✓</b>'+x);e.style.left=(300+i*232)+'px';e.style.top='520px';s.fx(e,t,L(3)+.3+i*1.5,.5,'rise')});
+ s.camera(t,[[0,1,640,345]]);
+});
+/* ---------- D3: Sync now ---------- */
+def('d3',appWin(connPage()),function(t){
+ const s=this,L=i=>s.t0(i);s.q('.app').style.opacity=1;s.page(t,[[0,'Connections']]);
+ const click=1.9,badge=8.6;
+ const logs=[];if(t>click+.3)logs.push([T0+'06','Manual sync requested by user','info']);if(t>click+1.6)logs.push([T0+'06','Connecting to MetaTrader 5…','info']);if(t>click+3.6)logs.push([T0+'07','Reading account history…','info']);if(t>badge)logs.push([T0+'08','MT5 terminal found · account 12345678','ok']);if(t>17.3)logs.push([T0+'10','Manual sync finished successfully','ok']);
+ const st={on:t>badge,press:t>click-.05&&t<click+.5,logs};
+ if(t>10.6){st.acc=base.acc;st.name=base.name;st.srv=base.srv;st.comp=base.comp}
+ const balv=lerp(0,10250,eO(prog(t,12.0,1.6)));if(t>12.0){st.bal=money(balv);st.start=base.start}
+ if(t>14.6){st.pos=Math.round(lerp(0,22,eO(prog(t,14.6,1.8))));st.live='Live sync active'}
+ paintDirect(s,st);
+ s.cursor(t,[[0,NAVSEL('Connections')],[click-.2,'.direct .sync',true],[click+2,[1010,330]],[18,'.direct .log']]);
+ s.ring('sync','.direct .sync',t,L(0)+.1,click+1,6);
+ s.ring('bdg','.direct .bdg',t,badge-.4,badge+3.2,8);s.tip('bdg','.direct .bdg','Green = connected','bottom',t,badge-.2,badge+1.9,'g');
+ s.ring('tiles','.direct .tiles',t,10.6,16.8,8);
+ s.ring('log','.direct .log',t,L(3)+.2,L(3)+3.6,6);s.tip('log','.direct .log','Newest line is at the bottom','top',t,L(3)+.5,L(3)+3.6);
+ s.camera(t,[[0,1,640,345],[1,1.28,720,290],[L(3)+3.2,1.28,720,290],[L(3)+4,1,640,345]]);
+});
+/* ---------- D4: live auto-sync ---------- */
+def('d4',appWin(connPage()),function(t){
+ const s=this,L=i=>s.t0(i);s.q('.app').style.opacity=1;s.page(t,[[0,'Connections']]);
+ const click=2.5;const auto=t>click;
+ const logs=[[T0+'06','Manual sync requested by user','info'],[T0+'08','MT5 terminal found · account 12345678','ok'],[T0+'10','Manual sync finished successfully','ok']];
+ if(t>click+.5)logs.push([T0+'12','Automatic live watcher turned ON','ok']);if(t>6)logs.push([T0+'15','New position synced · XAUUSD +$42.10','info']);if(t>9)logs.push([T0+'18','New position synced · EURUSD −$18.40','info']);
+ const pos=22+(t>6?1:0)+(t>9?1:0);
+ paintDirect(s,{...base,on:true,bal:money(10250+(t>6?42.1:0)+(t>9?-18.4:0)),pos,auto,press:false,logs,live:'Live sync active'});
+ s.cursor(t,[[0,[1010,330]],[click-.2,'.direct .auto',true],[click+2,[1040,470]]]);
+ s.ring('auto','.direct .auto',t,L(0)+.9,click+3.8,8);s.tip('auto','.direct .auto','Live Auto-Sync · every 3 seconds','bottom',t,click+.3,click+3.8,'g');
+ s.ring('pos','.direct .tiles .tile:nth-child(4)',t,6,8.4,6);
+ const tr=s.mk('tray','div','tray','<div class="tr"><div class="tri">TJ</div><div><b>Traders Journal is running in the tray</b><small>Live sync · keep it open</small></div></div><div class="tr" style="margin-top:12px"><div class="tri" style="background:#2a2b31;color:#cfd3dc">MT5</div><div><b>MetaTrader 5 · open &amp; logged in</b><small>Broker-Demo · 42 ms</small></div></div>');tr.style.left='880px';tr.style.top='506px';s.fx(tr,t,L(2)+.3,.6,'rise');
+ s.camera(t,[[0,1.28,720,290],[L(2)-.4,1.28,720,290],[L(2)+.4,1,640,345]]);
+});
+/* ---------- D5: see trades ---------- */
+def('d5',appWin(dashPage()+tradesPage()+connPage()),function(t){
+ const s=this,L=i=>s.t0(i);s.q('.app').style.opacity=1;
+ const g1=2.9,g2=7.8,g3=11.4;
+ const cur=s.page(t,[[0,'Connections'],[g1,'Dashboard'],[g2,'Trade Logging'],[g3,'Connections']]);
+ paintDirect(s,{...base,on:true,bal:money(10250+42.1-18.4),pos:24,auto:true,logs:[[T0+'10','Manual sync finished successfully','ok'],[T0+'12','Automatic live watcher turned ON','ok'],[T0+'15','New position synced · XAUUSD +$42.10','info'],[T0+'18','New position synced · EURUSD −$18.40','info']],live:'Live sync active'});
+ s.cursor(t,[[0,[1040,470]],[g1-.3,NAVSEL('Dashboard'),true],[g2-.8,[780,360]],[g2-.2,NAVSEL('Trade Logging'),true],[g3-.8,[700,380]],[g3-.2,NAVSEL('Connections'),true],[g3+1.5,'.direct .disc'],[g3+6,[900,420]]]);
+ s.q('.dpl').textContent=money(lerp(0,2399,eO(prog(t,g1+.5,1.6))),0);s.q('.dpl').className='dpl green';
+ s.q('.dwr').textContent=lerp(0,62.3,eO(prog(t,g1+.5,1.6))).toFixed(1)+'%';s.q('.dtr').textContent=Math.round(lerp(0,53,eO(prog(t,g1+.5,1.6))));s.q('.dpf').textContent=lerp(0,2.14,eO(prog(t,g1+.5,1.6))).toFixed(2);
+ const p=eIO(prog(t,g1+.7,2.6));s.q('.eql').style.strokeDashoffset=1-p;s.q('.eqa').style.opacity=p*.9;s.q('.empty').style.opacity=0;
+ s.qa('.trr').forEach((r,i)=>s.fx(r,t,g2+.2+i*.18,.4,'rise'));
+ s.ring('dash','.eq',t,g1+2.8,g2-.6,6);
+ s.ring('disc','.direct .disc',t,g3+1,g3+3.8,6);s.tip('disc','.direct .disc','Removes synced data from this app only','top',t,g3+1.2,g3+3.8);
+ s.tip('ro','.direct .dh',  'Read-only · MetaTrader is never modified','bottom',t,L(3)+.4,L(3)+2.9,'g');
+});
+
+/* ---------- E0: method 2 intro ---------- */
+const E7=['Generate a connection code','Download the connector','Put it in the Experts folder','Compile it in MetaEditor','Allow WebRequest','Attach it to a chart','Confirm it connected'];
+def('e0',`<div class="center"><div class="bigico" id="m-n" style="background:#1d2c4d;color:#7fb0ff;margin-bottom:20px;font-size:26px">2</div><div class="big" id="m-t">Expert Advisor connector</div><div class="sub" id="m-s">One-time setup · takes about 5 minutes</div></div>${E7.map((x,i)=>`<div class="step7" style="left:${i<4?90:720}px;top:${i<4?400+i*66:400+(i-4)*66}px"><em>${i+1}</em>${x}</div>`).join('')}`,function(t){
+ const s=this,L=i=>s.t0(i);s.fx('#m-n',t,.2,.6,'pop');s.fx('#m-t',t,.5,.7);s.fx('#m-s',t,L(1)+.1,.7);
+ const up=eIO(prog(t,L(2)-.3,.8));s.q('.center').style.transform=`translateY(${-up*130}px)`;
+ s.qa('.step7').forEach((e,i)=>s.fx(e,t,L(2)+.4+i*.55,.5,'rise'));
+});
+
+/* ---------- E1: generate code ---------- */
+def('e1',appWin(connPage()),function(t){
+ const s=this,L=i=>s.t0(i);s.q('.app').style.opacity=1;s.page(t,[[0,'Connections']]);
+ paintDirect(s,{...base,on:true,bal:'$10,250.00',pos:22,auto:true,logs:[],live:'Live sync active'});
+ const sc=eIO(prog(t,1.0,2.2));s.q('.scr').style.transform=`translateY(${-sc*372}px)`;
+ s.type('.nm','Prop firm demo',t,L(2)+2.0,10);if(t<L(2)+2.0)s.q('.nm').textContent='MetaTrader Account';
+ s.q('.hist').textContent=t>L(2)+4.6?'Last 90 days':'All available history';
+ const clickGen=L(2)+7.4;s.q('.genbtn').classList.toggle('press',t>clickGen&&t<clickGen+.5);
+ const res=s.q('.res');const o=s.fx(res,t,clickGen+.5,.6,'rise');
+ s.q('.cdn').textContent='29:5'+(9-Math.min(9,Math.floor((t-clickGen)/1)))
+ s.cursor(t,[[0.4,[900,330]],[L(1)+1.0,[760,260]],[L(2)+.6,'.eacard .ver'],[L(2)+1.6,'.eacard .inp'],[L(2)+4.0,'.selbox',true],[clickGen-.5,'.genbtn'],[clickGen,'.genbtn',true],[clickGen+2.5,[900,420]]]);
+ s.ring('ea','.eacard .eah',t,L(1)+.3,L(1)+2.0,8);
+ s.ring('ver','.eacard .ver',t,L(2)+.2,L(2)+1.4,6);
+ s.ring('hist','.selbox',t,L(2)+4.3,L(2)+6.2,6);s.tip('hist','.selbox','Pick how much history to import','right',t,L(2)+4.4,L(2)+6.2);
+ s.ring('code','.codebox',t,L(3)+.1,L(3)+4.4,8);s.tip('code','.codebox','Single-use · valid for 30 minutes','top',t,L(3)+.4,L(3)+4.4,'g');
+ s.camera(t,[[0,1,640,345],[2.8,1.12,800,330],[L(3)+4,1.12,800,330],[L(3)+4.8,1,640,345]]);
+});
+/* ---------- E2: download connector ---------- */
+const exp1=`<div class="exp" id="x1" style="left:430px;top:140px;width:620px;height:222px"><div class="et"><span>📁</span>Downloads</div><div class="addr"><b>This PC</b> › <b>Downloads</b></div>
+<div class="row"><i></i>Documents<u>Folder</u></div><div class="row"><i></i>Old setups<u>Folder</u></div><div class="row sel" id="x1f"><i class="f"></i>TradersJournalSync_MT5.mq5<u>9 KB</u></div><div class="row"><i class="f" style="background:#cfd3dc"></i>notes.txt<u>1 KB</u></div></div>`;
+def('e2',appWin(connPage())+exp1+`<div class="floatcard" id="x2" style="left:430px;top:392px;width:620px"><div style="font:600 12.5px var(--mono);color:#cfd3dc;line-height:1.8"><span style="color:#6a9955">// TradersJournalSync_MT5.mq5</span><br><span style="color:#c586c0">input string</span> ConnectionCode = <span style="color:#ce9178">"K7QM-93XD"</span>;<br><span style="color:#c586c0">input string</span> ApiBaseUrl&nbsp;&nbsp;&nbsp;&nbsp;= <span style="color:#ce9178">"http://127.0.0.1:8765"</span>;</div></div>`,function(t){
+ const s=this,L=i=>s.t0(i);s.q('.app').style.opacity=1;s.page(t,[[0,'Connections']]);
+ paintDirect(s,{...base,on:true,bal:'$10,250.00',pos:22,auto:true,logs:[],live:'Live sync active'});
+ s.q('.scr').style.transform='translateY(-372px)';s.q('.res').style.opacity=1;s.q('.res').style.visibility='visible';s.q('.nm').textContent='Prop firm demo';s.q('.hist').textContent='Last 90 days';s.q('.cdn').textContent='29:41';
+ const clickD=L(1)+1.0;s.q('.dlbtn').classList.toggle('press',t>clickD&&t<clickD+.5);
+ s.cursor(t,[[0,[900,420]],[clickD-.6,'.dlbtn'],[clickD,'.dlbtn',true],[clickD+1.6,[1000,300]],[L(3),[1010,340]]]);
+ s.ring('dl','.dlbtn',t,L(1)+.1,clickD+1.5,6);
+ s.fx('#x1',t,L(2)-.3,.6,'rise',L(3)+4,.4);s.ring('f1','#x1f',t,L(2)+.8,L(2)+3.4,4);s.tip('f1','#x1f','Saved to your Downloads folder','right',t,L(2)+1,L(2)+3.4,'g');
+ s.fx('#x2',t,L(2)+3.4,.6,'rise',L(3)+3.5,.4);
+ s.tip('pre','#x2','Code and address are already inside','bottom',t,L(2)+3.7,L(3)+3.2,'g');
+});
+
+/* ---------- E3: open data folder, drop file ---------- */
+const exp3=`<div class="exp" id="y1" style="left:300px;top:150px;width:700px;height:360px"><div class="et"><span>📁</span><span class="yt">Terminal</span></div><div class="addr"><b>…</b> › <b>MetaQuotes</b> › <b>Terminal</b> › <span class="yc"></span></div><div class="ylist"></div></div><div class="fileghost" id="y2">📄 TradersJournalSync_MT5.mq5</div>`;
+def('e3',mt5Win(`<div class="dd" id="ddF" style="left:6px;top:56px"><div>New Chart <em>›</em></div><div>Open Offline…</div><hr><div class="hot ddOpen">Open Data Folder <em>Ctrl+Shift+D</em></div><div>Open Account…</div><div>Exit</div></div>`)+exp3,function(t){
+ const s=this,L=i=>s.t0(i);s.q('.mt5').style.opacity=1;s.q('.ttl').textContent='12345678 — Broker-Demo: Demo Account · Hedge';
+ const open=L(1)+1.3,sel=open+2.0;s.q('.mFile').classList.toggle('hot',t>L(1)+.2&&t<sel+.3);
+ s.fx('#ddF',t,L(1)+.3,.25,'drop',sel+.3,.15);s.q('.ddOpen').classList.toggle('hot',t>L(1)+1.7);
+ const win=s.fx('#y1',t,sel+.6,.55,'rise');
+ const dirs=[['MQL5','Config','Logs','Profiles','Tester'],['Experts','Include','Indicators','Libraries','Scripts'],[]];
+ const stage=t<L(2)+1.6?0:t<L(2)+3.2?1:2;
+ const names=stage===0?['Config','Logs','MQL5','Profiles','Tester']:stage===1?['Experts','Include','Indicators','Libraries','Scripts']:['Examples','Advisors'];
+ const crumb=stage===0?'<b>Terminal</b> › <b>D0E8209F…</b>':stage===1?'<b>D0E8209F…</b> › <b>MQL5</b>':'<b>MQL5</b> › <b>Experts</b>';
+ s.q('.yt').textContent=stage===0?'Terminal':stage===1?'MQL5':'Experts';s.q('.yc').innerHTML=crumb;
+ const landed=t>L(2)+7.0;
+ const rows=names.map(n=>`<div class="row ${(stage===0&&n==='MQL5')||(stage===1&&n==='Experts')?'sel':''}"><i></i>${n}<u>Folder</u></div>`);if(stage===2&&landed)rows.push('<div class="row sel"><i class="f"></i>TradersJournalSync_MT5.mq5<u>9 KB</u></div>');
+ const h=rows.join('');const yl=s.q('.ylist');if(yl.dataset.h!==h){yl.dataset.h=h;yl.innerHTML=h}
+ s.ring('y','.exp .addr',t,L(2)+.4,L(2)+5.4,4);
+ /* drag ghost */
+ const ds=L(2)+4.6,de=L(2)+6.8;const g=s.q('#y2');const dp=eIO(prog(t,ds,de-ds));const gx=lerp(180,520,dp),gy=lerp(560,330,dp);
+ g.style.left=gx+'px';g.style.top=gy+'px';g.style.visibility=t>ds-.4&&t<de+.25?'visible':'hidden';g.style.opacity=t>de?1-prog(t,de,.25):prog(t,ds-.4,.3);
+ s.tip('drop','#y1','Drop it into MQL5 › Experts','top',t,L(2)+5,L(2)+7.4);
+ const cx=lerp(180,520,dp)+30,cy=lerp(560,330,dp)+12;
+ s.cursor(t,[[L(1)-.3,[900,500]],[L(1)+.2,'.mFile',true],[open-.2,'.ddOpen'],[open+.1,'.ddOpen',true],[sel+1.5,[560,300]],[L(2)+1.0,'#y1 .row.sel'],[L(2)+1.4,'#y1 .row.sel',true],[L(2)+2.6,'#y1 .row.sel'],[L(2)+3.0,'#y1 .row.sel',true],[ds,[210,572]],[de,[550,342]],[de+1.5,[640,300]]]);
+});
+
+/* ---------- E4: compile ---------- */
+const codeTxt=[['#property strict','k'],['#property version   "1.04"','k'],['',''],['input string ConnectionCode = "K7QM-93XD";','s'],['input string ApiBaseUrl     = "http://127.0.0.1:8765";','s'],['input int    SyncIntervalSeconds = 5;',''],['',''],['int OnInit()','t'],['{','']  ,['   Print("TradersJournal Sync: pairing…");',''],['   return(INIT_SUCCEEDED);',''],['}','']];
+def('e4',mt5Win()+`<div class="win ed" id="ed" style="visibility:hidden"><div class="tb"><span>MetaEditor — TradersJournalSync_MT5.mq5</span></div><div class="edtool"><span>New</span><span>Save</span><span class="hot cmp">⚙ Compile  F7</span><span>Debug</span></div>
+<div class="edside"><div>▾ MQL5</div><div class="l2">▾ Experts</div><div class="l3">Examples</div><div class="l3 fsel">TradersJournalSync_MT5.mq5</div><div class="l2">▸ Indicators</div><div class="l2">▸ Include</div></div><div class="code"></div><div class="edlog"><div class="tabs"><span class="on">Errors</span><span>Search</span><span>Journal</span></div><div class="exlog"></div></div></div>`,function(t){
+ const s=this,L=i=>s.t0(i);s.q('.mt5').style.opacity=1;s.q('.ttl').textContent='12345678 — Broker-Demo: Demo Account · Hedge';
+ const f4=L(1)+.5;s.keys('f4',['F4'],t,f4,f4+1.6);
+ const ed=s.fx('#ed',t,f4+1.1,.5,'rise');s.q('.mt5').style.opacity=t>f4+1.4?.0:1;
+ const dbl=L(2)+.8;const showCode=t>dbl+.4;s.q('.fsel').classList.toggle('hot',t>dbl-.3);
+ const n=showCode?clamp(Math.floor((t-dbl-.4)*5),0,codeTxt.length):0;
+ s.q('.code').innerHTML=codeTxt.slice(0,n).map(l=>l[1]?`<span class="${l[1]==='s'?'':l[1]}">${l[0].replace(/"([^"]*)"/g,'<span class="s">"$1"</span>').replace(/^(#property|int|input)/,m=>`<span class="k">${m}</span>`)}</span>`:l[0]).join('\n');
+ const f7=L(2)+3.9;s.keys('f7',['F7'],t,f7-.3,f7+1.6);s.q('.cmp').style.background=t>f7&&t<f7+.6?'#6aa0ff':'';
+ const lg=[];if(t>f7+.2)lg.push('<div>Compiling TradersJournalSync_MT5.mq5 …</div>');if(t>f7+1.1)lg.push('<div class="g">0 errors, 0 warnings, 187 msec elapsed — compiled successfully</div>');
+ const el=s.q('.edlog .exlog');if(el.dataset.h!==lg.join('')){el.dataset.h=lg.join('');el.innerHTML=lg.join('')}
+ s.ring('log','.edlog .exlog',t,L(3)+.1,L(3)+3.6,6);s.tip('log','.edlog','0 errors = ready to use','top',t,L(3)+.4,L(3)+3.6,'g');
+ s.cursor(t,[[L(1),[900,300]],[dbl-.6,'.fsel'],[dbl,'.fsel',true],[dbl+.25,'.fsel',true],[f7+1.4,[900,480]]]);
+});
+
+/* ---------- E5: allow WebRequest ---------- */
+def('e5',mt5Win(`<div class="dd" id="ddT" style="left:262px;top:56px"><div>Options <em>Ctrl+O</em></div><div>Global Variables <em>F3</em></div><div>MetaQuotes Language Editor <em>F4</em></div><div>History Center</div></div>
+<div class="dlg" id="opt" style="left:250px;top:90px;width:640px;height:380px"><div class="dt">Options</div><div class="bd"><div class="tabs2"><span>Server</span><span>Charts</span><span>Trade</span><span class="tabEA">Expert Advisors</span><span>Notifications</span></div>
+<div class="cb"><i>✓</i>Allow algorithmic trading</div><div class="cb" style="color:#000"><i class="cbw"></i><span>Allow WebRequest for listed URL:</span></div><div class="lst"><div class="addnew" style="color:#888">add new URL like http://www.mql5.com</div><div class="urlrow" style="display:none"></div></div>
+<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:20px"><span class="bt def okb">OK</span><span class="bt">Cancel</span></div></div></div>`),function(t){
+ const s=this,L=i=>s.t0(i);s.q('.mt5').style.opacity=1;s.q('.ttl').textContent='12345678 — Broker-Demo: Demo Account · Hedge';
+ const menu=L(1)+1.2,optClick=menu+1.4;s.q('.mTools').classList.toggle('hot',t>menu-.1&&t<optClick+.3);
+ s.fx('#ddT',t,menu,.25,'drop',optClick+.3,.15);s.keys('o',['Ctrl','O'],t,optClick+.2,optClick+2.4);
+ s.fx('#opt',t,optClick+.5,.45,'pop',L(3)+1.9,.3);
+ const tabT=L(1)+4.6;s.q('.tabEA').parentNode.querySelectorAll('span').forEach(x=>x.classList.remove('on'));s.q('.tabEA').classList.add('on');
+ s.q('.tabEA').classList.toggle('hot',t<tabT+.4&&t>tabT-.3);
+ const chk=L(2)+1.4;s.q('.cbw').classList.toggle('on',t>chk);s.q('.cbw').textContent=t>chk?'✓':'';
+ const adT=L(2)+4.4;const ur=s.q('.urlrow'),an=s.q('.addnew');an.style.display=t>adT?'none':'flex';ur.style.display=t>adT?'flex':'none';s.type(ur,urlTxt,t,adT+.4,10);if(t<=adT)ur.textContent='';
+ s.q('.okb').style.background=t>L(3)+.1&&t<L(3)+.7?'#9cc2ff':'';
+ s.ring('cbw','.cbw',t,L(2)+.4,L(2)+3.6,6);s.ring('url','.lst',t,L(2)+7.0,L(2)+12.4,6);s.tip('url','.lst','Exactly: '+urlTxt,'top',t,L(2)+7.2,L(2)+12.4,'g');
+ s.cursor(t,[[L(1)-.2,[900,450]],[menu-.5,'.mTools'],[menu,'.mTools',true],[optClick-.4,'#ddT div'],[optClick,'#ddT div',true],[tabT-.3,'.tabEA'],[tabT,'.tabEA',true],[chk-.4,'.cbw'],[chk,'.cbw',true],[adT-.5,'.addnew'],[adT,'.addnew',true],[adT+1.2,[640,420]],[L(3)-.1,'.okb'],[L(3)+.15,'.okb',true],[L(3)+2,[800,500]]]);
+ s.camera(t,[[0,1,640,345],[L(2)+.2,1.35,560,260],[L(2)+13,1.35,560,260],[L(3)-.3,1,640,345]]);
+});
+
+/* ---------- E6: attach to chart ---------- */
+def('e6',mt5Win(`<div class="dlg" id="inp" style="left:330px;top:100px;width:520px;height:340px"><div class="dt">Expert Advisor — TradersJournalSync_MT5</div><div class="bd"><div class="tabs2"><span class="tcom">Common</span><span class="tinp on">Inputs</span></div>
+<div class="pInp"><table class="itbl"><tr><th>Variable</th><th>Value</th></tr><tr class="rA"><td>ConnectionCode</td><td>K7QM-93XD</td></tr><tr class="rB"><td>ApiBaseUrl</td><td>${urlTxt}</td></tr><tr><td>SyncIntervalSeconds</td><td>5</td></tr><tr><td>HeartbeatIntervalSeconds</td><td>90</td></tr></table></div>
+<div class="pCom" style="display:none"><div class="cb"><i class="cbl"></i>Allow Algo Trading</div><div style="color:#555;font-size:11.5px;margin:6px 0 0 22px;line-height:1.5">Leave this unticked. The connector never places orders and only reads your history.</div></div>
+<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:26px"><span class="bt def okb">OK</span><span class="bt">Cancel</span></div></div></div><div class="fileghost" id="z1" style="background:#3b6fd4">⚙ TradersJournalSync_MT5</div>`),function(t){
+ const s=this,L=i=>s.t0(i);s.q('.mt5').style.opacity=1;s.q('.ttl').textContent='12345678 — Broker-Demo: Demo Account · Hedge';
+ s.q('.eaitem').style.visibility='visible';s.q('.navp').style.background='#22232a';
+ const nk=L(1)+.4;s.keys('n',['Ctrl','N'],t,nk,nk+1.8);
+ const ds=L(1)+2.2,de=L(1)+3.8;const dp=eIO(prog(t,ds,de-ds));const g=s.q('#z1');g.style.left=lerp(60,540,dp)+'px';g.style.top=lerp(458,230,dp)+'px';g.style.visibility=t>ds-.2&&t<de+.2?'visible':'hidden';g.style.opacity=t>de?1-prog(t,de,.2):1;
+ const attached=t>de+.2;s.q('.eatag').textContent=attached?'  ☺ TradersJournalSync_MT5':'';
+ s.fx('#inp',t,L(2)-.4,.45,'pop',L(3)+2.8,.3);
+ const swT=L(3)-.4;const com=t>swT+.2;s.q('.pInp').style.display=com?'none':'block';s.q('.pCom').style.display=com?'block':'none';s.q('.tcom').parentNode.querySelectorAll('span').forEach(x=>x.classList.remove('on'));(com?s.q('.tcom'):s.q('.tinp')).classList.add('on');
+ s.q('.okb').style.background=t>L(3)+2.2&&t<L(3)+2.7?'#9cc2ff':'';
+ s.ring('rows','.itbl',t,L(2)+1.0,L(2)+4.2,6);s.tip('rows','.itbl','Already filled in for you','right',t,L(2)+1.2,L(2)+4.2,'g');
+ s.ring('cbl','.cbl',t,L(3)+.1,L(3)+2.2,6);s.tip('cbl','#inp','Leave “Allow Algo Trading” unticked','right',t,L(3)+.3,L(3)+2.2);
+ s.cursor(t,[[nk,[560,420]],[ds-.2,'.eaitem'],[ds,'.eaitem'],[de,[560,246]],[L(2)+1.5,[700,320]],[swT-.2,'.tcom'],[swT,'.tcom',true],[L(3)+1.2,[640,300]],[L(3)+2.1,'.okb'],[L(3)+2.2,'.okb',true],[L(3)+3.5,[800,500]]]);
+});
+
+/* ---------- E7: confirm ---------- */
+def('e7',mt5Win()+`<div class="floatcard" id="fc" style="left:380px;top:210px"><div class="row1"><span class="mtl" style="display:grid;width:34px;height:34px;border-radius:9px;background:#1d2c4d;color:#7fb0ff;place-items:center;font:700 11px var(--head)">MT5</span>Traders Journal · Connections</div><div style="margin-top:14px"><span class="bdg on">● Connected · Live</span></div><div class="bignum green fcn">0</div><small>trades synced from MetaTrader 5</small></div>`,function(t){
+ const s=this,L=i=>s.t0(i);s.q('.mt5').style.opacity=1;s.q('.ttl').textContent='12345678 — Broker-Demo: Demo Account · Hedge';
+ s.q('.eaitem').style.visibility='visible';s.q('.eatag').textContent='  ☺ TradersJournalSync_MT5';
+ const tabC=L(1)+1.3;s.q('.tExp').classList.toggle('hot',t>tabC-.2&&t<tabC+.3);const ex=t>tabC;
+ s.q('.tTrade').classList.toggle('on',!ex);s.q('.tExp').classList.toggle('on',ex);s.q('.paneTrade').style.display=ex?'none':'block';s.q('.paneExp').style.display=ex?'block':'none';
+ const lg=[];const a=L(2)+.2,b=L(2)+1.8;if(t>a)lg.push('<div>TradersJournal Sync: pairing with 127.0.0.1…</div>');if(t>b)lg.push('<div class="g">TradersJournal Sync: connected. Initial history import starting.</div>');const el=s.q('.paneExp');if(el.dataset.h!==lg.join('')){el.dataset.h=lg.join('');el.innerHTML=lg.join('')}
+ const sm=s.q('.smile');sm.style.opacity=eO(prog(t,L(2)+3.4,.5));
+ s.ring('ex','.paneExp',t,b,L(2)+3.2,4);s.ring('sm','.smile',t,L(2)+3.6,L(2)+7.0,8);s.tip('sm','.smile','Smiley = connector is running','bottom',t,L(2)+3.8,L(2)+7.0,'g');
+ const fc=s.fx('#fc',t,L(3)-.2,.7,'rise',s.D-.6,.4);s.num('.fcn',t,L(3)+.2,2.2,0,53,v=>String(Math.round(v)));
+ s.cursor(t,[[L(1)+.2,[900,440]],[tabC-.4,'.tExp'],[tabC,'.tExp',true],[tabC+1.4,[800,500]]]);
+});
+
+/* ---------- Troubleshooting ---------- */
+const TS=[['💻','MT5 must be open and logged in','Direct sync reads the running terminal. Open MetaTrader first, then press <b>Sync Now</b>.'],['🛡️','Same Windows privilege level','Don’t start only one of the two apps as Administrator. Run both normally.'],['⚠️','Error 4014 in the Experts tab','Add <code>http://127.0.0.1:8765</code> under Tools → Options → Expert Advisors → WebRequest.']];
+def('ts',`<div class="center" style="justify-content:flex-start"><div class="big" id="t-h" style="margin-top:78px;font-size:48px">Quick troubleshooting</div></div>${TS.map((x,i)=>`<div class="tcard" style="left:${58+i*400}px;top:210px"><div class="ic">${x[0]}</div><h4>${x[1]}</h4><p>${x[2]}</p></div>`).join('')}<div class="chip" id="t-g" style="left:310px;top:540px;font-size:17px;padding:12px 22px"><b>?</b>Connections → Local setup guide → Troubleshooting</div>`,function(t){
+ const s=this,L=i=>s.t0(i);s.fx('#t-h',t,.3,.7);s.qa('.tcard').forEach((c,i)=>s.fx(c,t,L(1+i)+.3,.6,'rise'));s.fx('#t-g',t,L(4)+.2,.6,'rise');
+});
+
+/* ---------- Outro ---------- */
+def('outro',`<div class="center"><div class="bigico" id="o-l" style="background:#fff;margin-bottom:24px"><span style="width:30px;height:36px;border:5px solid #09090b;border-radius:6px;display:block"></span></div><div class="big" id="o-t">You're all set</div><div style="margin-top:34px"><div class="ck"><b>✓</b>MetaTrader 5 connected</div><div class="ck"><b>✓</b>Trades syncing automatically</div><div class="ck"><b>✓</b>Everything stays on your PC</div></div></div>`,function(t){
+ const s=this,L=i=>s.t0(i);s.fx('#o-l',t,.2,.6,'pop');s.fx('#o-t',t,.5,.7);s.qa('.ck').forEach((c,i)=>s.fx(c,t,L(1)+.2+i*.9,.5,'rise'));
+});
+}
+
+/* ========== HUD + seek ========== */
+const hud={chip:document.getElementById('chip'),cap:document.getElementById('cap'),prog:document.getElementById('prog')};
+let TK=0;
+function seek(T){
+ const sc=TL.scenes;let cur=sc[sc.length-1];for(const s of sc)if(T>=s.start&&T<s.start+s.dur){cur=s;break}
+ const lt=clamp(T-cur.start,0,cur.dur);
+ SCN.forEach(s=>{if(s.id===cur.id){s.render(lt)}else{s.el.style.display='none'}});
+ /* chip */
+ const ch=hud.chip;if(cur.tag){ch.querySelector('span').textContent=cur.tag;ch.style.opacity=Math.min(prog(lt,.2,.4),1-prog(lt,cur.dur-.4,.3))}else ch.style.opacity=0;
+ /* caption */
+ let line=null,idx=-1;cur.lines.forEach((l,i)=>{if(lt>=l.t0-.12)idx=i});
+ if(idx>=0){line=cur.lines[idx];const end=idx<cur.lines.length-1?cur.lines[idx+1].t0-.1:line.t1+.7;const o=Math.min(prog(lt,line.t0-.12,.2),1-prog(lt,end-.15,.15));
+  const sp=hud.cap.querySelector('span');if(sp.textContent!==line.cap)sp.textContent=line.cap;hud.cap.style.opacity=o}else hud.cap.style.opacity=0;
+ hud.prog.style.width=(T/TL.total*100)+'%';
+ if(window.POSTER){hud.cap.style.opacity=0;hud.chip.style.opacity=0;hud.prog.style.width='0';document.getElementById('pstr').style.display='flex'}
+ TK++;document.getElementById('tick').style.background='rgb('+(TK%3)+','+(TK%3)+','+(TK%3)+')';
+}
+window.initVideo=(tl)=>{TL=tl;build();return document.fonts.ready.then(()=>true)};
+window.seek=seek;
+</script></body></html>

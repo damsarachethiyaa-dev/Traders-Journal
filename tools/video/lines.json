@@ -1,0 +1,346 @@
+[
+ {
+  "id": "intro",
+  "tag": "",
+  "lines": [
+   {
+    "speak": "Welcome to Traders Journal.",
+    "cap": "Welcome to Traders Journal."
+   },
+   {
+    "speak": "In this video you'll connect MetaTrader 5, so your trades import automatically.",
+    "cap": "In this video you'll connect MetaTrader 5, so your trades import automatically."
+   },
+   {
+    "speak": "There are two ways to do it: Direct Local Sync, which is the recommended one, and the Expert Advisor method as a backup.",
+    "cap": "There are two ways to do it: Direct Local Sync, which is the recommended one, and the Expert Advisor method as a backup."
+   },
+   {
+    "speak": "Everything stays on your PC, and the connection is read-only.",
+    "cap": "Everything stays on your PC, and the connection is read-only."
+   }
+  ]
+ },
+ {
+  "id": "d1",
+  "tag": "Direct Local Sync · Step 1 of 5",
+  "lines": [
+   {
+    "speak": "Method one: Direct Local Sync.",
+    "cap": "Method one: Direct Local Sync."
+   },
+   {
+    "speak": "It takes about a minute.",
+    "cap": "It takes about a minute."
+   },
+   {
+    "speak": "First, open MetaTrader 5 and log in to the account you want to journal.",
+    "cap": "First, open MetaTrader 5 and log in to the account you want to journal."
+   },
+   {
+    "speak": "Demo or live both work.",
+    "cap": "Demo or live both work."
+   },
+   {
+    "speak": "Check the bottom right corner: you should see a connection speed, not, no connection.",
+    "cap": "Check the bottom right corner: you should see a connection speed, not “No connection”."
+   }
+  ]
+ },
+ {
+  "id": "d2",
+  "tag": "Direct Local Sync · Step 2 of 5",
+  "lines": [
+   {
+    "speak": "Now switch to Traders Journal and click Connections in the sidebar.",
+    "cap": "Switch to Traders Journal and click Connections in the sidebar."
+   },
+   {
+    "speak": "At the top is the MetaTrader 5 Direct Local Sync card.",
+    "cap": "At the top is the MetaTrader 5 Direct Local Sync card."
+   },
+   {
+    "speak": "If MT5 isn't linked yet, the badge says Disconnected.",
+    "cap": "If MT5 isn't linked yet, the badge says Disconnected."
+   },
+   {
+    "speak": "This method needs no code, no download, and no WebRequest setting.",
+    "cap": "This method needs no code, no download and no WebRequest setting."
+   }
+  ]
+ },
+ {
+  "id": "d3",
+  "tag": "Direct Local Sync · Step 3 of 5",
+  "lines": [
+   {
+    "speak": "Press Sync Now.",
+    "cap": "Press Sync Now."
+   },
+   {
+    "speak": "Traders Journal reads your history straight from the terminal.",
+    "cap": "Traders Journal reads your history straight from the terminal."
+   },
+   {
+    "speak": "Within seconds the badge turns green, your account, server and balance fill in, and the synced positions counter shows how many trades were imported.",
+    "cap": "Within seconds the badge turns green, your account, server and balance fill in, and the synced positions counter shows how many trades were imported."
+   },
+   {
+    "speak": "The activity log tells you exactly what happened.",
+    "cap": "The activity log tells you exactly what happened."
+   }
+  ]
+ },
+ {
+  "id": "d4",
+  "tag": "Direct Local Sync · Step 4 of 5",
+  "lines": [
+   {
+    "speak": "Next, tick Live Auto-Sync.",
+    "cap": "Tick Live Auto-Sync."
+   },
+   {
+    "speak": "From now on, new trades arrive on their own, every three seconds.",
+    "cap": "From now on, new trades arrive on their own, every three seconds."
+   },
+   {
+    "speak": "Keep Traders Journal running in the tray, and keep MetaTrader 5 open.",
+    "cap": "Keep Traders Journal running in the tray, and keep MetaTrader 5 open."
+   }
+  ]
+ },
+ {
+  "id": "d5",
+  "tag": "Direct Local Sync · Step 5 of 5",
+  "lines": [
+   {
+    "speak": "That's it.",
+    "cap": "That's it."
+   },
+   {
+    "speak": "Open the Dashboard to see your stats, equity curve and calendar, or Trade Logging to browse every synced trade.",
+    "cap": "Open the Dashboard to see your stats, equity curve and calendar, or Trade Logging to browse every synced trade."
+   },
+   {
+    "speak": "Disconnect only removes the data from this app.",
+    "cap": "Disconnect only removes the data from this app."
+   },
+   {
+    "speak": "It never touches MetaTrader.",
+    "cap": "It never touches MetaTrader."
+   }
+  ]
+ },
+ {
+  "id": "e0",
+  "tag": "",
+  "lines": [
+   {
+    "speak": "Method two: the Expert Advisor connector.",
+    "cap": "Method two: the Expert Advisor connector."
+   },
+   {
+    "speak": "Use it if direct sync isn't available on your machine.",
+    "cap": "Use it if direct sync isn't available on your machine."
+   },
+   {
+    "speak": "It has seven short steps, and you only do them once.",
+    "cap": "It has seven short steps, and you only do them once."
+   }
+  ]
+ },
+ {
+  "id": "e1",
+  "tag": "Expert Advisor · Step 1 of 7",
+  "lines": [
+   {
+    "speak": "Step one.",
+    "cap": "Step 1."
+   },
+   {
+    "speak": "In Connections, scroll to the Expert Advisor section.",
+    "cap": "In Connections, scroll to the Expert Advisor section."
+   },
+   {
+    "speak": "Pick MetaTrader 5, name the connection, choose how much history to import, and press Generate connection code.",
+    "cap": "Pick MetaTrader 5, name the connection, choose how much history to import, and press Generate connection code."
+   },
+   {
+    "speak": "The code is single use, and valid for thirty minutes.",
+    "cap": "The code is single-use and valid for 30 minutes."
+   }
+  ]
+ },
+ {
+  "id": "e2",
+  "tag": "Expert Advisor · Step 2 of 7",
+  "lines": [
+   {
+    "speak": "Step two.",
+    "cap": "Step 2."
+   },
+   {
+    "speak": "Press Download connector.",
+    "cap": "Press Download connector."
+   },
+   {
+    "speak": "The file is saved to your Downloads folder, with the code and the local address already written inside it.",
+    "cap": "The file is saved to your Downloads folder, with the code and the local address already written inside it."
+   },
+   {
+    "speak": "There's nothing to type later.",
+    "cap": "There's nothing to type later."
+   }
+  ]
+ },
+ {
+  "id": "e3",
+  "tag": "Expert Advisor · Step 3 of 7",
+  "lines": [
+   {
+    "speak": "Step three.",
+    "cap": "Step 3."
+   },
+   {
+    "speak": "In MetaTrader, choose File, then Open Data Folder.",
+    "cap": "In MetaTrader, choose File → Open Data Folder."
+   },
+   {
+    "speak": "Open M Q L 5, then Experts, and drop the connector file in there.",
+    "cap": "Open MQL5, then Experts, and drop the connector file in there."
+   }
+  ]
+ },
+ {
+  "id": "e4",
+  "tag": "Expert Advisor · Step 4 of 7",
+  "lines": [
+   {
+    "speak": "Step four.",
+    "cap": "Step 4."
+   },
+   {
+    "speak": "Press F4 to open MetaEditor.",
+    "cap": "Press F4 to open MetaEditor."
+   },
+   {
+    "speak": "Double-click the connector in the Navigator, then press F7 to compile.",
+    "cap": "Double-click the connector in the Navigator, then press F7 to compile."
+   },
+   {
+    "speak": "The log at the bottom should say zero errors.",
+    "cap": "The log at the bottom should say 0 errors."
+   }
+  ]
+ },
+ {
+  "id": "e5",
+  "tag": "Expert Advisor · Step 5 of 7",
+  "lines": [
+   {
+    "speak": "Step five.",
+    "cap": "Step 5."
+   },
+   {
+    "speak": "Back in MetaTrader, open Tools, Options, and the Expert Advisors tab.",
+    "cap": "Back in MetaTrader, open Tools → Options → Expert Advisors."
+   },
+   {
+    "speak": "Tick Allow WebRequest for listed URL, then add exactly this address: http colon slash slash one two seven dot zero dot zero dot one, colon eight seven six five.",
+    "cap": "Tick “Allow WebRequest for listed URL”, then add exactly this address: http://127.0.0.1:8765."
+   },
+   {
+    "speak": "Press OK.",
+    "cap": "Press OK."
+   }
+  ]
+ },
+ {
+  "id": "e6",
+  "tag": "Expert Advisor · Step 6 of 7",
+  "lines": [
+   {
+    "speak": "Step six.",
+    "cap": "Step 6."
+   },
+   {
+    "speak": "Open the Navigator and drag the connector onto any chart.",
+    "cap": "Open the Navigator and drag the connector onto any chart."
+   },
+   {
+    "speak": "On the Inputs tab, the code and address are already filled in.",
+    "cap": "On the Inputs tab, the code and address are already filled in."
+   },
+   {
+    "speak": "Leave live trading off, and press OK.",
+    "cap": "Leave live trading off, and press OK."
+   }
+  ]
+ },
+ {
+  "id": "e7",
+  "tag": "Expert Advisor · Step 7 of 7",
+  "lines": [
+   {
+    "speak": "Step seven.",
+    "cap": "Step 7."
+   },
+   {
+    "speak": "Open the Experts tab.",
+    "cap": "Open the Experts tab."
+   },
+   {
+    "speak": "You should see, Traders Journal Sync: connected, and a smiley face in the corner of the chart.",
+    "cap": "You should see TradersJournal Sync: connected, and a smiley face in the corner of the chart."
+   },
+   {
+    "speak": "Your history now flows into Traders Journal.",
+    "cap": "Your history now flows into Traders Journal."
+   }
+  ]
+ },
+ {
+  "id": "ts",
+  "tag": "Troubleshooting",
+  "lines": [
+   {
+    "speak": "If something goes wrong, check three things.",
+    "cap": "If something goes wrong, check three things."
+   },
+   {
+    "speak": "MetaTrader must be open and logged in.",
+    "cap": "MetaTrader must be open and logged in."
+   },
+   {
+    "speak": "Both apps must run at the same Windows privilege level, so don't start only one as Administrator.",
+    "cap": "Both apps must run at the same Windows privilege level, so don't start only one as Administrator."
+   },
+   {
+    "speak": "And for error four zero one four, add the local address to the WebRequest list.",
+    "cap": "And for error 4014, add the local address to the WebRequest list."
+   },
+   {
+    "speak": "The full troubleshooting list is in the guide.",
+    "cap": "The full troubleshooting list is in the guide."
+   }
+  ]
+ },
+ {
+  "id": "outro",
+  "tag": "",
+  "lines": [
+   {
+    "speak": "You're all set.",
+    "cap": "You're all set."
+   },
+   {
+    "speak": "Your trades will now sync into Traders Journal automatically.",
+    "cap": "Your trades will now sync into Traders Journal automatically."
+   },
+   {
+    "speak": "Happy trading.",
+    "cap": "Happy trading."
+   }
+  ]
+ }
+]

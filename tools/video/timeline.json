@@ -1,0 +1,443 @@
+{
+ "total": 323.484,
+ "scenes": [
+  {
+   "id": "intro",
+   "tag": "",
+   "start": 0.0,
+   "dur": 26.103,
+   "lines": [
+    {
+     "cap": "Welcome to Traders Journal.",
+     "t0": 1.6,
+     "t1": 4.054
+    },
+    {
+     "cap": "In this video you'll connect MetaTrader 5, so your trades import automatically.",
+     "t0": 4.434,
+     "t1": 10.524
+    },
+    {
+     "cap": "There are two ways to do it: Direct Local Sync, which is the recommended one, and the Expert Advisor method as a backup.",
+     "t0": 10.904,
+     "t1": 19.709
+    },
+    {
+     "cap": "Everything stays on your PC, and the connection is read-only.",
+     "t0": 20.089,
+     "t1": 24.903
+    }
+   ]
+  },
+  {
+   "id": "d1",
+   "tag": "Direct Local Sync \u00b7 Step 1 of 5",
+   "start": 26.103,
+   "dur": 24.117,
+   "lines": [
+    {
+     "cap": "Method one: Direct Local Sync.",
+     "t0": 0.8,
+     "t1": 4.139
+    },
+    {
+     "cap": "It takes about a minute.",
+     "t0": 4.519,
+     "t1": 6.724
+    },
+    {
+     "cap": "First, open MetaTrader 5 and log in to the account you want to journal.",
+     "t0": 7.104,
+     "t1": 12.618
+    },
+    {
+     "cap": "Demo or live both work.",
+     "t0": 12.998,
+     "t1": 15.463
+    },
+    {
+     "cap": "Check the bottom right corner: you should see a connection speed, not \u201cNo connection\u201d.",
+     "t0": 15.843,
+     "t1": 22.617
+    }
+   ]
+  },
+  {
+   "id": "d2",
+   "tag": "Direct Local Sync \u00b7 Step 2 of 5",
+   "start": 50.221,
+   "dur": 22.963,
+   "lines": [
+    {
+     "cap": "Switch to Traders Journal and click Connections in the sidebar.",
+     "t0": 0.8,
+     "t1": 5.385
+    },
+    {
+     "cap": "At the top is the MetaTrader 5 Direct Local Sync card.",
+     "t0": 5.764,
+     "t1": 10.104
+    },
+    {
+     "cap": "If MT5 isn't linked yet, the badge says Disconnected.",
+     "t0": 10.484,
+     "t1": 15.239
+    },
+    {
+     "cap": "This method needs no code, no download and no WebRequest setting.",
+     "t0": 15.619,
+     "t1": 21.463
+    }
+   ]
+  },
+  {
+   "id": "d3",
+   "tag": "Direct Local Sync \u00b7 Step 3 of 5",
+   "start": 73.184,
+   "dur": 23.513,
+   "lines": [
+    {
+     "cap": "Press Sync Now.",
+     "t0": 0.8,
+     "t1": 2.635
+    },
+    {
+     "cap": "Traders Journal reads your history straight from the terminal.",
+     "t0": 3.014,
+     "t1": 7.039
+    },
+    {
+     "cap": "Within seconds the badge turns green, your account, server and balance fill in, and the synced positions counter shows how many trades were imported.",
+     "t0": 7.419,
+     "t1": 17.898
+    },
+    {
+     "cap": "The activity log tells you exactly what happened.",
+     "t0": 18.279,
+     "t1": 22.013
+    }
+   ]
+  },
+  {
+   "id": "d4",
+   "tag": "Direct Local Sync \u00b7 Step 4 of 5",
+   "start": 96.697,
+   "dur": 17.233,
+   "lines": [
+    {
+     "cap": "Tick Live Auto-Sync.",
+     "t0": 0.8,
+     "t1": 3.944
+    },
+    {
+     "cap": "From now on, new trades arrive on their own, every three seconds.",
+     "t0": 4.324,
+     "t1": 9.979
+    },
+    {
+     "cap": "Keep Traders Journal running in the tray, and keep MetaTrader 5 open.",
+     "t0": 10.359,
+     "t1": 15.733
+    }
+   ]
+  },
+  {
+   "id": "d5",
+   "tag": "Direct Local Sync \u00b7 Step 5 of 5",
+   "start": 113.93,
+   "dur": 19.073,
+   "lines": [
+    {
+     "cap": "That's it.",
+     "t0": 0.8,
+     "t1": 2.26
+    },
+    {
+     "cap": "Open the Dashboard to see your stats, equity curve and calendar, or Trade Logging to browse every synced trade.",
+     "t0": 2.639,
+     "t1": 10.654
+    },
+    {
+     "cap": "Disconnect only removes the data from this app.",
+     "t0": 11.034,
+     "t1": 14.588
+    },
+    {
+     "cap": "It never touches MetaTrader.",
+     "t0": 14.969,
+     "t1": 17.573
+    }
+   ]
+  },
+  {
+   "id": "e0",
+   "tag": "",
+   "start": 133.003,
+   "dur": 15.469,
+   "lines": [
+    {
+     "cap": "Method two: the Expert Advisor connector.",
+     "t0": 0.8,
+     "t1": 4.684
+    },
+    {
+     "cap": "Use it if direct sync isn't available on your machine.",
+     "t0": 5.064,
+     "t1": 9.049
+    },
+    {
+     "cap": "It has seven short steps, and you only do them once.",
+     "t0": 9.429,
+     "t1": 13.969
+    }
+   ]
+  },
+  {
+   "id": "e1",
+   "tag": "Expert Advisor \u00b7 Step 1 of 7",
+   "start": 148.472,
+   "dur": 22.678,
+   "lines": [
+    {
+     "cap": "Step 1.",
+     "t0": 0.8,
+     "t1": 2.524
+    },
+    {
+     "cap": "In Connections, scroll to the Expert Advisor section.",
+     "t0": 2.904,
+     "t1": 7.494
+    },
+    {
+     "cap": "Pick MetaTrader 5, name the connection, choose how much history to import, and press Generate connection code.",
+     "t0": 7.874,
+     "t1": 16.383
+    },
+    {
+     "cap": "The code is single-use and valid for 30 minutes.",
+     "t0": 16.764,
+     "t1": 21.178
+    }
+   ]
+  },
+  {
+   "id": "e2",
+   "tag": "Expert Advisor \u00b7 Step 2 of 7",
+   "start": 171.15,
+   "dur": 17.233,
+   "lines": [
+    {
+     "cap": "Step 2.",
+     "t0": 0.8,
+     "t1": 2.505
+    },
+    {
+     "cap": "Press Download connector.",
+     "t0": 2.885,
+     "t1": 5.394
+    },
+    {
+     "cap": "The file is saved to your Downloads folder, with the code and the local address already written inside it.",
+     "t0": 5.774,
+     "t1": 12.858
+    },
+    {
+     "cap": "There's nothing to type later.",
+     "t0": 13.239,
+     "t1": 15.733
+    }
+   ]
+  },
+  {
+   "id": "e3",
+   "tag": "Expert Advisor \u00b7 Step 3 of 7",
+   "start": 188.383,
+   "dur": 15.873,
+   "lines": [
+    {
+     "cap": "Step 3.",
+     "t0": 0.8,
+     "t1": 2.58
+    },
+    {
+     "cap": "In MetaTrader, choose File \u2192 Open Data Folder.",
+     "t0": 2.96,
+     "t1": 7.819
+    },
+    {
+     "cap": "Open MQL5, then Experts, and drop the connector file in there.",
+     "t0": 8.199,
+     "t1": 14.373
+    }
+   ]
+  },
+  {
+   "id": "e4",
+   "tag": "Expert Advisor \u00b7 Step 4 of 7",
+   "start": 204.256,
+   "dur": 16.948,
+   "lines": [
+    {
+     "cap": "Step 4.",
+     "t0": 0.8,
+     "t1": 2.615
+    },
+    {
+     "cap": "Press F4 to open MetaEditor.",
+     "t0": 2.995,
+     "t1": 5.854
+    },
+    {
+     "cap": "Double-click the connector in the Navigator, then press F7 to compile.",
+     "t0": 6.234,
+     "t1": 11.654
+    },
+    {
+     "cap": "The log at the bottom should say 0 errors.",
+     "t0": 12.034,
+     "t1": 15.448
+    }
+   ]
+  },
+  {
+   "id": "e5",
+   "tag": "Expert Advisor \u00b7 Step 5 of 7",
+   "start": 221.204,
+   "dur": 26.208,
+   "lines": [
+    {
+     "cap": "Step 5.",
+     "t0": 0.8,
+     "t1": 2.644
+    },
+    {
+     "cap": "Back in MetaTrader, open Tools \u2192 Options \u2192 Expert Advisors.",
+     "t0": 3.024,
+     "t1": 8.694
+    },
+    {
+     "cap": "Tick \u201cAllow WebRequest for listed URL\u201d, then add exactly this address: http://127.0.0.1:8765.",
+     "t0": 9.074,
+     "t1": 22.538
+    },
+    {
+     "cap": "Press OK.",
+     "t0": 22.919,
+     "t1": 24.708
+    }
+   ]
+  },
+  {
+   "id": "e6",
+   "tag": "Expert Advisor \u00b7 Step 6 of 7",
+   "start": 247.412,
+   "dur": 17.933,
+   "lines": [
+    {
+     "cap": "Step 6.",
+     "t0": 0.8,
+     "t1": 2.715
+    },
+    {
+     "cap": "Open the Navigator and drag the connector onto any chart.",
+     "t0": 3.095,
+     "t1": 7.224
+    },
+    {
+     "cap": "On the Inputs tab, the code and address are already filled in.",
+     "t0": 7.604,
+     "t1": 12.364
+    },
+    {
+     "cap": "Leave live trading off, and press OK.",
+     "t0": 12.744,
+     "t1": 16.433
+    }
+   ]
+  },
+  {
+   "id": "e7",
+   "tag": "Expert Advisor \u00b7 Step 7 of 7",
+   "start": 265.345,
+   "dur": 18.578,
+   "lines": [
+    {
+     "cap": "Step 7.",
+     "t0": 0.8,
+     "t1": 2.67
+    },
+    {
+     "cap": "Open the Experts tab.",
+     "t0": 3.05,
+     "t1": 5.404
+    },
+    {
+     "cap": "You should see TradersJournal Sync: connected, and a smiley face in the corner of the chart.",
+     "t0": 5.784,
+     "t1": 13.213
+    },
+    {
+     "cap": "Your history now flows into Traders Journal.",
+     "t0": 13.593,
+     "t1": 17.078
+    }
+   ]
+  },
+  {
+   "id": "ts",
+   "tag": "Troubleshooting",
+   "start": 283.923,
+   "dur": 26.918,
+   "lines": [
+    {
+     "cap": "If something goes wrong, check three things.",
+     "t0": 0.8,
+     "t1": 4.62
+    },
+    {
+     "cap": "MetaTrader must be open and logged in.",
+     "t0": 5.0,
+     "t1": 8.234
+    },
+    {
+     "cap": "Both apps must run at the same Windows privilege level, so don't start only one as Administrator.",
+     "t0": 8.614,
+     "t1": 15.559
+    },
+    {
+     "cap": "And for error 4014, add the local address to the WebRequest list.",
+     "t0": 15.939,
+     "t1": 21.908
+    },
+    {
+     "cap": "The full troubleshooting list is in the guide.",
+     "t0": 22.288,
+     "t1": 25.418
+    }
+   ]
+  },
+  {
+   "id": "outro",
+   "tag": "",
+   "start": 310.841,
+   "dur": 12.643,
+   "lines": [
+    {
+     "cap": "You're all set.",
+     "t0": 0.8,
+     "t1": 2.729
+    },
+    {
+     "cap": "Your trades will now sync into Traders Journal automatically.",
+     "t0": 3.109,
+     "t1": 7.434
+    },
+    {
+     "cap": "Happy trading.",
+     "t0": 7.814,
+     "t1": 9.643
+    }
+   ]
+  }
+ ]
+}

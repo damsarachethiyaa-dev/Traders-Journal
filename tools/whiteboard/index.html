@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Traders Journal — Whiteboard Film</title>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="board.css">
+</head><body>
+<div id="viewport">
+  <div id="board">
+    <div id="layer-frames"></div>
+    <svg id="ink" viewBox="0 0 1920 1080" width="1920" height="1080" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div id="layer-notes"></div>
+    <div id="layer-cursors"></div>
+  </div>
+  <div id="vignette"></div>
+  <div id="fade"></div>
+</div>
+<div id="controls">
+  <button id="play">Play</button>
+  <input id="seek" type="range" min="0" max="30" step="0.01" value="0" aria-label="Seek">
+  <span id="time">0.0 / 30.0</span>
+</div>
+<script src="board.js"></script>
+</body></html>

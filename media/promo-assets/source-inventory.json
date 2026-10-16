@@ -1,0 +1,374 @@
+[
+  {
+    "file": "analytics.css",
+    "bytes": 19439,
+    "lines": 94,
+    "sha256": "1c9b48df18e3512284abe33099b2aa045072ba94ba1e38f8a90f4c1a885f6eb5"
+  },
+  {
+    "file": "analytics.js",
+    "bytes": 55709,
+    "lines": 422,
+    "sha256": "d77c01f7bb8e5165b0542229993287392cf84b90f6673f7a9cf00c7d6a6111d8"
+  },
+  {
+    "file": "app-intro-ui.js",
+    "bytes": 1249,
+    "lines": 15,
+    "sha256": "db950f1962252da34287766223fb5e356b61769b2aba7202a297dcded1abc285"
+  },
+  {
+    "file": "app-intro.css",
+    "bytes": 2393,
+    "lines": 28,
+    "sha256": "41825a41d4bc261cfbdb652ec1c7f6e6d0dbf87663083540a86776966c35f891"
+  },
+  {
+    "file": "app-intro.html",
+    "bytes": 1479,
+    "lines": 9,
+    "sha256": "f8cc4994ca8f58f92bf8d52fe8ae44baf613b1148c2656f64a723d494a4a9404"
+  },
+  {
+    "file": "app-intro.js",
+    "bytes": 1717,
+    "lines": 29,
+    "sha256": "146b9abb7bfa4abf2450b803946f48228de0d8fdf25f9f1f7191c902255663f1"
+  },
+  {
+    "file": "connector/TradersJournalSync_MT5.mq5",
+    "bytes": 23260,
+    "lines": 766,
+    "sha256": "8dde5543de3e05f3689abd535d02ef3160785126113bcb8ac8d92869aa99bc32"
+  },
+  {
+    "file": "daily-journal.css",
+    "bytes": 30285,
+    "lines": 55,
+    "sha256": "31e674e812adc99223bd6442b370ccef41f01ef1d1718761fe88d90295959cb6"
+  },
+  {
+    "file": "daily-journal.js",
+    "bytes": 46228,
+    "lines": 543,
+    "sha256": "fd5e5fb997fb507c44e944d595b8168cfa598138a263a52aae2d19bc25d6c35b"
+  },
+  {
+    "file": "fonts/fonts.css",
+    "bytes": 1527,
+    "lines": 12,
+    "sha256": "212fe7095b376217bb05e270c2dc377e84ac6c0e2a0e162f5172a9791d3e998e"
+  },
+  {
+    "file": "gcal.js",
+    "bytes": 13725,
+    "lines": 218,
+    "sha256": "7c6af8c1013ae10d315fbcd1e54c7e991fe4d2408211454fc400e9321d86e715"
+  },
+  {
+    "file": "hero.css",
+    "bytes": 27265,
+    "lines": 179,
+    "sha256": "7983aaa8d16b47605914bd4f5c7d3959536af680fb926a2fff843c47a0761b3b"
+  },
+  {
+    "file": "hero.js",
+    "bytes": 31888,
+    "lines": 400,
+    "sha256": "c696944d4e68ac2b0b27f1c9bbbf3e509777ce13ff2ed85ef2b2682fb0932a0e"
+  },
+  {
+    "file": "index.html",
+    "bytes": 186872,
+    "lines": 2120,
+    "sha256": "dca04f80d0e9d7d250c8aa52b8f399b1fde72ca9f497326d9cac8f781b4cb320"
+  },
+  {
+    "file": "intro-preload.js",
+    "bytes": 177,
+    "lines": 4,
+    "sha256": "a03afff7763042fc6a9800f7132ff856034c648ac5a1db4b3bad7bcf3e64c3b3"
+  },
+  {
+    "file": "Launch Traders Journal.vbs",
+    "bytes": 214,
+    "lines": 4,
+    "sha256": "b3175280a77d4a4e01feee4086ea26c4a7ad97c366248ff2807b9369c2ece827"
+  },
+  {
+    "file": "main.js",
+    "bytes": 10718,
+    "lines": 204,
+    "sha256": "8b364531f3135c3af5b530d8897fed230693af69ba4ff6b14f350a1afc57c4ce"
+  },
+  {
+    "file": "package-lock.json",
+    "bytes": 145181,
+    "lines": 4090,
+    "sha256": "ede6531b62aed7ed4da0940d039271f924a814a444216b9ad15e8a5b9f8178b1"
+  },
+  {
+    "file": "package.json",
+    "bytes": 2523,
+    "lines": 95,
+    "sha256": "4e8d486e012d1f1bc0efa6e92048d43e245de6b95da0461ef8f0e5c6548b0a83"
+  },
+  {
+    "file": "preload.js",
+    "bytes": 2632,
+    "lines": 60,
+    "sha256": "12bff459532d2c2db64af895da7c1ef64d50570f0cc291aabbc2175760467331"
+  },
+  {
+    "file": "PROJECT_SCAN.md",
+    "bytes": 15154,
+    "lines": 166,
+    "sha256": "425d3db718cd5dde1b31ea1ccc19a472a242ea6d90eccdb6dc0ee7c931136a18"
+  },
+  {
+    "file": "README.md",
+    "bytes": 4831,
+    "lines": 52,
+    "sha256": "eeb23b4f027e85a55e9f67c3d0c6d1fd21b89373c28b141c8749e2325c35ad43"
+  },
+  {
+    "file": "run_app.bat",
+    "bytes": 89,
+    "lines": 4,
+    "sha256": "4a8f93c4385de5bfe60db5d0086c57518422aa4034ff0df770c6ebe8b3853729"
+  },
+  {
+    "file": "server.js",
+    "bytes": 31226,
+    "lines": 675,
+    "sha256": "2a4b961e08a66b20d851dba612f30c8f95797f6de9daf2a623530465e1f833ac"
+  },
+  {
+    "file": "settings.css",
+    "bytes": 13355,
+    "lines": 34,
+    "sha256": "c9fb7439231c247c0edea518de1327dcb1f03e1384cd0f4e0fae07ee23d0f360"
+  },
+  {
+    "file": "settings.js",
+    "bytes": 33126,
+    "lines": 241,
+    "sha256": "11f4cabbab8c183d847e8476442d777775c9597919d66f50167d2a49faef0134"
+  },
+  {
+    "file": "start.bat",
+    "bytes": 97,
+    "lines": 5,
+    "sha256": "8d0a49c15e00de88fcb9eac8c9c1714a9f66ac4eaf54640112d55e6617810a55"
+  },
+  {
+    "file": "sync-mt5.bat",
+    "bytes": 304,
+    "lines": 10,
+    "sha256": "a6bf62fdf516e765aa83d6c2f7644939b39dde754ca61baa124773e94927e372"
+  },
+  {
+    "file": "tools/.mt5_server_offset.json",
+    "bytes": 36,
+    "lines": 1,
+    "sha256": "fd2646098a63d8e10024c983f7152b79741d4383dbbcbf5203757810f031fca9"
+  },
+  {
+    "file": "tools/auto_connect_mt5.ps1",
+    "bytes": 2500,
+    "lines": 57,
+    "sha256": "1bc1a3246d1b8f276e43e67f086e32498b37d3dfe87f514529c6bb6eb2b4bfeb"
+  },
+  {
+    "file": "tools/copy-fonts.js",
+    "bytes": 990,
+    "lines": 18,
+    "sha256": "081df3f6b0a0d478e0f24633557a7df74cb1002ddfd4cf51bfd737e0ed546714"
+  },
+  {
+    "file": "tools/local-sync.test.js",
+    "bytes": 4601,
+    "lines": 83,
+    "sha256": "63df5e6583201d6cb00ccf08d907f0cca8cbf7366f35f7c9ca5beef08b81234d"
+  },
+  {
+    "file": "tools/make-icon.js",
+    "bytes": 2642,
+    "lines": 32,
+    "sha256": "60902dae953f25156989296647eafcf50440316712d5fb3b74315414ba0cbe89"
+  },
+  {
+    "file": "tools/mt5_sync.py",
+    "bytes": 30113,
+    "lines": 742,
+    "sha256": "4000a817120d96deef1af3e4b1623d10e8c764fa20a59abd0a125367e7dc8a86"
+  },
+  {
+    "file": "tools/promo/build.cjs",
+    "bytes": 4086,
+    "lines": 37,
+    "sha256": "d048e2cd9bf9fb0332b7f0250017588376169152a6368b964682ffe6eff6c4b4"
+  },
+  {
+    "file": "tools/promo/capture.cjs",
+    "bytes": 8172,
+    "lines": 93,
+    "sha256": "a7ebd9d3a35507d3015a23212b81a766e47ee1ea697958b314bd01f9d29ae61b"
+  },
+  {
+    "file": "tools/promo/check-intro.cjs",
+    "bytes": 2792,
+    "lines": 25,
+    "sha256": "3167894f57c5e86341e5a40018818eb102c6f4d9bbf51e03bc155cd48d5d9b0b"
+  },
+  {
+    "file": "tools/promo/check-startup.cjs",
+    "bytes": 3769,
+    "lines": 44,
+    "sha256": "4bd2d046d8c7861c15670c6ef7a69815042c2e0c313be37c24d6bdca4b9bb28b"
+  },
+  {
+    "file": "tools/promo/elevenlabs_narrate.py",
+    "bytes": 8013,
+    "lines": 201,
+    "sha256": "3ab10f277acd367f7ce464fa54e5ba25120a2ac45c532e8644e0c4b33efc1104"
+  },
+  {
+    "file": "tools/promo/film.js",
+    "bytes": 14870,
+    "lines": 173,
+    "sha256": "30a34bc9a1265ed2ed0da0a1d973458ef02be3f0d0eade3b8a72c2eef832b36a"
+  },
+  {
+    "file": "tools/promo/intro.test.cjs",
+    "bytes": 2204,
+    "lines": 22,
+    "sha256": "31e2dbce53ba783244531bcee031b1d71a4e1a249213d2866a784b9c5d21cae6"
+  },
+  {
+    "file": "tools/promo/narrate.ps1",
+    "bytes": 937,
+    "lines": 19,
+    "sha256": "96e9dd036f202b6426d742ebda30d9af1f01c29cc3b5f4ea53c6562889aef4e7"
+  },
+  {
+    "file": "tools/promo/promo.html",
+    "bytes": 1276,
+    "lines": 5,
+    "sha256": "2156c0f0015791d8b8b75e8a98f632fa61120bc57fa46dec3ec4460c8b882f09"
+  },
+  {
+    "file": "tools/promo/README.md",
+    "bytes": 3944,
+    "lines": 34,
+    "sha256": "fa9f05c957e3169397cff4d7b44d3f2b3f27c61a8b649b6de5271e4862caf4e1"
+  },
+  {
+    "file": "tools/promo/render.cjs",
+    "bytes": 2464,
+    "lines": 29,
+    "sha256": "683e2267f49d448f9e287d8c2ab075462f87f85e74b19a0340551f4e8fd1fee6"
+  },
+  {
+    "file": "tools/promo/soundtrack.py",
+    "bytes": 6280,
+    "lines": 143,
+    "sha256": "dbc1972e35672045835c1bd679553ed87e762c6d38fda7bcc7c3c316877b2147"
+  },
+  {
+    "file": "tools/promo/storyboard.json",
+    "bytes": 4984,
+    "lines": 117,
+    "sha256": "a1ff77083fbc756a0ede1f2ced7c7d567b0ea91dfd34316a3b42e5b581dc21fb"
+  },
+  {
+    "file": "tools/video/fix.js",
+    "bytes": 485,
+    "lines": 7,
+    "sha256": "fe7a143c7fbc3bbce6bef842befa15d2817cb5634afb31388341d74a8a671be5"
+  },
+  {
+    "file": "tools/video/lines.json",
+    "bytes": 10044,
+    "lines": 346,
+    "sha256": "2100bcb8634b9ec4b29c15a35487ced022a2e8711793dbf8e09f84397ba26ab7"
+  },
+  {
+    "file": "tools/video/mux.sh",
+    "bytes": 618,
+    "lines": 14,
+    "sha256": "74f8763d77c37372f72acec141e99b7f0a203ec9ba7e822e1d90410369d0b040"
+  },
+  {
+    "file": "tools/video/narration.json",
+    "bytes": 7708,
+    "lines": 98,
+    "sha256": "ad422010f2de2bb20485c12e70abb26a7649b678adb5067643830d70ff51390f"
+  },
+  {
+    "file": "tools/video/prep-lines.js",
+    "bytes": 383,
+    "lines": 6,
+    "sha256": "3667c909c0849d5c59c5d2741a85d43377a5ae52d9d70a69f686e07edc4514f2"
+  },
+  {
+    "file": "tools/video/render.js",
+    "bytes": 3640,
+    "lines": 68,
+    "sha256": "d37139a91188c810f35a2c1f8bee2a883988cae6c531d8e66c1ef11bd72bd0b9"
+  },
+  {
+    "file": "tools/video/scenes.html",
+    "bytes": 67541,
+    "lines": 566,
+    "sha256": "870be81483a7c709690599a5debe7fe0f3f927075ae039c526176bed5f84c858"
+  },
+  {
+    "file": "tools/video/sheet.sh",
+    "bytes": 597,
+    "lines": 9,
+    "sha256": "8ce07d6e26eae2d2bb7da5158d11315a04f284dc17352f867d6082d5c4fcce64"
+  },
+  {
+    "file": "tools/video/shots.sh",
+    "bytes": 518,
+    "lines": 9,
+    "sha256": "6c936136e0df144a7fe3789abbd736f0f8444ce49a1281054406a4860f8d3ced"
+  },
+  {
+    "file": "tools/video/split-check.js",
+    "bytes": 324,
+    "lines": 4,
+    "sha256": "b9d2286067a9a8103098307bab6abdb111c4f7be53fe296a0c03d9600cc97a65"
+  },
+  {
+    "file": "tools/video/timeline.json",
+    "bytes": 9485,
+    "lines": 443,
+    "sha256": "69925114f6537b06110ea15e1bd50a38a6fd6d48af7bb55506a9efc44e064ba6"
+  },
+  {
+    "file": "tools/video/timeline.py",
+    "bytes": 1847,
+    "lines": 50,
+    "sha256": "c1b5d49b7584060d2fc6279658be9f0c4c77f80d2525b0c1de9bee25abfa417d"
+  },
+  {
+    "file": "tools/video/tts.ps1",
+    "bytes": 704,
+    "lines": 16,
+    "sha256": "6a3d960fa35444db55f1f1f2d67f717a13710d9db7747f19736eb65212b19f1a"
+  },
+  {
+    "file": "tools/zoom-test.js",
+    "bytes": 1622,
+    "lines": 19,
+    "sha256": "ec505a2af957a3c5a1708bf565f88de5ec3c42c56b1a4114a982ec371183719a"
+  },
+  {
+    "file": "VIDEO_PROJECT_SCAN.md",
+    "bytes": 5751,
+    "lines": 60,
+    "sha256": "33de0efff6887830dfae75f74488895019ab1427050a51de5f8b0bae3faa866a"
+  }
+]

@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+
+# Electron build outputs
+dist/
+*.blockmap
+
+# Runtime data & credentials
+data/db.json
+tools/.mt5_token
+tools/.mt5_server_offset.json
+
+# Temporary logs & files
+*.log
+out.txt
+err.txt
+
+# OS / Editor files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/

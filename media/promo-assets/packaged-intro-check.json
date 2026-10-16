@@ -1,0 +1,18 @@
+{
+  "width": 1280,
+  "height": 720,
+  "duration": 24,
+  "muted": true,
+  "bridge": "function",
+  "credit": "Chethiya Rathnasekara",
+  "layout": {
+    "height": 704,
+    "top": 63.390625,
+    "bottom": 609.40625,
+    "bg": "rgb(9, 9, 11)",
+    "button": "rgb(59, 130, 246)"
+  },
+  "soundToggle": true,
+  "skip": true,
+  "finishes": 1
+}

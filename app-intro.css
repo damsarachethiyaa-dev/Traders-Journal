@@ -1,0 +1,28 @@
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#09090b;color:#ececee;font-family:Inter,sans-serif;overflow:hidden}
+main{position:relative;width:100%;height:100%;border:1px solid #27272e;border-radius:10px;overflow:hidden}
+video{display:block;width:100%;height:100%;object-fit:contain;background:#09090b}
+.shade{position:absolute;inset:0;pointer-events:none}
+.top,.bottom{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:space-between;background:#09090b;padding:0 3.4375%}
+.top{top:0;height:8.8889%;border-bottom:1px solid #27272e}
+.brand{font:700 15px 'Space Grotesk',sans-serif;display:flex;align-items:center;gap:11px;white-space:nowrap}
+.status{width:23px;height:23px;color:#3b82f6;display:block}
+.status svg{width:100%;height:100%;display:block}
+.brand small{font:500 8px 'JetBrains Mono',monospace;color:#e8be6b;border:1px solid #e8be6b55;background:#211b12;border-radius:15px;padding:6px 11px;margin-left:7px}
+.local{font:500 9px 'JetBrains Mono',monospace;color:#8b8b93;letter-spacing:.3px}
+.bottom{bottom:0;height:13.3333%;border-top:1px solid #27272e;gap:20px;padding-bottom:12px}
+.credit{display:flex;flex-direction:column;gap:6px}
+.credit>span{font:500 9px 'JetBrains Mono',monospace;color:#8b8b93;letter-spacing:1px}
+.credit strong{font:700 20px 'Space Grotesk',sans-serif}
+.actions{display:flex;align-items:center;gap:10px}
+button{border:1px solid #30303a;background:#131315;color:#ececee;border-radius:9px;padding:12px 19px;font:600 12px Inter,sans-serif;cursor:pointer;transition:background .18s,transform .18s,box-shadow .18s}
+button:hover{background:#202027;transform:translateY(-1px)}
+button:focus-visible{outline:2px solid #e8be6b;outline-offset:4px}
+.enter{background:#3b82f6;border-color:#3b82f6;box-shadow:0 0 22px #3b82f61a}
+.enter:hover{background:#5594fb;box-shadow:0 0 26px #3b82f633}
+.enter span{margin-left:18px}
+.progress{position:absolute;left:3.4375%;right:3.4375%;bottom:1.9444%;height:2px;background:#27272e;pointer-events:none}
+.progress span{display:block;background:#3b82f6;width:0;height:100%;transition:width .15s linear}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(prefers-reduced-motion:reduce){button,.progress span{transition:none}video{visibility:hidden}main{background:center/contain no-repeat url('media/traders-journal-poster.jpg')}}
+@media(max-width:800px){.local{display:none}.brand{font-size:12px;gap:7px}.brand small{font-size:7px;padding:4px 7px}.credit strong{font-size:16px}button{padding:10px 14px}}

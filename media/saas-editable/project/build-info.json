@@ -1,0 +1,4 @@
+{
+  "script": "saas-edit.js",
+  "note": "The script is the edit. Re-run it with: higgsedit build <script>. Sibling files it imports are not copied."
+}

@@ -1,0 +1,116 @@
+{
+  "title": "Traders Journal — Full Tutorial & MT5 Connection Guide",
+  "creator": "Chethiya Rathnasekara",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "duration": 120,
+  "bpm": 120,
+  "scenes": [
+    {
+      "id": "intro",
+      "duration": 6,
+      "label": "THE TRADING WORKSPACE",
+      "title": ["TRADERS JOURNAL", "TUTORIAL & GUIDE."],
+      "accent": "#b7ff5c",
+      "voice": "Welcome to Traders Journal, the complete desktop trading workspace created by Chethiya Rathnasekara."
+    },
+    {
+      "id": "overview",
+      "duration": 8,
+      "label": "FULL PROJECT OVERVIEW",
+      "title": ["EVERY TRADE.", "IN FULL FOCUS."],
+      "accent": "#b7ff5c",
+      "image": "dashboard",
+      "voice": "Traders Journal gives you full control of your trading performance, journal entries, and broker connections in one private desktop application."
+    },
+    {
+      "id": "mt5",
+      "duration": 14,
+      "label": "01 / QUICK MT5 CONNECTION GUIDE",
+      "title": ["ONE-CLICK.", "QUICK MT5 SYNC."],
+      "accent": "#72dfff",
+      "image": "connect",
+      "chips": ["1-Click Quick Connect", "Direct local sync", "Read-only connection"],
+      "voice": "Connecting MetaTrader five is fast and seamless. Simply run the one-click PowerShell sync command to automatically link your live terminal and stream trade history with zero manual configuration."
+    },
+    {
+      "id": "scanner",
+      "duration": 12,
+      "label": "02 / MULTI-ACCOUNT MANAGER",
+      "title": ["DISCOVER &", "CHOOSE ACCOUNTS."],
+      "accent": "#ffd47a",
+      "image": "scanner",
+      "chips": ["Account discovery scanner", "Selective account sync", "Permanent deletion guard"],
+      "voice": "Scan your computer to detect all active MT5 accounts. Choose which trading accounts you want in your journal, and safely remove deleted accounts with permanent protection."
+    },
+    {
+      "id": "dashboard",
+      "duration": 12,
+      "label": "03 / COMMAND CENTER & METRICS",
+      "title": ["LESS NOISE.", "MORE CLARITY."],
+      "accent": "#b7ff5c",
+      "image": "dashboard",
+      "chips": ["Interactive equity curve", "Net P&L and win rate", "Profit factor & drawdown"],
+      "voice": "The Command Center provides instant clarity on your net profit, win rate, profit factor, and equity curve, updated in real time across all your trading accounts."
+    },
+    {
+      "id": "logging",
+      "duration": 10,
+      "label": "04 / TRADE LOGGING & CALENDAR",
+      "title": ["CAPTURE", "EVERY DETAIL."],
+      "accent": "#72dfff",
+      "image": "logging",
+      "chips": ["Entries & exits", "Commissions & lots", "Trading calendar"],
+      "voice": "Log every position with precision. Capture your entries, exits, fees, and strategy tags, and track your daily consistency on the trading calendar."
+    },
+    {
+      "id": "journal",
+      "duration": 12,
+      "label": "05 / DAILY JOURNAL & PSYCHOLOGY",
+      "title": ["REPLAY. REFLECT.", "BUILD DISCIPLINE."],
+      "accent": "#c5a2ff",
+      "image": "journal",
+      "chips": ["Chart screenshots", "Emotional mindset", "Rule break tracking"],
+      "voice": "Master trader psychology with the daily journal. Attach chart screenshots, record your execution rating, and track mistakes to build unbreakable discipline."
+    },
+    {
+      "id": "analytics",
+      "duration": 12,
+      "label": "06 / PERFORMANCE & EDGE",
+      "title": ["DISCOVER", "YOUR EDGE."],
+      "accent": "#b7ff5c",
+      "image": "performance",
+      "chips": ["Growth curves", "Strategy breakdown", "Drawdown recovery"],
+      "voice": "Deep dive into performance analytics. Compare strategies, symbols, and session times to uncover your true statistical edge and eliminate losing habits."
+    },
+    {
+      "id": "privacy",
+      "duration": 10,
+      "label": "07 / 100% LOCAL PC SECURITY",
+      "title": ["YOUR DATA.", "100% PRIVATE."],
+      "accent": "#72dfff",
+      "image": "privacy",
+      "chips": ["100% Offline PC storage", "Instant JSON backups", "Zero cloud leaks"],
+      "voice": "Your financial data and trading records stay entirely on your local machine. Create encrypted JSON backups anytime with complete privacy and zero third-party cloud tracking."
+    },
+    {
+      "id": "king",
+      "duration": 10,
+      "label": "08 / KING EDITION WORKSPACE",
+      "title": ["OWN YOUR", "WORKSPACE."],
+      "accent": "#ffd47a",
+      "image": "king",
+      "chips": ["Custom trader profile", "Monthly profit targets", "No recurring fees"],
+      "voice": "Make the journal uniquely yours with KING Edition. Personalize themes, configure monthly targets, and enjoy lifetime ownership with no subscriptions."
+    },
+    {
+      "id": "outro",
+      "duration": 14,
+      "label": "TRADERS JOURNAL",
+      "title": ["YOUR TRADES.", "YOUR PROCESS.", "YOUR STORY."],
+      "accent": "#b7ff5c",
+      "voice": "Traders Journal. Master your trades, elevate your discipline, and own your journey. Created by Chethiya Rathnasekara."
+    }
+  ]
+}

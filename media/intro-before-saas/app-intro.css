@@ -1,0 +1,27 @@
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#070b0a;color:#f3f5ec;font-family:Inter,system-ui,sans-serif;overflow:hidden}
+main{position:relative;width:100%;height:100%}
+video{display:block;width:100%;height:100%;object-fit:cover}
+.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(#070b0a55,transparent 23%,transparent 74%,#070b0a88)}
+.top,.bottom{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:space-between;background:#070b0a;padding-left:4.1%;padding-right:4.1%}
+.top{top:0;height:14%}
+.brand{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:.6px;display:flex;align-items:center;gap:10px}
+.status{width:7px;height:7px;border-radius:50%;background:#b7ff5c;box-shadow:0 0 16px #b7ff5c88}
+.brand small{font:500 9px 'JetBrains Mono',monospace;color:#b7ff5c;border:1px solid #b7ff5c55;border-radius:20px;padding:6px 11px;margin-left:5px}
+.local{font:500 9px 'JetBrains Mono',monospace;letter-spacing:1px;color:#9dab9d}
+.bottom{bottom:0;height:14%;gap:20px;padding-bottom:2.8%}
+.credit{display:flex;flex-direction:column;gap:6px}
+.credit>span{font:500 9px 'JetBrains Mono',monospace;color:#a7b6a5;letter-spacing:1.7px}
+.credit strong{font:600 20px 'Space Grotesk',sans-serif}
+.actions{display:flex;gap:10px}
+button{border:1px solid #81947255;background:#121b14d9;color:#d9e5d2;border-radius:30px;padding:12px 20px;font:600 12px Inter,sans-serif;cursor:pointer;transition:background .18s,transform .18s}
+button:hover{background:#263422;transform:translateY(-2px)}
+button:focus-visible{outline:2px solid #d4ffa2;outline-offset:4px}
+.enter{background:#b7ff5c;color:#111b0b;border-color:#b7ff5c}
+.enter:hover{background:#d0ff92}
+.enter span{margin-left:18px}
+.progress{position:absolute;left:4.1%;right:4.1%;bottom:2.8%;height:2px;background:#66785d44}
+.progress span{display:block;background:#b7ff5c;width:0;height:100%;transition:width .2s linear}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(prefers-reduced-motion:reduce){button,.progress span{transition:none}video{visibility:hidden}main{background:center/cover url('media/traders-journal-poster.jpg')}}
+@media(max-width:800px){.local{display:none}.brand{font-size:12px}.credit strong{font-size:16px}button{padding:10px 15px}}

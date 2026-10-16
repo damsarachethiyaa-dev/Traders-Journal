@@ -1,0 +1,94 @@
+{
+  "name": "traders-journal",
+  "productName": "Traders Journal",
+  "version": "1.0.0",
+  "description": "Traders Journal desktop app with MetaTrader 5 sync",
+  "main": "main.js",
+  "author": "Traders Journal",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "icon": "node tools/make-icon.js",
+    "fonts": "node tools/copy-fonts.js",
+    "test:local": "node --test tools/local-sync.test.js",
+    "video": "node tools/promo/build.cjs",
+    "sync": ".venv\\Scripts\\python.exe tools/mt5_sync.py",
+    "dist": "electron-builder --win",
+    "dist:video": "electron-builder --win --config.directories.output=dist/video-edition"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "build": {
+    "appId": "local.tradersjournal.app",
+    "productName": "Traders Journal",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "app-intro.js",
+      "app-intro.html",
+      "app-intro.css",
+      "app-intro-ui.js",
+      "intro-preload.js",
+      "media/traders-journal-intro.mp4",
+      "media/traders-journal-promo.mp4",
+      "media/traders-journal-promo.srt",
+      "media/traders-journal-poster.jpg",
+      "server.js",
+      "gcal.js",
+      "hero.css",
+      "hero.js",
+      "analytics.css",
+      "analytics.js",
+      "index.html",
+      "settings.js",
+      "settings.css",
+      "daily-journal.js",
+      "daily-journal.css",
+      "fonts/**",
+      "connector/**",
+      "build/icon.png",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Traders Journal",
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "Traders-Journal-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "Traders-Journal-Portable-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "electron": "^41.7.1",
+    "electron-builder": "^26.15.3"
+  }
+}

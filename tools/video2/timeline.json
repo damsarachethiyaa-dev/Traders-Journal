@@ -1,0 +1,65 @@
+{
+ "total": 65.445,
+ "lines": [
+  {
+   "cap": "Stop copying your MetaTrader trades into a spreadsheet.",
+   "t0": 1.0,
+   "t1": 4.868
+  },
+  {
+   "cap": "This is Traders Journal, and it now connects to MT5 in one click.",
+   "t0": 5.208,
+   "t1": 10.525
+  },
+  {
+   "cap": "No Expert Advisor, no WebRequest, no cloud account.",
+   "t0": 10.865,
+   "t1": 15.025
+  },
+  {
+   "cap": "Just open MetaTrader and log in.",
+   "t0": 15.365,
+   "t1": 18.252
+  },
+  {
+   "cap": "In Traders Journal, open Connections and press Auto-Connect All MT5 Accounts.",
+   "t0": 18.592,
+   "t1": 26.526
+  },
+  {
+   "cap": "It scans your PC and finds every MT5 account.",
+   "t0": 26.866,
+   "t1": 30.777
+  },
+  {
+   "cap": "Want to choose? Hit Scan and Choose, tick your accounts, and Save and Sync.",
+   "t0": 31.117,
+   "t1": 35.828
+  },
+  {
+   "cap": "Your trades land in seconds, with balance, equity and open positions.",
+   "t0": 36.168,
+   "t1": 40.829
+  },
+  {
+   "cap": "Switch on Live Auto-Sync, and new trades arrive every three seconds.",
+   "t0": 41.169,
+   "t1": 45.949
+  },
+  {
+   "cap": "Win rate, profit factor, calendar, all live.",
+   "t0": 46.289,
+   "t1": 50.689
+  },
+  {
+   "cap": "Everything stays on your PC. Read-only. Nothing uploaded.",
+   "t0": 51.029,
+   "t1": 57.362
+  },
+  {
+   "cap": "Traders Journal. Created by Chethiya Rathnasekara.",
+   "t0": 57.702,
+   "t1": 62.245
+  }
+ ]
+}

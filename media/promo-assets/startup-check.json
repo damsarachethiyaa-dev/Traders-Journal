@@ -1,0 +1,10 @@
+{
+  "hiddenLaunch": false,
+  "nativeWindows": 2,
+  "dashboardHeldAtStartup": true,
+  "dashboardReleased": true,
+  "filmInTray": true,
+  "filmExtraction": true,
+  "isolatedBackend": true,
+  "packaged": false
+}

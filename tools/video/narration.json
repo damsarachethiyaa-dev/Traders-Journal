@@ -1,0 +1,98 @@
+[
+ {
+  "id": "intro",
+  "tag": "",
+  "speak": "Welcome to Traders Journal. In this video you'll connect MetaTrader 5, so your trades import automatically. There are two ways to do it: Direct Local Sync, which is the recommended one, and the Expert Advisor method as a backup. Everything stays on your PC, and the connection is read-only.",
+  "cap": "Welcome to Traders Journal. In this video you'll connect MetaTrader 5, so your trades import automatically. There are two ways to do it: Direct Local Sync, which is the recommended one, and the Expert Advisor method as a backup. Everything stays on your PC, and the connection is read-only."
+ },
+ {
+  "id": "d1",
+  "tag": "Direct Local Sync · Step 1 of 5",
+  "speak": "Method one: Direct Local Sync. It takes about a minute. First, open MetaTrader 5 and log in to the account you want to journal. Demo or live both work. Check the bottom right corner: you should see a connection speed, not, no connection.",
+  "cap": "Method one: Direct Local Sync. It takes about a minute. First, open MetaTrader 5 and log in to the account you want to journal. Demo or live both work. Check the bottom right corner: you should see a connection speed, not “No connection”."
+ },
+ {
+  "id": "d2",
+  "tag": "Direct Local Sync · Step 2 of 5",
+  "speak": "Now switch to Traders Journal and click Connections in the sidebar. At the top is the MetaTrader 5 Direct Local Sync card. If MT5 isn't linked yet, the badge says Disconnected. This method needs no code, no download, and no WebRequest setting.",
+  "cap": "Switch to Traders Journal and click Connections in the sidebar. At the top is the MetaTrader 5 Direct Local Sync card. If MT5 isn't linked yet, the badge says Disconnected. This method needs no code, no download and no WebRequest setting."
+ },
+ {
+  "id": "d3",
+  "tag": "Direct Local Sync · Step 3 of 5",
+  "speak": "Press Sync Now. Traders Journal reads your history straight from the terminal. Within seconds the badge turns green, your account, server and balance fill in, and the synced positions counter shows how many trades were imported. The activity log tells you exactly what happened.",
+  "cap": "Press Sync Now. Traders Journal reads your history straight from the terminal. Within seconds the badge turns green, your account, server and balance fill in, and the synced positions counter shows how many trades were imported. The activity log tells you exactly what happened."
+ },
+ {
+  "id": "d4",
+  "tag": "Direct Local Sync · Step 4 of 5",
+  "speak": "Next, tick Live Auto-Sync. From now on, new trades arrive on their own, every three seconds. Keep Traders Journal running in the tray, and keep MetaTrader 5 open.",
+  "cap": "Tick Live Auto-Sync. From now on, new trades arrive on their own, every three seconds. Keep Traders Journal running in the tray, and keep MetaTrader 5 open."
+ },
+ {
+  "id": "d5",
+  "tag": "Direct Local Sync · Step 5 of 5",
+  "speak": "That's it. Open the Dashboard to see your stats, equity curve and calendar, or Trade Logging to browse every synced trade. Disconnect only removes the data from this app. It never touches MetaTrader.",
+  "cap": "That's it. Open the Dashboard to see your stats, equity curve and calendar, or Trade Logging to browse every synced trade. Disconnect only removes the data from this app. It never touches MetaTrader."
+ },
+ {
+  "id": "e0",
+  "tag": "",
+  "speak": "Method two: the Expert Advisor connector. Use it if direct sync isn't available on your machine. It has seven short steps, and you only do them once.",
+  "cap": "Method two: the Expert Advisor connector. Use it if direct sync isn't available on your machine. It has seven short steps, and you only do them once."
+ },
+ {
+  "id": "e1",
+  "tag": "Expert Advisor · Step 1 of 7",
+  "speak": "Step one. In Connections, scroll to the Expert Advisor section. Pick MetaTrader 5, name the connection, choose how much history to import, and press Generate connection code. The code is single use, and valid for thirty minutes.",
+  "cap": "Step 1. In Connections, scroll to the Expert Advisor section. Pick MetaTrader 5, name the connection, choose how much history to import, and press Generate connection code. The code is single-use and valid for 30 minutes."
+ },
+ {
+  "id": "e2",
+  "tag": "Expert Advisor · Step 2 of 7",
+  "speak": "Step two. Press Download connector. The file is saved to your Downloads folder, with the code and the local address already written inside it. There's nothing to type later.",
+  "cap": "Step 2. Press Download connector. The file is saved to your Downloads folder, with the code and the local address already written inside it. There's nothing to type later."
+ },
+ {
+  "id": "e3",
+  "tag": "Expert Advisor · Step 3 of 7",
+  "speak": "Step three. In MetaTrader, choose File, then Open Data Folder. Open M Q L 5, then Experts, and drop the connector file in there.",
+  "cap": "Step 3. In MetaTrader, choose File → Open Data Folder. Open MQL5, then Experts, and drop the connector file in there."
+ },
+ {
+  "id": "e4",
+  "tag": "Expert Advisor · Step 4 of 7",
+  "speak": "Step four. Press F4 to open MetaEditor. Double-click the connector in the Navigator, then press F7 to compile. The log at the bottom should say zero errors.",
+  "cap": "Step 4. Press F4 to open MetaEditor. Double-click the connector in the Navigator, then press F7 to compile. The log at the bottom should say 0 errors."
+ },
+ {
+  "id": "e5",
+  "tag": "Expert Advisor · Step 5 of 7",
+  "speak": "Step five. Back in MetaTrader, open Tools, Options, and the Expert Advisors tab. Tick Allow WebRequest for listed URL, then add exactly this address: http colon slash slash one two seven dot zero dot zero dot one, colon eight seven six five. Press OK.",
+  "cap": "Step 5. Back in MetaTrader, open Tools → Options → Expert Advisors. Tick “Allow WebRequest for listed URL”, then add exactly this address: http://127.0.0.1:8765. Press OK."
+ },
+ {
+  "id": "e6",
+  "tag": "Expert Advisor · Step 6 of 7",
+  "speak": "Step six. Open the Navigator and drag the connector onto any chart. On the Inputs tab, the code and address are already filled in. Leave live trading off, and press OK.",
+  "cap": "Step 6. Open the Navigator and drag the connector onto any chart. On the Inputs tab, the code and address are already filled in. Leave live trading off, and press OK."
+ },
+ {
+  "id": "e7",
+  "tag": "Expert Advisor · Step 7 of 7",
+  "speak": "Step seven. Open the Experts tab. You should see, Traders Journal Sync: connected, and a smiley face in the corner of the chart. Your history now flows into Traders Journal.",
+  "cap": "Step 7. Open the Experts tab. You should see TradersJournal Sync: connected, and a smiley face in the corner of the chart. Your history now flows into Traders Journal."
+ },
+ {
+  "id": "ts",
+  "tag": "Troubleshooting",
+  "speak": "If something goes wrong, check three things. MetaTrader must be open and logged in. Both apps must run at the same Windows privilege level, so don't start only one as Administrator. And for error four zero one four, add the local address to the WebRequest list. The full troubleshooting list is in the guide.",
+  "cap": "If something goes wrong, check three things. MetaTrader must be open and logged in. Both apps must run at the same Windows privilege level, so don't start only one as Administrator. And for error 4014, add the local address to the WebRequest list. The full troubleshooting list is in the guide."
+ },
+ {
+  "id": "outro",
+  "tag": "",
+  "speak": "You're all set. Your trades will now sync into Traders Journal automatically. Happy trading.",
+  "cap": "You're all set. Your trades will now sync into Traders Journal automatically. Happy trading."
+ }
+]

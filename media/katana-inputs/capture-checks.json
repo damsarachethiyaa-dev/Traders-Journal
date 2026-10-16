@@ -1,0 +1,126 @@
+{
+  "checks": [
+    {
+      "id": "dashboard",
+      "title": "page-dashboard",
+      "text": "Friday, October 16, 2026\n16:43:07\nGMT+5:30\nGood afternoon, Demo\nYou’re up $105.96 across 2 trades today. Protect it — don’t give it back.\nSYD\n22:13\nOpens in 2d 8h\nTYO\n20:13\nOpens in 2d 12h\nLDN\n12:13\nOpen · Closes in 4h 4",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "dashboard-lower",
+      "title": "page-dashboard",
+      "text": "Friday, October 16, 2026\n16:43:08\nGMT+5:30\nGood afternoon, Demo\nYou’re up $105.96 across 2 trades today. Protect it — don’t give it back.\nSYD\n22:13\nOpens in 2d 8h\nTYO\n20:13\nOpens in 2d 12h\nLDN\n12:13\nOpen · Closes in 4h 4",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "logging",
+      "title": "page-logging",
+      "text": "Trade Logging\nInclude manual & imported trades 190\nAdd Trade\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2022\n2023\n2024\n2025\n2026\n2027\nMON\nTUE\nWED\nTHU\nFRI\nWEEK\n28\n+$337.44\n2 trad",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "journal",
+      "title": "page-journal",
+      "text": "DAILY JOURNAL\nEvery review is an investment in your next trade.\nKING EDITION\nThe more you review, the more you improve.\n\nCompleted – 190\n/\nLeft – 0\nSaved on this PC\n\nNEW TRADE\nCSV IMPORT\nDAILY NOTES\nFILTERS\nSide\nAll side",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "performance",
+      "title": "page-analytics",
+      "text": "Performance\nEdge Analysis\nBehavior\nProgress\n7D\n30D\n60D\n90D\n1Y\nALL\nFilter\nAll Accounts\nWIN RATE\n65%\n62 trades\nPROFIT FACTOR\n3.01\nGross P / L\nEXPECTANCY\n$60.1\nper trade\nMONTHLY ROI\n+21.0%\non balance\nMAX DRAWDOWN\n1.5%\npeak ",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "edge",
+      "title": "page-analytics",
+      "text": "Performance\nEdge Analysis\nBehavior\nProgress\n7D\n30D\n60D\n90D\n1Y\nALL\nFilter\nAll Accounts\nStrategy Performance\nSTRATEGY\nWIN RATE\nAVG PNL\nEXPECTANCY\nBreakout\n16 trades · +$1.15k\n63%\n+$72.10\n+$72.10\nMomentum\n15 trades · +$902.",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "behavior",
+      "title": "page-analytics",
+      "text": "Performance\nEdge Analysis\nBehavior\nProgress\n7D\n30D\n60D\n90D\n1Y\nALL\nFilter\nAll Accounts\nPsychology Status\nFollowed\n65%\nDisciplined\nDeviated\n35%\nLeakage\nDiscipline\n0%\nHit TP/SL\nFOMO\n0%\nEmotional\nPlan Adherence Trend\nSlippin",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "progress",
+      "title": "page-analytics",
+      "text": "Performance\nEdge Analysis\nBehavior\nProgress\n7D\n30D\n60D\n90D\n1Y\nALL\nFilter\nAll Accounts\nREVIEWS DONE\n190/190\n100% complete\nGREAT TRADES THIS MONTH\n65%\nDown from 65% in Sep\nPOOR TRADES THIS MONTH\n0%\nDown from 0% in Sep\nPoor",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "connect",
+      "title": "page-connect",
+      "text": "MT\nConnect MetaTrader 5\nKING PREMIUM\nScan & Choose Accounts\nMetaTrader 5 Direct Local Sync\nConnected · Live\n\nDirect in-memory connection to your local MT5 terminal. Zero manual EA or WebRequest needed.\n\nACTIVE ACCOUNT\n10",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "scanner",
+      "title": "page-connect",
+      "text": "MT\nConnect MetaTrader 5\nKING PREMIUM\nScan & Choose Accounts\nMetaTrader 5 Direct Local Sync\nConnected · Live\n\nDirect in-memory connection to your local MT5 terminal. Zero manual EA or WebRequest needed.\n\nACTIVE ACCOUNT\n10",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "privacy",
+      "title": "page-settings",
+      "text": "YOUR WORKSPACE, YOUR RULES\nGeneral Settings\n\nA personal trading workspace. Every detail stays on your PC.\n\nKING EDITION\nProfile\nPersonal details & identity\nAccount\nBalance, goals & appearance\nTrading\nLogging defaults & r",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    },
+    {
+      "id": "king",
+      "title": "page-settings",
+      "text": "YOUR WORKSPACE, YOUR RULES\nGeneral Settings\n\nA personal trading workspace. Every detail stays on your PC.\n\nKING EDITION\nProfile\nPersonal details & identity\nAccount\nBalance, goals & appearance\nTrading\nLogging defaults & r",
+      "trades": 190,
+      "size": {
+        "width": 1600,
+        "height": 1000
+      }
+    }
+  ],
+  "errors": [],
+  "syntheticTrades": 190
+}

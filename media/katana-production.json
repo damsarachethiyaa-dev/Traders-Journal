@@ -1,0 +1,60 @@
+{
+  "workflow": "Higgsfield Katana creative edit with native Higgsedit",
+  "duration": 30,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "creator": "Chethiya Rathnasekara",
+  "template": "Custom native composition; no named gallery preset",
+  "inputs": [
+    {
+      "file": "dashboard.jpg",
+      "media_id": "a870b172-6b64-44c4-bfd2-42954380f3df",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/a870b172-6b64-44c4-bfd2-42954380f3df.jpg"
+    },
+    {
+      "file": "performance.jpg",
+      "media_id": "d97d525a-54a5-4d57-bddc-2aa49f7aa473",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/d97d525a-54a5-4d57-bddc-2aa49f7aa473.jpg"
+    },
+    {
+      "file": "journal.jpg",
+      "media_id": "fa3d788e-1d71-4532-84cd-4f9e83735470",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/fa3d788e-1d71-4532-84cd-4f9e83735470.jpg"
+    },
+    {
+      "file": "edge.jpg",
+      "media_id": "c2ae727c-de59-4035-88b9-a260dc3c078b",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/c2ae727c-de59-4035-88b9-a260dc3c078b.jpg"
+    },
+    {
+      "file": "connect.jpg",
+      "media_id": "7b1fa189-a343-4c0b-996e-af8a675b083d",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/7b1fa189-a343-4c0b-996e-af8a675b083d.jpg"
+    },
+    {
+      "file": "king.jpg",
+      "media_id": "e266e735-9992-48bc-8524-ca08e53d648e",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/e266e735-9992-48bc-8524-ca08e53d648e.jpg"
+    },
+    {
+      "file": "soundtrack.mp3",
+      "media_id": "9d95daf7-9e38-48b4-9ad3-00cc576dcf23",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/9d95daf7-9e38-48b4-9ad3-00cc576dcf23.mp3"
+    }
+  ],
+  "output": {
+    "media_id": "eb8e17d6-4749-490b-b5f7-01ff7cbc974b",
+    "status": "completed",
+    "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Km1gddMIXl9dTXjsVN293rJs4w/eb8e17d6-4749-490b-b5f7-01ff7cbc974b.mp4",
+    "local_file": "C:/GPT/local/media/traders-journal-katana.mp4",
+    "verified_frames": 900,
+    "integrated_loudness_lufs": -14.1,
+    "true_peak_dbfs": -1.8
+  },
+  "render": {
+    "pid": 487,
+    "log_path": "/home/user/.bg/28ab3d75.log",
+    "status_path": "/home/user/.bg/28ab3d75.exit"
+  }
+}

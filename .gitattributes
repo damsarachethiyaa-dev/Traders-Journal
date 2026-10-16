@@ -1,0 +1,29 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source code
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+
+# Windows scripts
+*.bat text eol=crlf
+*.vbs text eol=crlf
+*.ps1 text eol=crlf
+
+# MetaTrader 5 Expert Advisor
+*.mq5 text eol=crlf
+*.ex5 binary
+
+# Media and binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.mp4 binary
+*.zip binary
+*.exe binary
+*.lnk binary
