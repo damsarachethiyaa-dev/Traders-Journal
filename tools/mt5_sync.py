@@ -134,6 +134,37 @@ def server_ts_to_utc(ts):
 
 SERVER_URL = "http://127.0.0.1:8765"
 
+def _daemon_key():
+    """Key the local server hands to this script so it may post without a browser login."""
+    key = os.environ.get("TJ_DAEMON_KEY", "").strip()
+    if key:
+        return key
+    roots = [
+        os.environ.get("TJ_DATA", ""),
+        os.path.join(os.path.dirname(_HERE), "data"),
+        os.path.join(os.environ.get("APPDATA", ""), "Traders Journal", "data"),
+    ]
+    for root in roots:
+        if not root:
+            continue
+        try:
+            with open(os.path.join(root, ".daemon-key"), "r", encoding="utf-8") as f:
+                key = f.read().strip()
+            if key:
+                return key
+        except OSError:
+            pass
+    return ""
+
+
+def _sync_headers():
+    h = {"Host": "127.0.0.1:8765"}
+    key = _daemon_key()
+    if key:
+        h["X-TJ-Key"] = key
+    return h
+
+
 
 def _calc_symbol_profit(side, symbol, volume, entry_price, exit_price):
     """Calculate profit for log-reconstructed trades using MT5 or standard contract sizes."""
@@ -355,7 +386,7 @@ def scan_local_mt5_logs_and_folders(skip_login=None, quiet=False, target_logins=
             r = requests.post(
                 f"{SERVER_URL}/api/direct-sync",
                 json=payload,
-                headers={"Host": "127.0.0.1:8765"},
+                headers=_sync_headers(),
                 timeout=5,
             )
             if r.status_code == 200:
@@ -565,7 +596,7 @@ def sync_once(quiet=False, scan_all=False, force=False):
         r = requests.post(
             f"{SERVER_URL}/api/direct-sync",
             json=payload,
-            headers={"Host": "127.0.0.1:8765"},
+            headers=_sync_headers(),
             timeout=5,
         )
         if r.status_code == 200:

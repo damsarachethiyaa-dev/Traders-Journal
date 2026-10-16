@@ -47,7 +47,7 @@
 .hero-card header>div:not(.ck-ring){min-width:0;flex:1}.ck-msg{display:block;font-size:10px;color:var(--green);min-height:12px;margin-top:2px}
 .ck-list{display:flex;flex-direction:column;gap:2px}.ck-item{display:flex;align-items:center;gap:10px;padding:6px 4px;border-radius:8px;cursor:pointer;font-size:12px;transition:background .15s}.ck-item:hover{background:rgba(127,127,127,.08)}
 .ck-item input{position:absolute;opacity:0;pointer-events:none}.ck-box{flex:none;width:17px;height:17px;border-radius:6px;border:1.5px solid var(--border2);display:grid;place-items:center;color:transparent;transition:all .22s cubic-bezier(.3,1.6,.5,1)}
-.ck-item.on .ck-box{background:var(--hero-a);border-color:var(--hero-a);color:#0b0b0e;transform:scale(1.08)}.ck-item.on .ck-t{color:var(--muted);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--hero-a) 70%,transparent)}.ck-t{flex:1;min-width:0;transition:color .2s}
+.ck-item.on .ck-box{background:transparent;border-color:var(--hero-a);color:#0b0b0e;transform:scale(1.08)}.ck-item.on .ck-t{color:var(--muted)}.ck-t{flex:1;min-width:0;transition:color .2s}
 .ck-item input:focus-visible+.ck-box{box-shadow:0 0 0 3px color-mix(in srgb,var(--hero-a) 35%,transparent)}.ck-x{opacity:0;color:var(--faint);padding:2px;border-radius:5px;transition:opacity .15s}.ck-item:hover .ck-x{opacity:1}.ck-x:hover{color:var(--red)}
 #heroCheck.all-done{border-color:color-mix(in srgb,var(--green) 45%,transparent);box-shadow:0 0 28px rgba(34,197,94,.10)}
 .hero2 .today.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 14px;align-content:center;text-align:left;margin:0;padding:0 0 0 22px;border-left:1px solid var(--border)}
@@ -176,3 +176,28 @@
 .shoot{position:absolute;left:-12%;top:var(--y);width:110px;height:1.5px;background:linear-gradient(90deg,transparent,var(--hero-a));transform:rotate(17deg);transform-origin:right center;opacity:0;animation:spShoot 9s linear var(--d,2s) infinite;filter:drop-shadow(0 0 4px var(--hero-a))}
 @keyframes spShoot{0%{opacity:0;transform:translate(0,0) rotate(17deg)}4%{opacity:1}16%{opacity:0;transform:translate(1100px,336px) rotate(17deg)}100%{opacity:0;transform:translate(1100px,336px) rotate(17deg)}}
 @media(prefers-reduced-motion:reduce){.spk,.isp{animation:none!important;opacity:.4}.shoot{display:none}.hero2 h2 #greetName,.hero2 .hero-icon:after{animation:none!important}}
+
+/* checklist motion: boxes fill from the centre, the tick draws itself, the line strikes through, the ring fills */
+.ck-item{position:relative}
+.ck-box{position:relative;overflow:hidden}
+.ck-box:before{content:'';position:absolute;inset:0;border-radius:inherit;background:var(--hero-a);transform:scale(0);transition:transform .38s cubic-bezier(.3,1.4,.5,1)}
+.ck-item.on .ck-box:before{transform:scale(1.25)}
+.ck-box svg{position:relative;z-index:1}
+.ck-box svg *{stroke-dasharray:26;stroke-dashoffset:26;transition:stroke-dashoffset .32s ease .14s}
+.ck-item.on .ck-box svg *{stroke-dashoffset:0}
+.ck-t{background:linear-gradient(color-mix(in srgb,var(--hero-a) 75%,transparent),color-mix(in srgb,var(--hero-a) 75%,transparent)) no-repeat 0 55%/0% 1.5px;transition:color .25s,background-size .4s cubic-bezier(.22,1,.36,1)}
+.ck-item.on .ck-t{background-size:100% 1.5px}
+.ck-item.ck-pop:after{content:'';position:absolute;left:4px;top:50%;width:17px;height:17px;margin-top:-8.5px;border-radius:6px;border:2px solid var(--hero-a);pointer-events:none;animation:ckRing .65s ease-out forwards}
+@keyframes ckRing{from{opacity:.9;transform:scale(1)}to{opacity:0;transform:scale(2.6)}}
+.ck-ring{border-radius:50%}
+.ck-ring .pr{transition:stroke-dashoffset .9s cubic-bezier(.22,1,.36,1),stroke .4s;filter:drop-shadow(0 0 2px var(--hero-a))}
+.ck-ring b.bump{animation:ckBump .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes ckBump{40%{transform:scale(1.35)}}
+.hero2 .all-done .ck-ring .pr{stroke:var(--green2,#19d38a);filter:drop-shadow(0 0 4px var(--green2,#19d38a))}
+.hero-card.all-done .ck-ring{animation:ckDone 1.1s ease .6s}
+@keyframes ckDone{0%{box-shadow:0 0 0 0 rgba(25,211,138,.55)}100%{box-shadow:0 0 0 16px rgba(25,211,138,0)}}
+.ck-msg:not(:empty){animation:ckMsg .5s ease}
+@keyframes ckMsg{from{opacity:0;transform:translateY(4px)}}
+html.reduce-motion .ck-box:before,html.reduce-motion .ck-box svg *,html.reduce-motion .ck-t{transition:none}
+.ck-t{flex:0 1 auto}
+.ck-x{margin-left:auto}

@@ -4,8 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Traders Journal</title>
+<link rel="icon" type="image/png" href="media/app-logo.png">
+<script src="auth-boot.js"></script>
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="settings.css">
+<link rel="stylesheet" href="auth.css">
 <link rel="stylesheet" href="daily-journal.css">
 <link rel="stylesheet" href="hero.css">
 <link rel="stylesheet" href="analytics.css">
@@ -36,9 +39,8 @@ i[data-ic]{display:inline-flex}
 
 /* ---------- sidebar ---------- */
 #sidebar{position:fixed;inset:0 auto 0 0;width:200px;background:var(--side);border-right:1px solid var(--border);padding:20px 18px 14px;display:flex;flex-direction:column;z-index:40;transition:transform .25s}
-.logo{display:flex;align-items:center;gap:9px;font:700 16px var(--head);letter-spacing:0;padding:0;white-space:nowrap;margin-left:-4px}
-.logo .mark{width:21px;height:25px;border:2px solid var(--text);border-radius:4px;position:relative}
-.logo .mark:after{content:"";position:absolute;left:-5px;top:4px;width:5px;height:3px;background:var(--text);box-shadow:0 5px 0 var(--text),0 10px 0 var(--text)}
+.logo{display:flex;align-items:center;gap:9px;font:700 16px var(--head);letter-spacing:0;padding:0;white-space:nowrap;margin-left:-4px;margin-bottom:14px}
+.logo .mark{width:28px;height:28px;border-radius:8px;display:block;flex:none;object-fit:cover;box-shadow:0 2px 10px rgba(99,102,241,.35)}
 .btn-add{margin:16px 0 12px;width:100%;height:30px;border:1px solid var(--blue);color:var(--blue);background:var(--blue-bg);border-radius:6px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:500;transition:.15s}
 .btn-add:hover{background:var(--blue);color:#fff}
 nav.menu{display:flex;flex-direction:column;gap:2px;overflow:auto}
@@ -386,7 +388,11 @@ body.collapsed #fnav{left:0}
 #toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--card2);border:1px solid var(--border2);padding:10px 16px;border-radius:9px;font-size:11.5px;font-weight:500;opacity:0;transition:.25s;z-index:300;box-shadow:var(--shadow);pointer-events:none}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 
-.tour-hl{position:relative;z-index:150;outline:2px solid var(--blue);outline-offset:4px;border-radius:10px}
+.tour-hl{position:relative;z-index:150;outline:2px solid var(--blue);outline-offset:4px;border-radius:10px;animation:tourPulse 1.8s ease-in-out infinite}
+@keyframes tourPulse{0%,100%{outline-color:rgba(59,130,246,.95);box-shadow:0 0 0 0 rgba(59,130,246,.35)}50%{outline-color:rgba(59,130,246,.55);box-shadow:0 0 0 9px rgba(59,130,246,0)}}
+#sidebar.tour-up{z-index:150}
+#tour.step{animation:tourStep .4s cubic-bezier(.22,1,.36,1)}
+@keyframes tourStep{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
 #tour{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);z-index:160;background:var(--card);border:1px solid var(--blue);border-radius:12px;padding:16px 18px;width:360px;max-width:92vw;box-shadow:var(--shadow);display:none}
 #tour.on{display:block}
 #tour h4{font:600 13px var(--head);margin-bottom:5px} #tour p{font-size:11.5px;color:var(--muted);margin-bottom:12px}
@@ -746,12 +752,11 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
 <body>
 
 <aside id="sidebar">
-  <div class="logo"><span class="mark"></span>Traders Journal</div>
-  <button class="btn-add" id="btnAdd"><i data-ic="plus" data-s="13"></i>Add Trade</button>
+  <div class="logo"><img class="mark" src="media/app-logo.png" alt="" width="28" height="28">Traders Journal</div>
   <nav class="menu" id="menu"></nav>
   <div class="side-bottom">
     <button class="nav-item" data-page="settings" style="padding-left:6px"><i data-ic="settings" data-s="14"></i>Settings</button>
-    <div class="profile" id="profile"><span class="king-avatar small" data-avatar></span><div><div class="nm" data-profile-name>Chethiya Rathnasekara</div><div class="em"><span class="king-text">KING</span> · Local premium</div></div><i class="chev" data-ic="chevrons" data-s="13"></i></div>
+    <div class="profile" id="profile" role="button" aria-label="Open my profile"><span class="king-avatar small" data-avatar></span><div><div class="nm" data-profile-first>Your profile</div><div class="em"><span class="king-text">KING</span></div></div></div>
   </div>
 </aside>
 
@@ -782,7 +787,7 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
         <div class="hero-glow" aria-hidden="true"></div>
         <div class="hero-left">
           <div class="hero-top"><div class="date"><i data-ic="calendar" data-s="13"></i><span id="dateLine"></span></div><div class="hero-clock" id="heroClock" aria-label="Current time"></div></div>
-          <div class="hero-greet"><span class="hero-icon" id="heroIcon"></span><div class="hero-gtext"><h2><span id="greet">Good evening</span>, <span id="greetName">Chethiya</span></h2><div class="tag" id="heroTag"><i data-ic="sparkles" data-s="12"></i><span id="heroTagText">Stay focused. Every trade is a learning opportunity.</span></div></div></div>
+          <div class="hero-greet"><span class="hero-icon" id="heroIcon"></span><div class="hero-gtext"><h2><span id="greet">Good evening</span>, <span id="greetName">Trader</span></h2><div class="tag" id="heroTag"><i data-ic="sparkles" data-s="12"></i><span id="heroTagText">Stay focused. Every trade is a learning opportunity.</span></div></div></div>
           <div class="hero-sessions" id="heroSessions" aria-label="Market sessions"></div>
           <div class="hero-overlap" id="heroOverlap"></div>
         </div>
@@ -1046,7 +1051,7 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
   <section class="page" id="page-settings"><div class="settings-shell">
     <div class="settings-heading"><div><div class="settings-eyebrow">YOUR WORKSPACE, YOUR RULES</div><h2>General Settings</h2><p>A personal trading workspace. Every detail stays on your PC.</p></div><button class="king-pill" data-open-settings="subscription"><i data-ic="crown" data-s="16"></i>KING EDITION<span class="king-dot"></span></button></div>
     <div class="settings-layout"><nav class="settings-nav" id="settingsNav" aria-label="Settings sections"></nav><div class="settings-content" id="settingsContent"></div></div>
-    <div class="settings-footer"><span><i data-ic="shield" data-s="13"></i>Local by design. Yours to keep.</span><span>Traders Journal · KING Edition · v1.0.0</span></div>
+    <div class="settings-footer"><span><i data-ic="shield" data-s="13"></i>Local by design. Yours to keep.</span><span>Traders Journal · KING Edition · v1.0.6</span></div>
   </div></section>
   <section class="page" id="page-analytics"></section>
 
@@ -1202,7 +1207,7 @@ const pad=n=>String(n).padStart(2,'0');
 const dkey=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 const MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const toast=(m)=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2200)};
+const toast=(m)=>{try{if(typeof nfToast==='function')nfToast(m)}catch(e){}const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2200)};
 
 const REDUCED=false;
 function tween(el,to,fmt,dur=850){const from=el._v==null?0:el._v;el._v=to;cancelAnimationFrame(el._r);
@@ -1215,7 +1220,7 @@ const def={mode:'live',range:'30',currency:'$',account:'All Accounts',theme:'dar
 let S=Object.assign({},def);
 try{Object.assign(S,JSON.parse(localStorage.getItem('tj_state')||'{}'))}catch(e){}
 S.month=NOW.getMonth();S.year=NOW.getFullYear();S.account=S.account||'All Accounts';S.currency=S.currency||'$';S.mode='live';
-const save=()=>{try{localStorage.setItem('tj_state',JSON.stringify(S));return true}catch(e){toast('Could not save: local storage is full or unavailable. Export a backup before closing.');return false}};
+const save=()=>{try{localStorage.setItem('tj_state',JSON.stringify(S));if(typeof window.syncUserStateToServer==='function')window.syncUserStateToServer();return true}catch(e){toast('Could not save: local storage is full or unavailable. Export a backup before closing.');return false}};
 let clockDay='all', recentPage=0;
 const CLOCK_DAYS=[['all','All Days'],['1','Monday'],['2','Tuesday'],['3','Wednesday'],['4','Thursday'],['5','Friday']];
 
@@ -1283,7 +1288,7 @@ function go(id){if(id==='calendar')id='logging';if(typeof id==='string'&&id.inde
  $('#page-'+(real?id:'other')).classList.add('active');
  $('#pageTitle').textContent=TITLES[id]||'Dashboard';
  if(!real){$('#phT').textContent=TITLES[id]||id;$('#phIc').innerHTML=ic(PHI[id]||'sparkles',26);$('#phP').textContent='This section is not available yet.'}
- renderMenu();window.scrollTo(0,0);renderAll();$('#fnav').classList.remove('show');onScroll()}
+ renderMenu();window.scrollTo(0,0);renderAll();try{if(typeof pgEnter==='function')pgEnter(real?id:'other')}catch(e){}$('#fnav').classList.remove('show');onScroll()}
 
 /* ================= dashboard render ================= */
 function renderAll(){
@@ -1524,9 +1529,9 @@ const RANGES=[['7','Last 7 Days'],['30','Last 30 Days'],['90','Last 90 Days'],['
 const on=(sel,fn)=>$(sel).addEventListener('click',e=>{e.stopPropagation();fn(e.currentTarget)});
 on('#bRange',a=>menu(a,RANGES,S.range,v=>{S.range=v;save();renderAll();replay()}));
 on('#pFire',a=>{const st=typeof heroStats==='function'?heroStats():{streak:0};pop(a,`<div class="note"><b>🔥 ${st.streak} day win streak</b><small>${st.streak?'Consecutive profitable trading days on your MetaTrader account.':'Close a profitable day to start your streak.'}</small></div>`,'wide')});
-on('#pBell',a=>pop(a,`<h4>Your local workspace</h4><div class="note">Your data<small>${SYNCED.filter(t=>!t.open).length} MetaTrader trades synced · ${Object.keys(S.journal).length} journal days saved on this PC.</small></div><div class="note">MetaTrader connection<small>${SRV.connections.filter(c=>c.status==='online').length} terminal(s) online. Manage sync from Connections.</small></div><div class="note">Daily journal reminder<small>${S.alerts?.dailyReminder?'Scheduled at '+esc(S.alerts.reminderTime)+' · '+esc(S.alerts.timezone):'Off. Set your schedule in Settings → Alerts.'}</small></div>`,'wide'));
+on('#pBell',a=>{if(typeof nfOpen==='function')nfOpen(a)});
 on('#pTheme',()=>{S.theme=S.theme==='dark'?'light':'dark';if(S.preferences)S.preferences.theme=S.theme;save();renderAll()});
-on('#profile',a=>{const p=pop(a,`<div class="profile-menu-head"><span class="king-avatar" data-avatar></span><div><b data-profile-name></b><small class="king-text">KING · LOCAL PREMIUM</small></div></div><button class="it" data-open-settings="profile">${ic('user',14)}My profile</button><button class="it" data-open-settings="account">${ic('settings',14)}Workspace settings</button><button class="it" data-open-settings="subscription">${ic('crown',14)}KING membership</button>`,'wide');if(typeof updateProfileUI==='function')updateProfileUI();$$('[data-open-settings]',p).forEach(b=>b.onclick=()=>openSettings(b.dataset.openSettings))});
+on('#profile',a=>{if(typeof window.openProfileMenu==='function'){window.openProfileMenu(a);return}const p=pop(a,`<div class="profile-menu-head"><span class="king-avatar" data-avatar></span><div><b data-profile-name></b><small class="king-text">KING · LOCAL PREMIUM</small></div></div><button class="it" data-open-settings="profile">${ic('user',14)}My profile</button><button class="it" data-open-settings="account">${ic('settings',14)}Workspace settings</button><button class="it" data-open-settings="subscription">${ic('crown',14)}KING membership</button>`,'wide');if(typeof updateProfileUI==='function')updateProfileUI();$$('[data-open-settings]',p).forEach(b=>b.onclick=()=>openSettings(b.dataset.openSettings))});
 
 on('#bFilter',a=>{const p=pop(a,`<h4>Filter trades</h4><label class="fld">Symbol<input id="fSym" value="${esc(S.fSym)}" placeholder="e.g. XAUUSD"></label><label class="fld">Side<select id="fSide"><option value="all">All</option><option>Long</option><option>Short</option></select></label><label class="fld">Outcome<select id="fOut"><option value="all">All</option><option value="win">Winners</option><option value="loss">Losers</option></select></label><button class="btn gh" id="fClr" style="width:100%;height:28px;font-size:11px">Clear filters</button>`,'wide');
  $('#fSide',p).value=S.fSide;$('#fOut',p).value=S.fOut;const up=()=>{S.fSym=$('#fSym',p).value.trim();S.fSide=$('#fSide',p).value;S.fOut=$('#fOut',p).value;save();renderAll()};
@@ -1552,7 +1557,7 @@ $('#fAdd').addEventListener('submit',e=>{e.preventDefault();const f=e.target;con
  const rec={id:f.tid.value||'t'+Date.now(),symbol:f.symbol.value.trim().toUpperCase(),side:f.side.value,date:f.date.value,qty:+f.qty.value,entry:+f.entry.value,exit:+f.exit.value,fees:+f.fees.value||0,strategy:f.strategy.value.trim(),account:f.account.value,notes:f.notes.value,pnl:+v.toFixed(2)};
  const previousTrades=[...S.live],ix=S.live.findIndex(x=>x.id===rec.id);if(ix>=0)S.live[ix]=rec;else S.live.push(rec);
  S.mode='live';S.showManual=true;if(!save()){S.live=previousTrades;return}closeAdd();renderAll();if(dayOpen)openDay(dayOpen);if(typeof tradeMessage==='function')tradeMessage(ix>=0?'Trade updated':'Trade saved');else toast(ix>=0?'Trade updated':'Trade saved')});
-$('#btnAdd').onclick=()=>openAdd();
+const _bAdd=$('#btnAdd');if(_bAdd)_bAdd.onclick=()=>openAdd();
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAdd();closeDay();$('#support').classList.remove('open');closePops();endTour()}});
 
 /* ================= day modal ================= */
@@ -1906,15 +1911,48 @@ function onScroll(){const show=S.page==='dashboard'&&scrollY>330;$('#fnav').clas
 addEventListener('scroll',onScroll,{passive:true});
 $$('#fnav button').forEach(b=>b.onclick=()=>{const e=document.getElementById(b.dataset.t);if(!e)return;window.scrollTo({top:e.getBoundingClientRect().top+scrollY-120,behavior:'smooth'})});
 
-/* tour */
-const STEPS=[['#sec-stats','Performance at a glance','Net P&L, win rate, profit factor, equity and risk:reward update live from your trades.'],['#sec-chart','Equity curve','Hover the chart to see daily P&L and account equity.'],['#sec-calendar','Trading calendar','Each day shows its P&L and trade count. Click any day to log a trade for it.'],['#sec-clock','Performance clock','Find your best and worst hours of the day.'],['#sec-activity','Activity heatmap','A year of trading days in one glance.'],['#bCust','Make it yours','Use Customize to show or hide any dashboard section.']];
-let ti=0,tEl=null;
-function showTour(){const[s,t,x]=STEPS[ti];if(tEl)tEl.classList.remove('tour-hl');tEl=$(s);if(!tEl||tEl.offsetParent===null){ti++;return ti<STEPS.length?showTour():endTour()}
- tEl.classList.add('tour-hl');$('#shade').classList.add('on');$('#tour').classList.add('on');$('#tTitle').textContent=t;$('#tText').textContent=x;$('#tStep').textContent=`${ti+1} / ${STEPS.length}`;$('#tBack').style.visibility=ti?'visible':'hidden';$('#tNext').textContent=ti===STEPS.length-1?'Done':'Next';
- window.scrollTo({top:Math.max(0,tEl.getBoundingClientRect().top+scrollY-140),behavior:'smooth'})}
-function endTour(){if(tEl)tEl.classList.remove('tour-hl');tEl=null;$('#shade').classList.remove('on');$('#tour').classList.remove('on')}
-on('#bTour',()=>{go('dashboard');ti=0;setTimeout(showTour,60)});
-$('#tNext').onclick=()=>{if(ti>=STEPS.length-1)return endTour();ti++;showTour()};$('#tBack').onclick=()=>{ti=Math.max(0,ti-1);showTour()};$('#tSkip').onclick=endTour;$('#shade').onclick=endTour;
+/* tour: walks through the whole app, page by page; a step's 4th value is the page to open first */
+const STEPS=[
+ ['#menu','Your navigation','Everything lives in this sidebar: Dashboard, Trade Logging, Daily Journal, Analytics and Connections.','dashboard'],
+ ['#sec-stats','Performance at a glance','Net P&L, win rate, profit factor, equity and risk:reward update live from your trades.','dashboard'],
+ ['#sec-chart','Equity curve','Hover the chart to see daily P&L and account equity.','dashboard'],
+ ['#sec-calendar','Trading calendar','Each day shows its P&L and trade count. Click any day to log a trade for it.','dashboard'],
+ ['#sec-clock','Performance clock','Find your best and worst hours of the day.','dashboard'],
+ ['#sec-activity','Activity heatmap','A year of trading days in one glance.','dashboard'],
+ ['#bCust','Make it yours','Use Customize to show or hide any dashboard section.','dashboard'],
+ ['#page-logging .page-head','Trade Logging','Log trades by hand with Add Trade, or let MetaTrader 5 sync them for you.','logging'],
+ ['#calBigCard','Calendar','Pick any day to review or log its trades.','logging'],
+ ['#page-logging table.tbl','All trades','Every trade with side, symbol, entry, exit and net P&L. Change the page limit or flip through pages.','logging'],
+ ['.dj-heading','Daily Journal','Review each trade, write what you learned and keep a streak of completed reviews.','journal'],
+ ['.dj-trades','Trades to review','Search and filter your trades, then pick one to review.','journal'],
+ ['.dj-review','Your review','Write notes, tag mistakes and attach chart screenshots. Everything stays on this PC.','journal'],
+ ['.dj-analytics','Journal analytics','Win rate, record and total P&L for the trades you have reviewed.','journal'],
+ ['#page-analytics .an-tabs','Performance','Analytics has four views. Performance shows returns, drawdown and consistency.','an-performance'],
+ ['#page-analytics .an-tabs','Edge analysis','See which symbols, sessions and setups actually make you money.','an-edge'],
+ ['#page-analytics .an-tabs','Behavior','Spot overtrading, revenge trades and other habits that cost you.','an-behavior'],
+ ['#page-analytics .an-tabs','Progress','Track your improvement over time and your personal milestones.','an-progress'],
+ ['#page-connect .cn-head','Connections','Connect MetaTrader 5 so your trades arrive automatically. Nothing leaves your PC.','connect'],
+ ['#cnTutBtn','Connection guide','Replay the 5-step Auto-Connect guide whenever you need it.','connect'],
+ ['#settingsNav','Settings','Profile, connected accounts, sign-in and people, preferences, alerts, membership, privacy and backups.','settings'],
+ ['#profile','Your profile','Click your name here any time to open your profile.','settings'],
+ ['#bTour','All set','Replay this tour any time from the Tour button on the dashboard. Happy trading!','dashboard']
+];
+let ti=0,tEl=null,tourPage='dashboard';
+function tourEnter(pg){if(!pg||pg===tourPage)return false;tourPage=pg;go(pg);return true}
+function showTour(){
+ const[s,t,x,pg]=STEPS[ti];if(tEl)tEl.classList.remove('tour-hl');tEl=null;
+ const moved=tourEnter(pg);
+ const place=()=>{
+  tEl=$(s);if(!tEl||tEl.offsetParent===null){tEl=null;ti++;return ti<STEPS.length?showTour():finishTour()}
+  const sb=$('#sidebar');if(sb)sb.classList.toggle('tour-up',!!tEl.closest('#sidebar'));
+  tEl.classList.add('tour-hl');$('#shade').classList.add('on');const card=$('#tour');card.classList.remove('step');void card.offsetWidth;card.classList.add('on','step');
+  $('#tTitle').textContent=t;$('#tText').textContent=x;$('#tStep').textContent=`${ti+1} / ${STEPS.length}`;$('#tBack').style.visibility=ti?'visible':'hidden';$('#tNext').textContent=ti===STEPS.length-1?'Done':'Next';
+  window.scrollTo({top:Math.max(0,tEl.getBoundingClientRect().top+scrollY-140),behavior:'smooth'})};
+ moved?setTimeout(place,240):place()}
+function endTour(){if(tEl)tEl.classList.remove('tour-hl');tEl=null;const sb=$('#sidebar');if(sb)sb.classList.remove('tour-up');$('#shade').classList.remove('on');$('#tour').classList.remove('on','step')}
+function finishTour(){endTour();tourPage='dashboard';if(S.page!=='dashboard')go('dashboard')}
+on('#bTour',()=>{go('dashboard');tourPage='dashboard';ti=0;setTimeout(showTour,60)});
+$('#tNext').onclick=()=>{if(ti>=STEPS.length-1)return finishTour();ti++;showTour()};$('#tBack').onclick=()=>{ti=Math.max(0,ti-1);showTour()};$('#tSkip').onclick=finishTour;$('#shade').onclick=finishTour;
 
 /* ================= MetaTrader connections ================= */
 let SRV={ok:false,version:-1,connections:[]},SYNCED=[],cnVer='mt5',cnActive=null,cnApiUrl=location.origin.startsWith('http')?location.origin:'http://127.0.0.1:8765';
@@ -1922,7 +1960,7 @@ const ago=ms=>{if(!ms)return'never';const s=Math.max(0,Math.round((Date.now()-ms
 async function api(path,method,body){const r=await fetch(path,{method:method||'GET',headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'Request failed ('+r.status+')');return j}
 function convTrade(t){const net=(t.profit||0)+(t.commission||0)+(t.swap||0);const w=new Date(t.status==='closed'&&t.exitTime?t.exitTime:t.entryTime);
  return{id:'mt-'+t.connId+'-'+t.externalId,symbol:t.symbol,side:t.side==='SHORT'?'Short':'Long',date:`${dkey(w)}T${pad(w.getHours())}:${pad(w.getMinutes())}`,qty:t.quantity,entry:t.entryPrice,exit:t.exitPrice==null?t.entryPrice:t.exitPrice,fees:+(-(t.commission||0)-(t.swap||0)).toFixed(2),strategy:'',account:t.connName,notes:t.comment||'',pnl:+net.toFixed(2),open:t.status==='open',src:'mt',entryTime:t.entryTime,exitTime:t.exitTime,stopLoss:t.stopLoss,takeProfit:t.takeProfit}}
-async function poll(){try{const r=await fetch('/api/state?v='+SRV.version,{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();SRV.ok=true;SRV.connections=j.connections;
+async function poll(){if(document.documentElement.classList.contains('auth-locked'))return;try{const r=await fetch('/api/state?v='+SRV.version,{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();SRV.ok=true;try{if(typeof nfConnections==='function')nfConnections(j.connections)}catch(e){}SRV.connections=j.connections;
   {const ca=(j.connections.find(c=>c.account&&c.account.currency)||{}).account;if(ca&&ca.currency&&S.mt5Cur!==ca.currency){S.currency=CURSYM[ca.currency]||(ca.currency+' ');S.mt5Cur=ca.currency;save()}}
   const liveConn = j.connections.find(c => c.isLiveTerminal && c.account && c.account.initialBalance) || j.connections.find(c => c.account && c.account.initialBalance);
   if(liveConn && liveConn.account.initialBalance > 0 && S.startEquity !== liveConn.account.initialBalance){
@@ -2339,7 +2377,7 @@ const TUT_DIRECT=[
    </div>`
  }
 ];
-let tutI=0,tutTrack='direct',LMST=null,tutAutoTimer=null;
+let tutI=0,tutTrack='direct',LMST=null,tutAutoTimer=null,WELCOME_ON=false;
 const tutSteps=()=>TUT_DIRECT;
 async function tutPollLocal(){try{const r=await fetch('/api/local-mt5/status',{cache:'no-store'});if(r.ok)LMST=await r.json()}catch(e){}}
 function tutLiveHtml(){
@@ -2360,6 +2398,7 @@ function toggleTutAuto(){
  tutAutoTimer=setInterval(()=>{
   const steps=tutSteps();
   if(!$('#ovTut').classList.contains('open')){stopTutAuto();return}
+  if(WELCOME_ON&&tutI>=steps.length-1){stopTutAuto();closeTut();return}
   tutI=(tutI+1)%steps.length;
   tutRender();
  },5500);
@@ -2412,7 +2451,10 @@ function tutRender(){
  if(s.live)tutPollLocal().then(()=>{const el=$('#tutLive');if(el&&$('#ovTut').classList.contains('open'))el.innerHTML=tutLiveHtml()});
  hydrate($('#ovTut'));$('#tutBody').scrollTop=0}
 function openTut(){stopTutAuto();tutTrack='direct';tutI=0;tutRender();$('#ovTut').classList.add('open');try{localStorage.setItem('tj_tut_seen','1')}catch(e){}}
-function closeTut(){stopTutAuto();const v=$('#tutVideoEl');if(v)v.pause();$('#ovTut').classList.remove('open')}
+function closeTut(){stopTutAuto();const v=$('#tutVideoEl');if(v)v.pause();$('#ovTut').classList.remove('open');
+ if(WELCOME_ON){WELCOME_ON=false;setTimeout(()=>{go('dashboard');tourPage='dashboard';ti=0;setTimeout(showTour,350)},450)}}
+/* after a sign-in: play the Auto-Connect guide on its own (every step), then walk through the whole app */
+function startWelcome(){if(WELCOME_ON||$('#ovTut').classList.contains('open'))return;WELCOME_ON=true;openTut();toggleTutAuto()}
 $('#cnTutBtn').onclick=()=>openTut();$('#tutX').onclick=closeTut;
 const bTutAuto=$('#tutAutoBtn');if(bTutAuto)bTutAuto.onclick=toggleTutAuto;
 const bTutVid=$('#tutVidBtn');if(bTutVid)bTutVid.onclick=()=>{if(tutVidMode)tutRender();else renderTutVideo()};
@@ -2425,7 +2467,7 @@ $('#ovTut').addEventListener('click',async e=>{
  if(vs){const v=$('#tutVideoEl');if(v){v.currentTime=+vs.dataset.vseek;v.play()}return}
  const b=e.target.closest('[data-tact]');
  if(!b)return;
- const act=b.dataset.tact;
+ const act=b.dataset.tact;WELCOME_ON=false;
  if(act==='run-auto'){const runBtn=$('#bRunAutoConnect');if(runBtn)runBtn.click();setTimeout(()=>{tutPollLocal().then(()=>{const el=$('#tutLive');if(el)el.innerHTML=tutLiveHtml()})},2500)}
  else if(act==='copy-ps'){const cmd=AUTO_CMDS.ps;try{await navigator.clipboard.writeText(cmd)}catch(x){}toast('Copied PowerShell auto-connect command!')}
  else if(act==='open-ps'){const psBtn=$('#bOpenPs');if(psBtn)psBtn.click()}
@@ -2451,7 +2493,7 @@ function replay(){if(REDUCED)return;$$('#page-dashboard .card').forEach((e,i)=>{
 /* init */
 function openDashboard(){
  // Restore the opening layout while keeping trades, journal notes and the starting balance.
- Object.assign(S,{page:'dashboard',mode:'live',range:S.preferences?.range||'30',theme:S.preferences?.theme||'dark',collapsed:S.preferences?.collapsed!==false,fSide:'all',fOut:'all',fSym:'',hide:{}});
+ Object.assign(S,{page:'dashboard',mode:'live',range:S.preferences?.range||'30',theme:S.preferences?.theme||'dark',collapsed:S.preferences?.collapsed===true,fSide:'all',fOut:'all',fSym:'',hide:{}});
  closeAdd();closeDay();closePops();endTour();
  $('#support').classList.remove('open');
  document.body.classList.toggle('collapsed',S.collapsed);
@@ -2459,7 +2501,9 @@ function openDashboard(){
 }
 hydrate();openDashboard();
 if(window.tjDesktop)tjDesktop.onOpen(openDashboard);
+try{if(window.TJ_AUTH&&window.TJ_AUTH.authed&&sessionStorage.getItem('tj_post_login')==='1'){sessionStorage.removeItem('tj_post_login');window.__tjJustSignedIn=true;setTimeout(startWelcome,1600)}}catch(e){}
 </script>
+<script src="auth.js"></script>
 <script src="settings.js"></script>
 <script src="daily-journal.js"></script>
 <script src="hero.js"></script>

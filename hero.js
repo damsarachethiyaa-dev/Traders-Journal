@@ -154,20 +154,43 @@
     return S.heroCheck;
   }
   const modeOf = now => (periodOf(now) === 'evening' || periodOf(now) === 'night') ? 'post' : 'pre';
+  let ckKey = '';
+  function countTo(num, to, total, ms) {
+    if (!num) return; const t0 = performance.now();
+    const step = t => { const p = Math.min(1, (t - t0) / ms); num.textContent = Math.round(to * p) + '/' + total; if (p < 1) requestAnimationFrame(step); else num.textContent = to + '/' + total; };
+    requestAnimationFrame(step);
+  }
   function renderChecklist(now) {
     const st = ckState(), mode = modeOf(now), base = mode === 'pre' ? PRE : POST, custom = (S.heroCustom[mode] || []);
     const items = base.map((t, i) => ({ id: mode + ':' + i, t, custom: false })).concat(custom.map((t, i) => ({ id: mode + ':c' + i, t, custom: true, ci: i })));
     const done = items.filter(i => st.done[i.id]).length, pct = items.length ? done / items.length : 0, C = 2 * Math.PI * 14;
     const box = el('heroCheck');
     box.querySelector('.ck-title').textContent = mode === 'pre' ? 'Pre-trade checklist' : 'End-of-day review';
-    box.querySelector('.ck-ring').innerHTML = `<svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" opacity=".15" stroke-width="3.5"/><circle class="pr" cx="18" cy="18" r="14" fill="none" stroke="var(--hero-a)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - pct)).toFixed(1)}" transform="rotate(-90 18 18)"/></svg><b>${done}/${items.length}</b>`;
-    box.querySelector('.ck-list').innerHTML = items.map(i => `<label class="ck-item ${st.done[i.id] ? 'on' : ''}"><input type="checkbox" data-ck="${i.id}" ${st.done[i.id] ? 'checked' : ''}><span class="ck-box">${li('check', 11)}</span><span class="ck-t">${escH(i.t)}</span>${i.custom ? `<button class="ck-x" data-ck-rm="${mode}:${i.ci}" aria-label="Remove item" title="Remove">${li('x', 11)}</button>` : ''}</label>`).join('');
+    const ring = box.querySelector('.ck-ring'), list = box.querySelector('.ck-list'), calm = document.documentElement.classList.contains('reduce-motion');
+    const key = mode + '|' + items.map(i => i.id + ':' + i.t).join('|'), fresh = key !== ckKey || !ring.firstChild;
+    if (fresh) {
+      // new list (first draw, mode change, item added/removed): build it empty, then fill it in step by step
+      ckKey = key;
+      ring.innerHTML = `<svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" opacity=".15" stroke-width="3.5"/><circle class="pr" cx="18" cy="18" r="14" fill="none" stroke="var(--hero-a)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${calm ? (C * (1 - pct)).toFixed(1) : C.toFixed(1)}" transform="rotate(-90 18 18)"/></svg><b>${calm ? done : 0}/${items.length}</b>`;
+      list.innerHTML = items.map(i => `<label class="ck-item" data-id="${escH(i.id)}"><input type="checkbox" data-ck="${i.id}"><span class="ck-box">${li('check', 11)}</span><span class="ck-t">${escH(i.t)}</span>${i.custom ? `<button class="ck-x" data-ck-rm="${mode}:${i.ci}" aria-label="Remove item" title="Remove">${li('x', 11)}</button>` : ''}</label>`).join('');
+    }
+    const pr = ring.querySelector('.pr'), num = ring.querySelector('b');
+    const applyRing = () => { pr.style.strokeDashoffset = (C * (1 - pct)).toFixed(1); };
+    const labels = [...list.querySelectorAll('.ck-item')];
+    labels.forEach((lab, idx) => {
+      const on = !!st.done[items[idx].id], inp = lab.querySelector('input');
+      const set = () => { lab.classList.toggle('on', on); inp.checked = on; };
+      if (fresh && !calm) { if (on) { let n = labels.slice(0, idx).filter((_, k) => st.done[items[k].id]).length; setTimeout(set, 320 + n * 170); } else set(); } else set();
+    });
+    if (fresh && !calm) { requestAnimationFrame(() => requestAnimationFrame(applyRing)); countTo(num, done, items.length, 320 + Math.max(done, 1) * 170); }
+    else { applyRing(); if (num) { const was = num.textContent; num.textContent = done + '/' + items.length; if (was !== num.textContent && !calm) { num.classList.remove('bump'); void num.offsetWidth; num.classList.add('bump'); } } }
     box.classList.toggle('all-done', pct === 1 && items.length > 0);
     box.querySelector('.ck-msg').textContent = pct === 1 ? (mode === 'pre' ? 'Ready to trade — good luck today.' : 'Review done. Rest well.') : '';
   }
   el('heroCheck').addEventListener('change', e => {
     const id = e.target.dataset && e.target.dataset.ck; if (!id) return;
     const st = ckState(); if (e.target.checked) st.done[id] = true; else delete st.done[id];
+    const lab = e.target.closest('.ck-item'); if (lab && e.target.checked) { lab.classList.remove('ck-pop'); void lab.offsetWidth; lab.classList.add('ck-pop'); setTimeout(() => lab.classList.remove('ck-pop'), 700); }
     save(); renderChecklist(new Date());
   });
   el('heroCheck').addEventListener('click', async e => {

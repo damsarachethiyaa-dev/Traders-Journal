@@ -64,13 +64,13 @@ You can download the ready-to-install Windows executables directly from the offi
 👉 **[Download Latest Windows Installer & Portable Edition](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)**
 
 1. **Standard Windows Installer (Recommended for Everyone):**
-   - File: `Traders-Journal-Setup-1.0.0.exe` (~148 MB)
+   - File: `Traders-Journal-Setup-1.0.1.exe` (~148 MB)
    - Double-click to install with a standard Windows wizard.
    - Automatically adds a **Desktop Shortcut** and a **Start Menu Shortcut**.
    - Supports seamless future updates and clean uninstallation.
 
 2. **Portable Executable:**
-   - File: `Traders-Journal-Portable-1.0.0.exe` (~148 MB)
+   - File: `Traders-Journal-Portable-1.0.1.exe` (~148 MB)
    - Runs instantly without installation or admin privileges.
    - Ideal for running from a USB thumb drive or portable folder.
 
@@ -157,6 +157,21 @@ Click your profile avatar or the **Settings** gear in the sidebar to configure:
 
 ---
 
+## 🔐 People, Sign-in & Google
+
+Traders Journal is a multi-person app that still runs 100% on your PC.
+
+- **First launch:** you create the **owner account** (name, username, password). There is no default password.
+- **Every launch:** you sign in before anything loads. The local server refuses every request without a valid session, so another program or browser tab on this PC cannot read your journal.
+- **Each person is separate:** their own profile, settings, journal, screenshots, calendar link and MetaTrader connections. People can create their own account from the sign-in screen, or the owner can add them (Settings → **Sign-in & people**), reset a password or remove someone.
+- **Change your name (or anything else) in place:** open **Settings → Profile** (or the profile menu → *Change my name*), click the value, type and press Enter.
+- **Passwords:** at least 8 characters, stored only as salted `scrypt` hashes. Five wrong attempts lock that login for a short, growing delay. Passwords can't be recovered; the owner resets them for other people.
+- **Google sign-in (verified):** Settings → **Connected accounts**. Google requires an *OAuth client* from your own Google Cloud account (free, ~3 minutes: create an **OAuth client ID** of type *Desktop app*, add yourself as a test user, paste the Client ID and secret). After that anyone can connect their Google account to import their name, email and photo, and use **Continue with Google** at sign-in. Only the Client ID/secret are stored, locally.
+- **GitHub / Windows import:** copies public details (name, photo, location, bio) to save typing. It does not verify identity and can't be used to sign in.
+- **MetaTrader on this PC:** the auto-sync from the local MT5 terminal belongs to the owner. Other people connect their own terminals with the pairing code in **Connections**.
+
+---
+
 ## 🛠️ Developer & Build Guide
 
 ### Prerequisites
@@ -214,8 +229,8 @@ Once completed, the build outputs are stored in `dist/`:
 
 | Output File | Size | Description |
 | :--- | :--- | :--- |
-| `dist/Traders-Journal-Setup-1.0.0.exe` | ~148 MB | **Full Windows NSIS Setup Installer** with desktop icon, Start menu shortcut, and uninstaller. |
-| `dist/Traders-Journal-Portable-1.0.0.exe` | ~148 MB | **Portable Standalone Executable** — runs directly without installation. |
+| `dist/Traders-Journal-Setup-1.0.1.exe` | ~148 MB | **Full Windows NSIS Setup Installer** with desktop icon, Start menu shortcut, and uninstaller. |
+| `dist/Traders-Journal-Portable-1.0.1.exe` | ~148 MB | **Portable Standalone Executable** — runs directly without installation. |
 | `dist/win-unpacked/` | — | Unpacked binary directory for instant testing without unpacking. |
 
 ---
@@ -289,8 +304,8 @@ Traders-Journal/
 ├── data/
 │   └── db.json                     # Local trades & accounts database (generated)
 ├── dist/
-│   ├── Traders-Journal-Setup-1.0.0.exe    # NSIS Windows Installer
-│   └── Traders-Journal-Portable-1.0.0.exe # Portable standalone executable
+│   ├── Traders-Journal-Setup-1.0.1.exe    # NSIS Windows Installer
+│   └── Traders-Journal-Portable-1.0.1.exe # Portable standalone executable
 ├── docs/
 │   ├── ARCHITECTURE.md             # Detailed architectural specifications & API endpoints
 │   ├── MT5_CONNECTOR_GUIDE.md      # Comprehensive MetaTrader 5 connection guide
@@ -331,6 +346,6 @@ Traders-Journal/
 
 - **Developer & Creator:** [Chethiya Rathnasekara](https://github.com)
 - **Application:** Traders Journal — KING Edition
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 
 *Happy Trading! Keep your risk managed, follow your journal rules, and protect your edge.*

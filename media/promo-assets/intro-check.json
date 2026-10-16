@@ -1,14 +1,16 @@
 {
-  "width": 1280,
-  "height": 720,
+  "width": 1920,
+  "height": 840,
   "duration": 24,
   "muted": true,
   "bridge": "function",
   "credit": "Chethiya Rathnasekara",
   "layout": {
     "height": 704,
-    "top": 63.390625,
-    "bottom": 609.40625,
+    "head": 65.34999656677246,
+    "frameTop": 84.70330810546875,
+    "frameBottom": 585.1716918945312,
+    "dock": 639.4690551757812,
     "bg": "rgb(9, 9, 11)",
     "button": "rgb(59, 130, 246)"
   },

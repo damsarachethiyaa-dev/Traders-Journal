@@ -4,6 +4,7 @@
 'use strict';
 const http = require('http'), fs = require('fs'), path = require('path'), crypto = require('crypto');
 const PORT = +process.env.PORT || 8765;
+const ISOLATED = !!process.env.TJ_ISOLATED; // tests: never read or write the project's real data folder
 const HOST = '127.0.0.1';
 const ROOT = __dirname;
 function getWritableDataDir() {
@@ -11,7 +12,7 @@ function getWritableDataDir() {
     return process.env.TJ_DATA;
   }
   const localProject = 'C:\\GPT\\local\\data';
-  if (fs.existsSync(localProject)) return localProject;
+  if (!ISOLATED && fs.existsSync(localProject)) return localProject;
   const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\', 'AppData', 'Roaming');
   return path.join(appData, 'Traders Journal', 'data');
 }
@@ -32,7 +33,7 @@ function addMt5Log(text, type = 'ok') {
 
 let db = { version: 1, connections: [], trades: {}, deletedAccounts: [] };
 function loadDb() {
-  const candidates = [DB_FILE, 'C:\\GPT\\local\\data\\db.json'];
+  const candidates = ISOLATED ? [DB_FILE] : [DB_FILE, 'C:\\GPT\\local\\data\\db.json'];
   for (const f of candidates) {
     if (!f.includes('app.asar') && fs.existsSync(f)) {
       try {
@@ -54,6 +55,134 @@ function loadDb() {
 }
 loadDb();
 
+function httpsFetchBuffer(rawUrl, depth = 0) {
+  const https = require('https');
+  return new Promise((resolve, reject) => {
+    let u;
+    try { u = new URL(rawUrl); } catch (e) { return reject(e); }
+    const req = https.get(u, {
+      headers: { 'User-Agent': 'TradersJournal-Local/1.0', 'Accept': 'application/json, image/*, */*' },
+      timeout: 5500
+    }, res => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        res.resume();
+        if (depth >= 4) return reject(new Error('Too many redirects'));
+        return httpsFetchBuffer(new URL(res.headers.location, u).toString(), depth + 1).then(resolve, reject);
+      }
+      if (res.statusCode !== 200) {
+        res.resume();
+        return reject(new Error('HTTP ' + res.statusCode));
+      }
+      const chunks = [];
+      let len = 0;
+      res.on('data', c => {
+        len += c.length;
+        if (len > 4 * 1024 * 1024) { req.destroy(new Error('Response too large')); }
+        else chunks.push(c);
+      });
+      res.on('end', () => resolve({ buffer: Buffer.concat(chunks), contentType: res.headers['content-type'] || '' }));
+      res.on('error', reject);
+    });
+    req.on('timeout', () => req.destroy(new Error('Timeout')));
+    req.on('error', reject);
+  });
+}
+
+function smartSplitName(fullOrLocal, fallbackEmail = '') {
+  const raw = String(fullOrLocal || '').trim();
+  const cleaned = raw.replace(/@.*$/, '').replace(/[._+-]+/g, ' ').replace(/\d+$/g, '').trim();
+  if (!cleaned) return { firstName: 'Trader', lastName: '' };
+  const parts = cleaned.split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+  return {
+    firstName: parts[0] || 'Trader',
+    lastName: parts.slice(1).join(' ')
+  };
+}
+
+async function lookupExternalAccount(provider, query) {
+  const prov = String(provider || 'google').toLowerCase();
+  const q = String(query || '').trim();
+
+  if (prov === 'windows') {
+    const os = require('os');
+    const cp = require('child_process');
+    const info = os.userInfo();
+    let gitName = '', gitEmail = '';
+    try { gitName = cp.execSync('git config --global user.name', { encoding: 'utf8', timeout: 1500, windowsHide: true }).trim(); } catch (e) {}
+    try { gitEmail = cp.execSync('git config --global user.email', { encoding: 'utf8', timeout: 1500, windowsHide: true }).trim(); } catch (e) {}
+    const displaySource = gitName || info.username || process.env.USERNAME || 'Windows User';
+    const names = smartSplitName(displaySource, gitEmail);
+    const handle = (info.username || names.firstName).toLowerCase().replace(/[^a-z0-9._-]/g, '');
+    return {
+      firstName: names.firstName,
+      lastName: names.lastName,
+      username: handle || 'trader.pc',
+      email: gitEmail || `${handle}@local.pc`,
+      country: 'Sri Lanka',
+      location: os.hostname() ? `${os.hostname()} · Local PC` : 'Windows Workstation',
+      bio: `Verified local Windows workstation profile (${info.username || 'PC'})`,
+      photo: '',
+      connectedAccount: {
+        provider: 'windows',
+        email: gitEmail || `${handle}@local.pc`,
+        name: [names.firstName, names.lastName].filter(Boolean).join(' '),
+        handle: info.username || handle,
+        connectedAt: Date.now()
+      }
+    };
+  }
+
+  if (prov === 'github') {
+    if (!q) throw new Error('Enter a GitHub username or email address first.');
+    let ghUser = null;
+    try {
+      if (q.includes('@')) {
+        const searchRes = await httpsFetchBuffer(`https://api.github.com/search/users?q=${encodeURIComponent(q)}+in:email`);
+        const parsed = JSON.parse(searchRes.buffer.toString('utf8'));
+        if (parsed.items && parsed.items[0] && parsed.items[0].login) {
+          const uRes = await httpsFetchBuffer(`https://api.github.com/users/${encodeURIComponent(parsed.items[0].login)}`);
+          ghUser = JSON.parse(uRes.buffer.toString('utf8'));
+        }
+      } else {
+        const cleanHandle = q.replace(/^@/, '');
+        const uRes = await httpsFetchBuffer(`https://api.github.com/users/${encodeURIComponent(cleanHandle)}`);
+        ghUser = JSON.parse(uRes.buffer.toString('utf8'));
+      }
+    } catch (e) {
+      throw new Error('Could not find that GitHub profile. Check the username or internet connection.');
+    }
+    if (!ghUser || !ghUser.login) throw new Error('GitHub user not found.');
+    let photoData = '';
+    if (ghUser.avatar_url) {
+      try {
+        const imgRes = await httpsFetchBuffer(ghUser.avatar_url);
+        const mime = imgRes.contentType.includes('jpeg') || imgRes.contentType.includes('jpg') ? 'image/jpeg' : (imgRes.contentType.includes('webp') ? 'image/webp' : 'image/png');
+        photoData = `data:${mime};base64,${imgRes.buffer.toString('base64')}`;
+      } catch (e) {}
+    }
+    const names = smartSplitName(ghUser.name || ghUser.login, ghUser.email || q);
+    return {
+      firstName: names.firstName,
+      lastName: names.lastName,
+      username: ghUser.login,
+      email: ghUser.email || (q.includes('@') ? q : `${ghUser.login}@users.noreply.github.com`),
+      location: ghUser.location || '',
+      country: ghUser.location ? ghUser.location.split(',').pop().trim() : '',
+      bio: ghUser.bio || `Connected via GitHub (@${ghUser.login})`,
+      photo: photoData,
+      connectedAccount: {
+        provider: 'github',
+        email: ghUser.email || (q.includes('@') ? q : ''),
+        name: ghUser.name || ghUser.login,
+        handle: ghUser.login,
+        connectedAt: Date.now()
+      }
+    };
+  }
+
+  throw new Error('Unknown account provider.');
+}
+
 const runs = {}; // in-memory snapshot tracking per connection
 let saveTimer;
 function save() {
@@ -63,7 +192,7 @@ function save() {
     const targets = new Set();
     if (!DB_FILE.includes('app.asar')) targets.add(DB_FILE);
     const projDb = 'C:\\GPT\\local\\data\\db.json';
-    if (!projDb.includes('app.asar') && fs.existsSync('C:\\GPT\\local\\data')) targets.add(projDb);
+    if (!ISOLATED && !projDb.includes('app.asar') && fs.existsSync('C:\\GPT\\local\\data')) targets.add(projDb);
     for (const f of targets) {
       try {
         fs.mkdirSync(path.dirname(f), { recursive: true });
@@ -142,6 +271,23 @@ function touch(c, b) {
   if (b && b.terminalBuild) c.terminalBuild = num(b.terminalBuild);
 }
 
+/* ---------- accounts, sessions and per-person data ---------- */
+const DAEMON_KEY = crypto.randomBytes(24).toString('hex'); // lets the local MT5 sync script post without a browser session
+process.env.TJ_DAEMON_KEY = DAEMON_KEY;
+try { fs.mkdirSync(DATA_DIR, { recursive: true }); fs.writeFileSync(path.join(DATA_DIR, '.daemon-key'), DAEMON_KEY, { mode: 0o600 }); } catch (e) { /* the sync script then needs the env var */ }
+const safeEqual = (a, b) => { a = Buffer.from(String(a)); b = Buffer.from(String(b)); return a.length === b.length && crypto.timingSafeEqual(a, b); };
+const auth = require('./accounts.js').createAuth({
+  get db() { return db; }, send, readBody, save, httpsFetchBuffer, lookupExternalAccount, HOST, PORT,
+  onFirstUser(u) { if (db.gcal) { u.gcal = db.gcal; delete db.gcal; } },
+  onUserDeleted(u) {
+    for (const c of db.connections.filter(x => x.ownerId === u.id)) delete db.trades[c.id];
+    db.connections = db.connections.filter(x => x.ownerId !== u.id);
+    bump();
+  }
+});
+auth.migrateLegacy();
+const ownerIdOf = c => c.ownerId || (auth.primaryAdmin() || {}).id || null;
+
 async function handleEA(req, res, pathname) {
   const b = await readBody(req);
   if (pathname === '/api/metatrader/pair') {
@@ -211,13 +357,34 @@ async function handleEA(req, res, pathname) {
 async function handleApp(req, res, url) {
   const p = url.pathname, m = req.method;
   if (p === '/api/health') return send(res, 200, { ok: true, version: db.version });
-  if (p.startsWith('/api/gcal/')) return require('./gcal.js').handle(req, res, url, { db, save, bump, send, readBody });
+
+  if (p.startsWith('/api/auth/')) return await auth.handle(req, res, url);
+
+  // Everything below needs a logged-in person (or the local sync script's key for /api/direct-sync).
+  const sess = auth.sessionFrom(req);
+  const isDaemon = p === '/api/direct-sync' && m === 'POST' && req.headers['x-tj-key'] && safeEqual(req.headers['x-tj-key'], DAEMON_KEY);
+  if (!sess && !isDaemon) return send(res, 401, { error: 'Log in to continue.', code: 'AUTH' });
+  const me = sess ? sess.user : null;
+  if (p === '/api/direct-sync' && !isDaemon && !(me && me.admin)) return send(res, 403, { error: 'Only the owner of this PC can push local MetaTrader data.' });
+  const mine = c => !!me && ownerIdOf(c) === me.id;
+  if (p.startsWith('/api/gcal/')) {
+    const view = new Proxy({}, {
+      get: (_, k) => (k === 'gcal' ? me.gcal : undefined),
+      set: (_, k, v) => { if (k === 'gcal') me.gcal = v; return true; },
+      deleteProperty: (_, k) => { if (k === 'gcal') delete me.gcal; return true; }
+    });
+    return require('./gcal.js').handle(req, res, url, { db: view, save, bump, send, readBody });
+  }
+  if (p.startsWith('/api/local-mt5/') && p !== '/api/local-mt5/status' && !me.admin) return send(res, 403, { error: 'Only the owner of this PC can manage the local MetaTrader terminal.' });
+
   if (p === '/api/state' && m === 'GET') {
     const v = +url.searchParams.get('v');
-    const out = { version: db.version, serverTime: now(), connections: db.connections.map(pub) };
+    if (!me) return send(res, 401, { error: 'Log in to continue.', code: 'AUTH' });
+    const conns = db.connections.filter(mine);
+    const out = { version: db.version, serverTime: now(), connections: conns.map(pub) };
     if (v !== db.version) {
       out.trades = [];
-      for (const c of db.connections) for (const t of Object.values(db.trades[c.id] || {})) out.trades.push(Object.assign({ connId: c.id, connName: c.name }, t));
+      for (const c of conns) for (const t of Object.values(db.trades[c.id] || {})) out.trades.push(Object.assign({ connId: c.id, connName: c.name }, t));
     }
     return send(res, 200, out);
   }
@@ -259,7 +426,8 @@ async function handleApp(req, res, url) {
         syncOpenPositions: true,
         syncRequestVersion: 0,
         completedVersion: 1,
-        importStartDate: ''
+        importStartDate: '',
+        ownerId: ((me && me.admin ? me : auth.primaryAdmin()) || {}).id || null
       };
       db.connections.push(c);
     } else {
@@ -283,7 +451,7 @@ async function handleApp(req, res, url) {
     return send(res, 200, { ok: true, connection: pub(c), count: b.trades ? b.trades.length : 0 });
   }
   if (p === '/api/local-mt5/status' && m === 'GET') {
-    const mt5Conns = db.connections.filter(x => x.id && x.id.startsWith('mt5-'));
+    const mt5Conns = db.connections.filter(x => x.id && x.id.startsWith('mt5-') && mine(x));
     const liveConn = mt5Conns.find(x => x.isLiveTerminal || (x.account && x.account.source === 'live_terminal')) || mt5Conns[0] || null;
     return send(res, 200, {
       autoSync: isAutoSyncEnabled,
@@ -495,14 +663,14 @@ async function handleApp(req, res, url) {
       id: crypto.randomBytes(6).toString('hex'), name: String(b.name || 'MetaTrader Account').slice(0, 60), platform,
       code: genCode(), codeExpires: now() + CODE_TTL_MS, token: null, deviceId: null, account: null, createdAt: now(),
       lastSeen: 0, syncEnabled: true, syncOpenPositions: true, syncRequestVersion: 0, completedVersion: 0,
-      importStartDate: /^\d{4}-\d{2}-\d{2}$/.test(b.importStartDate || '') ? b.importStartDate : ''
+      importStartDate: /^\d{4}-\d{2}-\d{2}$/.test(b.importStartDate || '') ? b.importStartDate : '', ownerId: me.id
     };
     db.connections.push(c); bump();
     return send(res, 201, Object.assign(pub(c), { apiUrl: 'http://' + HOST + ':' + PORT }));
   }
   const mm = p.match(/^\/api\/connections\/([a-zA-Z0-9_-]+)(\/sync)?$/);
   if (mm) {
-    const c = db.connections.find(x => x.id === mm[1]);
+    const c = db.connections.find(x => x.id === mm[1] && mine(x));
     if (!c) return send(res, 404, { error: 'not found' });
     if (mm[2] && m === 'POST') {
       c.syncRequestVersion = (c.syncRequestVersion | 0) + 1;
@@ -537,7 +705,7 @@ async function handleApp(req, res, url) {
   if (p === '/download/mt5' && m === 'GET') {
     let src;
     try { src = fs.readFileSync(EA_TEMPLATE, 'utf8'); } catch (e) { return send(res, 404, { error: 'connector template missing' }); }
-    const c = db.connections.find(x => x.id === url.searchParams.get('conn'));
+    const c = db.connections.find(x => x.id === url.searchParams.get('conn') && mine(x));
     src = src.replace(/(input\s+string\s+ApiBaseUrl\s*=\s*)"[^"]*"/, '$1"http://' + HOST + ':' + PORT + '"');
     if (c && !c.token) src = src.replace(/(input\s+string\s+ConnectionCode\s*=\s*)"[^"]*"/, '$1"' + c.code + '"');
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Content-Disposition': 'attachment; filename="TradersJournalSync_MT5.mq5"', 'Cache-Control': 'no-store' });
@@ -561,10 +729,10 @@ const server = http.createServer(async (req, res) => {
     }
     let rel = decodeURIComponent(url.pathname); if (rel === '/') rel = '/index.html';
     const cleanRel = rel.replace(/^[/\\]+/, '');
-    const publicFile = ['index.html','settings.js','settings.css','daily-journal.js','daily-journal.css','hero.js','hero.css','analytics.js','analytics.css'].includes(cleanRel) || /^fonts[\\/][^\\/]+\.(css|woff2|woff)$/.test(cleanRel) || /^media[\\/][^\\/]+\.(mp4|webm|jpg|png|mp3)$/.test(cleanRel);
+    const publicFile = ['index.html','auth-boot.js','auth.css','auth.js','settings.js','settings.css','daily-journal.js','daily-journal.css','hero.js','hero.css','analytics.js','analytics.css'].includes(cleanRel) || /^fonts[\\/][^\\/]+\.(css|woff2|woff)$/.test(cleanRel) || /^media[\\/][^\\/]+\.(mp4|webm|jpg|png|mp3)$/.test(cleanRel);
     if (!publicFile) { res.writeHead(404); return res.end('Not found'); }
     const liveCandidate = path.join('C:\\GPT\\local', cleanRel);
-    const file = (!liveCandidate.includes('app.asar') && fs.existsSync(liveCandidate)) ? liveCandidate : path.normalize(path.join(ROOT, cleanRel));
+    const file = (!ISOLATED && !liveCandidate.includes('app.asar') && fs.existsSync(liveCandidate)) ? liveCandidate : path.normalize(path.join(ROOT, cleanRel));
     const ext = path.extname(file).toLowerCase();
     const contentType = MIME[ext] || 'application/octet-stream';
     if (ext === '.mp4' || ext === '.webm') {
@@ -634,7 +802,7 @@ let mt5Worker = null;
 let isAutoSyncEnabled = true;
 
 function startMt5SyncWorker() {
-  if (!isAutoSyncEnabled) return;
+  if (!isAutoSyncEnabled || ISOLATED) return;
   if (mt5Worker) return;
   const pyExe = getPythonExe();
   const pyScript = findLocalPath('tools/mt5_sync.py');
@@ -681,6 +849,7 @@ server.listen(PORT, HOST, () => {
 
 module.exports = {
   server,
+  auth,
   PORT,
   HOST,
   flush: () => {
@@ -688,8 +857,10 @@ module.exports = {
       const data = JSON.stringify(db, null, 2);
       fs.mkdirSync(DATA_DIR, { recursive: true });
       fs.writeFileSync(DB_FILE, data);
-      fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
-      fs.writeFileSync(path.join(ROOT, 'data', 'db.json'), data);
+      if (!ISOLATED) {
+        fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
+        fs.writeFileSync(path.join(ROOT, 'data', 'db.json'), data);
+      }
     } catch (e) { /* ignore */ }
   },
   stopWorker: () => {

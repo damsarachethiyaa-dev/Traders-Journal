@@ -36,6 +36,8 @@ contextBridge.exposeInMainWorld('tjDesktop', {
   getZoom: () => webFrame.getZoomFactor(),
   notify: (title, body) => ipcRenderer.invoke('tj:notify', { title, body }),
   openDataFolder: () => ipcRenderer.invoke('tj:open-data'),
+  deviceKey: () => ipcRenderer.invoke('tj:device-key'),
+  setLoginMode: on => ipcRenderer.send('tj:login-mode', !!on),
   onOpen: callback => { ipcRenderer.on('tj:open', () => callback()); }
 });
 

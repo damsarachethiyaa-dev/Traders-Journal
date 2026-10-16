@@ -18,14 +18,21 @@ test('MT5 pairing, download and sync stay on the local server', async () => {
   const originalPort = process.env.PORT, originalData = process.env.TJ_DATA;
   process.env.PORT = String(port);
   process.env.TJ_DATA = data;
+  process.env.TJ_ISOLATED = '1'; // never touch the real project data folder
   const backend = require('../server.js');
   if (!backend.server.listening) await once(backend.server, 'listening');
   const base = `http://127.0.0.1:${port}`;
-  const request = (route, method = 'GET', body, extra = {}) => fetch(base + route, {
-    method,
-    headers: { 'Content-Type': 'application/json', ...extra },
-    body: body === undefined ? undefined : JSON.stringify(body)
-  });
+  let cookie = '';
+  const request = async (route, method = 'GET', body, extra = {}) => {
+    const response = await fetch(base + route, {
+      method,
+      headers: { 'Content-Type': 'application/json', ...(cookie ? { Cookie: cookie } : {}), ...extra },
+      body: body === undefined ? undefined : JSON.stringify(body)
+    });
+    const setCookie = response.headers.get('set-cookie');
+    if (setCookie) cookie = setCookie.split(';')[0];
+    return response;
+  };
   try {
     assert.equal(backend.server.address().address, '127.0.0.1');
     assert.equal((await request('/')).status, 200);
@@ -43,6 +50,8 @@ test('MT5 pairing, download and sync stay on the local server', async () => {
     });
     assert.equal(foreignHostStatus, 403);
     assert.equal((await request('/api/connections', 'POST', { name: 'Untrusted' }, { Origin: 'https://remote.example' })).status, 403);
+    assert.equal((await request('/api/connections', 'POST', { name: 'Anonymous' }, { Origin: base })).status, 401, 'the API needs a login');
+    assert.equal((await request('/api/auth/register', 'POST', { firstName: 'Test', username: 'tester', password: 'a-long-test-password' }, { Origin: base })).status, 201);
     const response = await request('/api/connections', 'POST', { name: 'Local test', platform: 'mt5' }, { Origin: base });
     assert.equal(response.status, 201);
     const connection = await response.json();
@@ -74,6 +83,7 @@ test('MT5 pairing, download and sync stay on the local server', async () => {
     await new Promise(resolve => setTimeout(resolve, 200));
     if (originalPort === undefined) delete process.env.PORT; else process.env.PORT = originalPort;
     if (originalData === undefined) delete process.env.TJ_DATA; else process.env.TJ_DATA = originalData;
+    delete process.env.TJ_ISOLATED;
     const resolved = path.resolve(data);
     if (path.dirname(resolved) === path.resolve(os.tmpdir()) && path.basename(resolved).startsWith('tj-local-test-')) {
       fs.rmSync(resolved, { recursive: true, force: true });

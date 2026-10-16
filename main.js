@@ -2,7 +2,7 @@
 // Starts the local backend (server.js) inside the app and shows the dashboard in a native window.
 // The backend keeps running in the system tray so MetaTrader can keep syncing when the window is closed.
 'use strict';
-const { app, BrowserWindow, Tray, Menu, shell, dialog, nativeImage, session, ipcMain, Notification } = require('electron');
+const { app, BrowserWindow, Tray, Menu, shell, dialog, nativeImage, session, ipcMain, Notification, screen } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -20,16 +20,23 @@ slog('Single instance lock:', gotLock);
 if (!gotLock) { slog('Lock failed, quitting'); app.quit(); } else { boot(); }
 
 function boot() {
+  const localProjectData = 'C:\\GPT\\local\\data';
   const localData = path.join(__dirname, 'data');
   const userData = app.getPath('userData');
   const appData = path.join(userData, 'data');
-  process.env.TJ_DATA = fs.existsSync(localData) ? localData : appData;
+  process.env.TJ_DATA = (!__dirname.includes('app.asar') && fs.existsSync(localData)) ? localData : (fs.existsSync(localProjectData) ? localProjectData : appData);
+  // Lets the app's own window sign in automatically. Browsers and other programs never see this key.
+  const DEVICE_KEY = require('crypto').randomBytes(24).toString('hex');
+  process.env.TJ_DEVICE_KEY = DEVICE_KEY;
   const SETTINGS_FILE = path.join(userData, 'settings.json');
   const settings = Object.assign({ hideOnClose: true, bounds: null, maximized: false }, readJson(SETTINGS_FILE));
   const saveSettings = () => { try { fs.mkdirSync(userData, { recursive: true }); fs.writeFileSync(SETTINGS_FILE, JSON.stringify(settings)); } catch (e) { /* ignore */ } };
 
   let win = null, tray = null, quitting = false, backend = null, shownTrayHint = false;
   let intro = null, mainReady = false;
+  // The sign-in screen is a fixed 1430 x 907 window; once signed in the dashboard is maximized as before.
+  const LOGIN_W = 1430, LOGIN_H = 907;
+  let loginMode = false;
   const startHidden = process.argv.includes('--hidden');
   const iconPath = path.join(__dirname, 'build', 'icon.png');
   const icon = fs.existsSync(iconPath) ? nativeImage.createFromPath(iconPath) : undefined;
@@ -107,6 +114,7 @@ function boot() {
   const OVERLAY = { dark: { color: '#09090b', symbolColor: '#e8e8ea' }, light: { color: '#f5f6f8', symbolColor: '#14161a' } };
   let overlayTheme = 'dark', overlayHeight = 50;
   const applyOverlay = () => {};
+  ipcMain.handle('tj:device-key', e => (win && e.sender === win.webContents ? DEVICE_KEY : ''));
   ipcMain.handle('tj:theme', (e, t) => {});
   ipcMain.handle('tj:zoom', (e, z) => {});
   ipcMain.handle('tj:notify', (e, message) => {
@@ -122,7 +130,7 @@ function boot() {
   let bTimer;
   function rememberBounds() {
     clearTimeout(bTimer);
-    bTimer = setTimeout(() => { if (win && !win.isMaximized() && !win.isMinimized() && !win.isFullScreen()) { settings.bounds = win.getBounds(); saveSettings(); } }, 400);
+    bTimer = setTimeout(() => { if (win && !loginMode && !win.isMaximized() && !win.isMinimized() && !win.isFullScreen()) { settings.bounds = win.getBounds(); saveSettings(); } }, 400);
   }
 
   function showWindow() {
@@ -132,10 +140,33 @@ function boot() {
     win.webContents.send('tj:open');
   }
 
+  function applyWindowMode() {
+    if (!win || win.isDestroyed()) return;
+    if (loginMode) {
+      if (win.isFullScreen()) win.setFullScreen(false);
+      if (win.isMaximized()) win.unmaximize();
+      const area = screen.getDisplayMatching(win.getBounds()).workArea;
+      const w = Math.min(LOGIN_W, area.width), h = Math.min(LOGIN_H, area.height);
+      win.setMinimumSize(Math.min(1000, w), Math.min(640, h));
+      win.setResizable(false); win.setMaximizable(false);
+      win.setContentSize(w, h); win.center();
+      try { win.setTitleBarOverlay({ color: '#00000000', symbolColor: '#e8e8ea', height: 36 }); } catch (e) { /* older shells */ }
+    } else {
+      win.setMaximizable(true); win.setResizable(true); win.setMinimumSize(1000, 640);
+      try { win.setTitleBarOverlay({ color: '#09090b', symbolColor: '#e8e8ea', height: 50 }); } catch (e) { /* older shells */ }
+      if (win.isVisible() && !win.isMaximized()) win.maximize();
+    }
+  }
+  ipcMain.on('tj:login-mode', (e, on) => {
+    if (!win || win.isDestroyed() || e.sender !== win.webContents) return;
+    on = !!on; if (on === loginMode) return;
+    loginMode = on; applyWindowMode();
+  });
+
   function revealWindow() {
     if (!win || win.isDestroyed()) return;
     if (win.isMinimized()) win.restore();
-    win.maximize();
+    if (loginMode) applyWindowMode(); else win.maximize();
     win.show();
     win.focus();
     win.moveTop();

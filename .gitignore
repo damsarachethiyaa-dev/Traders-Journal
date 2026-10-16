@@ -24,3 +24,8 @@ err.txt
 Thumbs.db
 Desktop.ini
 $RECYCLE.BIN/
+
+# Local-only folders: user accounts and keys, packaged copies, safety backups
+data/
+Traders-Journal-Unpacked/
+backup-*/

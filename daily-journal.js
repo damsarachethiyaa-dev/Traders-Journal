@@ -77,12 +77,13 @@
 
   /* ---------- chart screenshots (separate storage key) ---------- */
   let IMGS = null;
-  const imgs = () => { if (!IMGS) { try { IMGS = JSON.parse(localStorage.getItem('tj_dj_imgs') || '{}'); } catch (e) { IMGS = {}; } } return IMGS; };
+  const IMG_KEY = 'tj_dj_imgs' + (window.TJ_USER_ID ? '_' + window.TJ_USER_ID : ''); // each person keeps their own screenshots
+  const imgs = () => { if (!IMGS) { try { IMGS = JSON.parse(localStorage.getItem(IMG_KEY) || '{}'); } catch (e) { IMGS = {}; } } return IMGS; };
   const imgGet = (id, kind) => imgs()[id + ':' + kind] || '';
   function imgSet(id, kind, data) {
     const m = imgs(), k = id + ':' + kind, old = m[k];
     if (data) m[k] = data; else delete m[k];
-    try { localStorage.setItem('tj_dj_imgs', JSON.stringify(m)); return true; }
+    try { localStorage.setItem(IMG_KEY, JSON.stringify(m)); return true; }
     catch (e) { if (old) m[k] = old; else delete m[k]; toast('Storage is full — remove an older screenshot first'); return false; }
   }
   function shrink(file) {

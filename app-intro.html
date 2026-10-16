@@ -1,8 +1,50 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; font-src 'self'; media-src 'self'; img-src 'self' data:;"><title>Traders Journal — Welcome</title><link rel="stylesheet" href="fonts/fonts.css"><link rel="stylesheet" href="app-intro.css"></head>
-<body><main aria-label="Traders Journal introduction">
-<video id="introFilm" src="media/traders-journal-intro.mp4" poster="media/traders-journal-poster.jpg" autoplay muted playsinline preload="auto" aria-label="Traders Journal animated introduction"></video>
-<div class="shade"></div><div class="top"><span class="brand"><span class="status" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h13a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z M2 7h4 M2 12h4 M2 17h4 M9 16l3-4 3 2 3-6"/></svg></span>TRADERS JOURNAL <small>KING EDITION</small></span><span class="local">YOUR DESKTOP WORKSPACE</span></div>
-<div class="bottom"><div class="credit"><span>CREATED BY</span><strong>Chethiya Rathnasekara</strong></div><div class="actions"><button id="sound" aria-pressed="false" type="button">Sound off</button><button id="enter" class="enter" type="button" autofocus>Enter app <span aria-hidden="true">↗</span></button></div></div>
-<div class="progress" aria-hidden="true"><span id="progress"></span></div><p class="sr-only" id="message" role="status">The introduction ends automatically. Press Enter or Escape to open your journal.</p>
-</main><script src="app-intro-ui.js"></script></body></html>
+<body>
+<div class="stage" id="stage">
+  <canvas class="dust" id="dust" width="1280" height="720" aria-hidden="true"></canvas>
+  <canvas class="ambi" id="ambi" width="160" height="70" aria-hidden="true"></canvas>
+  <div class="tint" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="head">
+    <div class="glass brand">
+      <span class="logo"><img src="media/app-logo.png" alt="" width="30" height="30"><i class="orbit"></i></span>
+      <span class="name">TRADERS JOURNAL</span><small class="pill">KING EDITION</small>
+    </div>
+    <div class="credit"><span>CREATED BY</span><strong>Chethiya Rathnasekara</strong></div>
+    <div class="glass meta">
+      <span class="chip"><i class="dot"></i>100% LOCAL</span>
+      <span class="ws">YOUR DESKTOP WORKSPACE</span>
+      <span class="clock" id="clock" aria-hidden="true">--:--</span>
+    </div>
+  </header>
+
+  <main class="frame" id="frame" aria-label="Traders Journal introduction">
+    <div class="vwrap">
+      <video id="introFilm" src="media/traders-journal-intro.mp4" poster="media/traders-journal-poster.jpg" autoplay muted playsinline preload="auto" aria-label="Traders Journal animated introduction"></video>
+      <div class="fixlogo" id="fixLogo" aria-hidden="true"><img src="media/app-logo.png" alt="" width="64" height="64"></div>
+      <div class="scan" aria-hidden="true"></div>
+    </div>
+    <button class="playflash" id="playflash" type="button" aria-label="Play or pause"><span id="pfIcon"></span></button>
+    <svg class="ring" viewBox="0 0 1200 525" preserveAspectRatio="none" aria-hidden="true"><rect class="rt" x="1" y="1" width="1198" height="523" rx="17"/><rect class="rv" id="ringArc" x="1" y="1" width="1198" height="523" rx="17" pathLength="1"/></svg>
+  </main>
+
+  <footer class="dock glass">
+    <div class="now" id="now">
+      <svg class="pr" viewBox="0 0 48 48" aria-hidden="true"><circle class="t" cx="24" cy="24" r="20"/><circle class="v" id="prArc" cx="24" cy="24" r="20"/></svg>
+      <b class="num" id="chNum">01</b>
+      <div class="txt"><span class="ttl" id="chTitle"></span><span class="desc" id="chText"></span></div>
+    </div>
+    <div class="mid">
+      <div class="chapters" id="chapters" role="tablist" aria-label="Chapters"></div>
+      <div class="keys" aria-hidden="true"><kbd>Space</kbd> pause <kbd>←</kbd><kbd>→</kbd> chapters <kbd>M</kbd> sound <kbd>Esc</kbd> skip</div>
+    </div>
+    <div class="actions">
+      <button id="sound" type="button" aria-pressed="false"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="soundLbl">Sound off</span></button>
+      <button id="enter" class="enter" type="button" autofocus>Enter app <span aria-hidden="true">↗</span></button>
+    </div>
+  </footer>
+  <p class="sr-only" id="message" role="status">The introduction ends automatically. Press Enter or Escape to open your journal.</p>
+</div>
+<script src="app-intro-ui.js"></script></body></html>
