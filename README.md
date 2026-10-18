@@ -349,3 +349,9 @@ Traders-Journal/
 - **Version:** 1.0.1
 
 *Happy Trading! Keep your risk managed, follow your journal rules, and protect your edge.*
+
+---
+
+## 🔌 MT5 account detection setup (v1.0.7)
+
+Account detection needs Python with the `MetaTrader5` and `requests` packages. Run `setup-mt5.bat` once (it creates a local `.venv`), or install them into any Python on your PATH (`pip install MetaTrader5 requests`). Then open MetaTrader 5, log in, and use **Connections → Scan & Choose Accounts**.

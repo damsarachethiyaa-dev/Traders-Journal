@@ -6,7 +6,7 @@ const { app, BrowserWindow, Tray, Menu, shell, dialog, nativeImage, session, ipc
 const path = require('path');
 const fs = require('fs');
 
-const LOG_FILE = 'C:\\GPT\\local\\startup.log';
+const LOG_FILE = path.join(app.getPath('userData'), 'startup.log');
 function slog(...args) {
   try { fs.appendFileSync(LOG_FILE, `${new Date().toISOString()} [${process.pid}] ${args.join(' ')}\n`); } catch(e){}
 }

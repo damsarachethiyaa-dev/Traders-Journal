@@ -1,7 +1,7 @@
 {
   "name": "traders-journal",
   "productName": "Traders Journal",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Traders Journal desktop app with MetaTrader 5 sync",
   "main": "main.js",
   "author": "Traders Journal",
@@ -57,6 +57,8 @@
       "daily-journal.css",
       "fonts/**",
       "connector/**",
+      "tools/mt5_sync.py",
+      "tools/auto_connect_mt5.ps1",
       "build/icon.png",
       "package.json"
     ],

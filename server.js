@@ -226,7 +226,7 @@ function readBody(req) {
 function statusOf(c) {
   if (c.token === 'direct-local-token') {
     if (c.account && c.account.source === 'local_history') return 'online';
-    return now() - (c.lastSeen || 0) < 20000 ? 'online' : 'offline';
+    return now() - (c.lastSeen || 0) < ONLINE_MS ? 'online' : 'offline';
   }
   if (!c.token) return c.codeExpires && now() > c.codeExpires ? 'expired' : 'pending';
   return now() - (c.lastSeen || 0) < ONLINE_MS ? 'online' : 'offline';
@@ -458,23 +458,24 @@ async function handleApp(req, res, url) {
       workerRunning: !!mt5Worker,
       connection: liveConn ? pub(liveConn) : null,
       accounts: mt5Conns.map(pub),
-      logs: mt5SyncLogs
+      logs: mt5SyncLogs,
+      root: path.dirname(path.dirname(getSyncScriptPath()))
     });
   }
   if ((p === '/api/local-mt5/sync' || p === '/api/local-mt5/auto-connect') && m === 'POST') {
     const isAutoConnect = p === '/api/local-mt5/auto-connect';
     addMt5Log(isAutoConnect ? 'Running PowerShell / Python Multi-Account Auto-Connect...' : 'Manual sync requested by user', 'info');
     const pyExe = findLocalPath('.venv/Scripts/python.exe');
-    const pyScript = findLocalPath('tools/mt5_sync.py');
+    const pyScript = getSyncScriptPath();
     const psScript = findLocalPath('tools/auto_connect_mt5.ps1');
     if (!fs.existsSync(pyScript)) {
       addMt5Log('Sync script not found', 'err');
       return send(res, 500, { error: 'Sync tools not found' });
     }
     try {
-      const runCmd = isAutoConnect && fs.existsSync(psScript)
+      const runCmd = isAutoConnect && fs.existsSync(psScript) && !psScript.includes('app.asar')
         ? { exe: 'powershell.exe', args: ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', psScript] }
-        : { exe: fs.existsSync(pyExe) ? pyExe : getPythonExe(), args: [pyScript, '--scan-all'] };
+        : { exe: fs.existsSync(pyExe) ? pyExe : getPythonExe().replace(/pythonw\.exe$/i, 'python.exe'), args: [pyScript, '--scan-all'] };
 
       require('child_process').execFile(runCmd.exe, runCmd.args, { cwd: path.dirname(pyScript), windowsHide: true, timeout: 25000 }, (err, stdout, stderr) => {
         const outStr = String(stdout || '').trim();
@@ -510,7 +511,7 @@ async function handleApp(req, res, url) {
     const shell = b.shell === 'cmd' ? 'cmd' : 'powershell';
     const psScript = findLocalPath('tools/auto_connect_mt5.ps1');
     const pyExe = findLocalPath('.venv/Scripts/python.exe');
-    const pyScript = findLocalPath('tools/mt5_sync.py');
+    const pyScript = getSyncScriptPath();
     try {
       if (shell === 'powershell') {
         require('child_process').spawn('cmd.exe', ['/c', 'start', 'powershell.exe', '-NoExit', '-ExecutionPolicy', 'Bypass', '-File', psScript], { detached: true, stdio: 'ignore', windowsHide: true }).unref();
@@ -572,8 +573,8 @@ async function handleApp(req, res, url) {
   }
   if (p === '/api/local-mt5/scan-accounts' && m === 'GET') {
     const pyExe = findLocalPath('.venv/Scripts/python.exe');
-    const pyScript = findLocalPath('tools/mt5_sync.py');
-    const exe = fs.existsSync(pyExe) ? pyExe : getPythonExe();
+    const pyScript = getSyncScriptPath();
+    const exe = fs.existsSync(pyExe) ? pyExe : getPythonExe().replace(/pythonw\.exe$/i, 'python.exe');
     if (!Array.isArray(db.deletedAccounts)) db.deletedAccounts = [];
 
     require('child_process').execFile(exe, [pyScript, '--scan-json'], { cwd: path.dirname(pyScript), windowsHide: true, timeout: 12000 }, (err, stdout, stderr) => {
@@ -646,8 +647,8 @@ async function handleApp(req, res, url) {
     // 3. Trigger immediate sync for selected accounts
     if (selected.length > 0) {
       const pyExe = findLocalPath('.venv/Scripts/python.exe');
-      const pyScript = findLocalPath('tools/mt5_sync.py');
-      const exe = fs.existsSync(pyExe) ? pyExe : getPythonExe();
+      const pyScript = getSyncScriptPath();
+      const exe = fs.existsSync(pyExe) ? pyExe : getPythonExe().replace(/pythonw\.exe$/i, 'python.exe');
       try {
         require('child_process').execFile(exe, [pyScript, '--sync-logins', selected.join(',')], { cwd: path.dirname(pyScript), windowsHide: true, timeout: 20000 }, () => {});
       } catch (e) {}
@@ -677,7 +678,7 @@ async function handleApp(req, res, url) {
       bump();
       try {
         const pyExe = findLocalPath('.venv/Scripts/python.exe');
-        const pyScript = findLocalPath('tools/mt5_sync.py');
+        const pyScript = getSyncScriptPath();
         if (fs.existsSync(pyExe) && fs.existsSync(pyScript)) {
           require('child_process').spawn(pyExe, [pyScript, '--scan-all'], { detached: true, stdio: 'ignore', windowsHide: true }).unref();
         }
@@ -785,17 +786,47 @@ function findLocalPath(rel) {
   return path.join(ROOT, rel);
 }
 
+function getSyncScriptPath() {
+  const candidates = [
+    path.join(ROOT, 'tools', 'mt5_sync.py'),
+    path.join(process.resourcesPath || '', 'tools', 'mt5_sync.py'),
+    path.join(process.cwd(), 'tools', 'mt5_sync.py')
+  ];
+  for (const c of candidates) {
+    if (!c.includes('app.asar') && fs.existsSync(c)) return c;
+  }
+  // Packaged app: the script lives inside app.asar, which Python cannot read, so extract a copy.
+  const packed = path.join(ROOT, 'tools', 'mt5_sync.py');
+  if (fs.existsSync(packed)) {
+    try {
+      const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\', 'AppData', 'Roaming');
+      const dir = path.join(appData, 'Traders Journal', 'tools');
+      fs.mkdirSync(dir, { recursive: true });
+      const target = path.join(dir, 'mt5_sync.py');
+      fs.writeFileSync(target, fs.readFileSync(packed));
+      return target;
+    } catch (e) { /* fall through */ }
+  }
+  return path.join(ROOT, 'tools', 'mt5_sync.py');
+}
+
 function getPythonExe() {
   const candidates = [
     findLocalPath('.venv/Scripts/pythonw.exe'),
-    findLocalPath('.venv/Scripts/python.exe'),
-    'C:\\GPT\\local\\.venv\\Scripts\\pythonw.exe',
-    'C:\\GPT\\local\\.venv\\Scripts\\python.exe'
+    findLocalPath('.venv/Scripts/python.exe')
   ];
   for (const c of candidates) {
-    if (fs.existsSync(c)) return c;
+    if (!c.includes('app.asar') && fs.existsSync(c)) return c;
   }
-  return 'pythonw.exe';
+  // No project environment: fall back to whatever Python is on PATH.
+  for (const dir of String(process.env.PATH || '').split(path.delimiter)) {
+    if (!dir) continue;
+    for (const exe of ['pythonw.exe', 'python.exe']) {
+      const full = path.join(dir, exe);
+      if (fs.existsSync(full) && !full.includes('WindowsApps')) return full;
+    }
+  }
+  return 'python.exe';
 }
 
 let mt5Worker = null;
@@ -805,9 +836,10 @@ function startMt5SyncWorker() {
   if (!isAutoSyncEnabled || ISOLATED) return;
   if (mt5Worker) return;
   const pyExe = getPythonExe();
-  const pyScript = findLocalPath('tools/mt5_sync.py');
+  const pyScript = getSyncScriptPath();
   if (!fs.existsSync(pyExe) || !fs.existsSync(pyScript)) {
-    addMt5Log('Local python environment or sync script not found', 'err');
+    addMt5Log('Python environment or sync script not found - run setup-mt5.bat (retrying in 10s)', 'err');
+    setTimeout(startMt5SyncWorker, 10000);
     return;
   }
   addMt5Log('Starting MetaTrader 5 live background synchronizer...', 'info');
@@ -824,6 +856,11 @@ function startMt5SyncWorker() {
     child.stderr.on('data', d => {
       const s = d.toString().trim();
       if (s) addMt5Log(s, 'err');
+    });
+    child.on('error', err => {
+      addMt5Log('Sync worker error: ' + err.message, 'err');
+      mt5Worker = null;
+      if (isAutoSyncEnabled) setTimeout(startMt5SyncWorker, 10000);
     });
     child.on('exit', code => {
       mt5Worker = null;

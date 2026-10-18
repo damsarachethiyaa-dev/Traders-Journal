@@ -1806,7 +1806,7 @@ function renderScannerAccounts(accounts,deletedAccounts){
     const isLive=Boolean(a.isLive);
     const isDel=Boolean(a.isDeleted||(deletedAccounts&&deletedAccounts.includes(logStr)));
     const isImp=Boolean(a.isImported);
-    const isChecked=isImp&&!isDel;
+    const isChecked=!isDel&&(isImp||isLive||!accounts.some(x=>x.isImported));
     const balStr=Number.isFinite(+a.balance)?money(+a.balance):'$0.00';
     
     return `
@@ -1997,6 +1997,16 @@ async function renderLocalMt5(){
     const res = await fetch('/api/local-mt5/status');
     if (!res.ok) return;
     const st = await res.json();
+    if (st.root) {
+      const r = st.root.replace(/[\/]+$/, '');
+      AUTO_CMDS.ps = 'powershell -ExecutionPolicy Bypass -File "' + r + '\tools\auto_connect_mt5.ps1"';
+      AUTO_CMDS.cmd = '"' + r + '\.venv\Scripts\python.exe" "' + r + '\tools\mt5_sync.py" --scan-all';
+      const codeEl = $('#autoCmdTxt'), cpBtn = $('#bCopyAutoCmd');
+      const tab = $('#cmdShellTabs button.on');
+      const cur = tab && tab.dataset.shell === 'cmd' ? AUTO_CMDS.cmd : AUTO_CMDS.ps;
+      if (codeEl) codeEl.textContent = cur;
+      if (cpBtn) cpBtn.dataset.v = cur;
+    }
     const conn = st.connection;
     const badge = $('#localBadge');
     const totalAccs = Array.isArray(st.accounts) ? st.accounts.length : (conn ? 1 : 0);

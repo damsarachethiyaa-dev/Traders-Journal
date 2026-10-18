@@ -187,7 +187,7 @@ def _calc_symbol_profit(side, symbol, volume, entry_price, exit_price):
     return round(diff * volume * mult, 2)
 
 
-def scan_local_mt5_logs_and_folders(skip_login=None, quiet=False, target_logins=None, force=False):
+def scan_local_mt5_logs_and_folders(skip_login=None, quiet=False, target_logins=None, force=False, dry_run=False):
     """
     Scan %APPDATA%/MetaQuotes/Terminal/* for all MT5 accounts and reconstruct
     their trade history from terminal logs when not currently active in the terminal.
@@ -347,6 +347,9 @@ def scan_local_mt5_logs_and_folders(skip_login=None, quiet=False, target_logins=
                                 }
             except Exception:
                 continue
+
+    if dry_run:
+        return {login: len(acc["closed_trades"]) for login, acc in accounts.items()}
 
     synced_accounts = []
     target_set = {str(x) for x in target_logins} if target_logins else None
@@ -714,6 +717,15 @@ def discover_all_accounts():
                                     discovered[l]["tradeCount"] += 1
                 except Exception:
                     pass
+
+    # Use the same log reconstruction the sync uses so the counts match what gets imported.
+    try:
+        counts = scan_local_mt5_logs_and_folders(quiet=True, dry_run=True) or {}
+        for login, n in counts.items():
+            if login in discovered and not discovered[login].get("isLive"):
+                discovered[login]["tradeCount"] = n
+    except Exception:
+        pass
 
     return sorted(discovered.values(), key=lambda a: (not a.get("isLive"), str(a.get("login"))))
 
