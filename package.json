@@ -13,7 +13,10 @@
     "test:local": "node --test tools/local-sync.test.js tools/auth.test.js",
     "video": "node tools/promo/build.cjs",
     "sync": ".venv\\Scripts\\python.exe tools/mt5_sync.py",
+    "python-runtime": "node tools/prepare-python-runtime.js",
+    "predist": "node tools/prepare-python-runtime.js",
     "dist": "electron-builder --win",
+    "predist:video": "node tools/prepare-python-runtime.js",
     "dist:video": "electron-builder --win --config.directories.output=dist/video-edition"
   },
   "engines": {
@@ -61,6 +64,16 @@
       "tools/auto_connect_mt5.ps1",
       "build/icon.png",
       "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "runtime/python",
+        "to": "python",
+        "filter": [
+          "**/*",
+          "!**/__pycache__/**"
+        ]
+      }
     ],
     "win": {
       "target": [

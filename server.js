@@ -465,7 +465,7 @@ async function handleApp(req, res, url) {
   if ((p === '/api/local-mt5/sync' || p === '/api/local-mt5/auto-connect') && m === 'POST') {
     const isAutoConnect = p === '/api/local-mt5/auto-connect';
     addMt5Log(isAutoConnect ? 'Running PowerShell / Python Multi-Account Auto-Connect...' : 'Manual sync requested by user', 'info');
-    const pyExe = findLocalPath('.venv/Scripts/python.exe');
+    const pyExe = findPythonCli();
     const pyScript = getSyncScriptPath();
     const psScript = findLocalPath('tools/auto_connect_mt5.ps1');
     if (!fs.existsSync(pyScript)) {
@@ -510,7 +510,7 @@ async function handleApp(req, res, url) {
     const b = await readBody(req);
     const shell = b.shell === 'cmd' ? 'cmd' : 'powershell';
     const psScript = findLocalPath('tools/auto_connect_mt5.ps1');
-    const pyExe = findLocalPath('.venv/Scripts/python.exe');
+    const pyExe = findPythonCli();
     const pyScript = getSyncScriptPath();
     try {
       if (shell === 'powershell') {
@@ -572,7 +572,7 @@ async function handleApp(req, res, url) {
     return send(res, 200, { ok: true, deletedAccounts: db.deletedAccounts });
   }
   if (p === '/api/local-mt5/scan-accounts' && m === 'GET') {
-    const pyExe = findLocalPath('.venv/Scripts/python.exe');
+    const pyExe = findPythonCli();
     const pyScript = getSyncScriptPath();
     const exe = fs.existsSync(pyExe) ? pyExe : getPythonExe().replace(/pythonw\.exe$/i, 'python.exe');
     if (!Array.isArray(db.deletedAccounts)) db.deletedAccounts = [];
@@ -646,7 +646,7 @@ async function handleApp(req, res, url) {
 
     // 3. Trigger immediate sync for selected accounts
     if (selected.length > 0) {
-      const pyExe = findLocalPath('.venv/Scripts/python.exe');
+      const pyExe = findPythonCli();
       const pyScript = getSyncScriptPath();
       const exe = fs.existsSync(pyExe) ? pyExe : getPythonExe().replace(/pythonw\.exe$/i, 'python.exe');
       try {
@@ -677,10 +677,11 @@ async function handleApp(req, res, url) {
       c.syncRequestVersion = (c.syncRequestVersion | 0) + 1;
       bump();
       try {
-        const pyExe = findLocalPath('.venv/Scripts/python.exe');
+        const pyExe = findPythonCli();
         const pyScript = getSyncScriptPath();
-        if (fs.existsSync(pyExe) && fs.existsSync(pyScript)) {
-          require('child_process').spawn(pyExe, [pyScript, '--scan-all'], { detached: true, stdio: 'ignore', windowsHide: true }).unref();
+        const exe = fs.existsSync(pyExe) ? pyExe : getPythonExe().replace(/pythonw\.exe$/i, 'python.exe');
+        if (fs.existsSync(exe) && fs.existsSync(pyScript)) {
+          require('child_process').spawn(exe, [pyScript, '--scan-all'], { detached: true, stdio: 'ignore', windowsHide: true }).unref();
         }
       } catch (e) { /* ignore */ }
       return send(res, 200, pub(c));
@@ -810,7 +811,21 @@ function getSyncScriptPath() {
   return path.join(ROOT, 'tools', 'mt5_sync.py');
 }
 
+// Python that ships inside the installer (resources/python, built by tools/prepare-python-runtime.js).
+function findBundledPython(exeName) {
+  if (!process.resourcesPath) return null;
+  const p = path.join(process.resourcesPath, 'python', exeName);
+  return fs.existsSync(p) ? p : null;
+}
+
+// Console Python: bundled runtime first, then the project .venv.
+function findPythonCli() {
+  return findBundledPython('python.exe') || findLocalPath('.venv/Scripts/python.exe');
+}
+
 function getPythonExe() {
+  const bundled = findBundledPython('pythonw.exe') || findBundledPython('python.exe');
+  if (bundled) return bundled;
   const candidates = [
     findLocalPath('.venv/Scripts/pythonw.exe'),
     findLocalPath('.venv/Scripts/python.exe')
