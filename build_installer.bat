@@ -25,8 +25,8 @@ echo.
 echo [3/3] Build completed successfully!
 echo.
 echo Executable files are ready in the 'dist' folder:
-echo   - dist\Traders-Journal-Setup-1.0.1.exe (Installer)
-echo   - dist\Traders-Journal-Portable-1.0.1.exe (Portable)
+echo   - dist\Traders-Journal-Setup-[version].exe (Installer)
+echo   - dist\Traders-Journal-Portable-[version].exe (Portable)
 echo.
 
 explorer dist

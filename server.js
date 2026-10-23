@@ -11,8 +11,6 @@ function getWritableDataDir() {
   if (process.env.TJ_DATA && !process.env.TJ_DATA.includes('app.asar')) {
     return process.env.TJ_DATA;
   }
-  const localProject = 'C:\\GPT\\local\\data';
-  if (!ISOLATED && fs.existsSync(localProject)) return localProject;
   const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\', 'AppData', 'Roaming');
   return path.join(appData, 'Traders Journal', 'data');
 }
@@ -33,7 +31,7 @@ function addMt5Log(text, type = 'ok') {
 
 let db = { version: 1, connections: [], trades: {}, deletedAccounts: [] };
 function loadDb() {
-  const candidates = ISOLATED ? [DB_FILE] : [DB_FILE, 'C:\\GPT\\local\\data\\db.json'];
+  const candidates = [DB_FILE];
   for (const f of candidates) {
     if (!f.includes('app.asar') && fs.existsSync(f)) {
       try {
@@ -189,23 +187,28 @@ function save() {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     const data = JSON.stringify(db, null, 2);
-    const targets = new Set();
-    if (!DB_FILE.includes('app.asar')) targets.add(DB_FILE);
-    const projDb = 'C:\\GPT\\local\\data\\db.json';
-    if (!ISOLATED && !projDb.includes('app.asar') && fs.existsSync('C:\\GPT\\local\\data')) targets.add(projDb);
-    for (const f of targets) {
-      try {
-        fs.mkdirSync(path.dirname(f), { recursive: true });
-        fs.writeFileSync(f, data);
-      } catch (e) {
-        console.error('save failed for', f, e.message);
-      }
+    if (DB_FILE.includes('app.asar')) return;
+    try {
+      fs.mkdirSync(path.dirname(DB_FILE), { recursive: true });
+      // write-then-rename so a crash mid-save never leaves a half-written db.json
+      const tmp = DB_FILE + '.tmp';
+      fs.writeFileSync(tmp, data);
+      fs.renameSync(tmp, DB_FILE);
+    } catch (e) {
+      console.error('save failed for', DB_FILE, e.message);
     }
   }, 150);
 }
 const bump = () => { db.version++; save(); };
 const now = () => Date.now();
 
+const SECURITY_HEADERS = {
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'Referrer-Policy': 'no-referrer',
+  'Cross-Origin-Opener-Policy': 'same-origin',
+  'Content-Security-Policy': "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
+};
 function send(res, code, obj, extra) {
   const b = typeof obj === 'string' ? obj : JSON.stringify(obj);
   res.writeHead(code, Object.assign({ 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }, extra || {}));
@@ -263,7 +266,7 @@ function genCode() {
 function authConn(req) {
   const t = (req.headers.authorization || '').replace(/^Bearer\s+/i, '').trim();
   if (!t) return null;
-  return db.connections.find(c => c.token && c.token.length === t.length && crypto.timingSafeEqual(Buffer.from(c.token), Buffer.from(t))) || null;
+  return db.connections.find(c => c.token && c.token !== 'direct-local-token' && safeEqual(c.token, t)) || null;
 }
 function touch(c, b) {
   c.lastSeen = now();
@@ -297,7 +300,7 @@ async function handleEA(req, res, pathname) {
     if (c.token && c.deviceId !== b.deviceId) return send(res, 409, { error: 'This code was already used by another terminal.' });
     if (!c.token && now() > c.codeExpires) return send(res, 410, { error: 'Connection code expired. Generate a new one.' });
     if (b.platform && b.platform !== c.platform) return send(res, 400, { error: 'This code was generated for ' + c.platform.toUpperCase() + ', not ' + String(b.platform).toUpperCase() + '.' });
-    if (!c.token) { c.token = crypto.randomBytes(24).toString('hex'); c.pairedAt = now(); }
+    if (!c.token) { c.token = crypto.randomBytes(24).toString('hex'); c.pairedAt = now(); clearPairCodeFile(code); }
     c.deviceId = String(b.deviceId || '');
     touch(c, b);
     bump();
@@ -455,6 +458,8 @@ async function handleApp(req, res, url) {
     const liveConn = mt5Conns.find(x => x.isLiveTerminal || (x.account && x.account.source === 'live_terminal')) || mt5Conns[0] || null;
     return send(res, 200, {
       autoSync: isAutoSyncEnabled,
+      openMt5: openMt5Setting(),
+      mt5Found: mt5Installs().length > 0,
       workerRunning: !!mt5Worker,
       connection: liveConn ? pub(liveConn) : null,
       accounts: mt5Conns.map(pub),
@@ -524,9 +529,29 @@ async function handleApp(req, res, url) {
       return send(res, 500, { error: e.message });
     }
   }
+  if (p === '/api/local-mt5/addon-install' && m === 'POST') {
+    try {
+      const out = installMt5Addon(me);
+      addMt5Log(`MT5 add-on installed in ${out.installed.length} MetaTrader 5 folder${out.installed.length === 1 ? '' : 's'}`, 'ok');
+      return send(res, 200, out);
+    } catch (e) {
+      return send(res, 400, { error: e.message });
+    }
+  }
+  if (p === '/api/local-mt5/open-mt5' && m === 'POST') {
+    const r = await openMt5();
+    if (r.started) addMt5Log('Opened MetaTrader 5', 'info');
+    return send(res, r.ok ? 200 : 400, r);
+  }
+  if (p === '/api/local-mt5/open-mt5-setting' && m === 'POST') {
+    const b = await readBody(req);
+    db.localSync = Object.assign({}, db.localSync, { openMt5: !!b.enabled });
+    save();
+    return send(res, 200, { ok: true, openMt5: openMt5Setting() });
+  }
   if (p === '/api/local-mt5/toggle-auto' && m === 'POST') {
     const b = await readBody(req);
-    isAutoSyncEnabled = !!b.enabled;
+    setPythonSync(!!b.enabled);
     if (isAutoSyncEnabled) {
       startMt5SyncWorker();
       addMt5Log('Automatic live watcher turned ON', 'ok');
@@ -553,7 +578,7 @@ async function handleApp(req, res, url) {
       return send(res, 200, { ok: true, deletedAccounts: db.deletedAccounts });
     }
     if (mt5Worker) { try { mt5Worker.kill(); } catch (e) {} mt5Worker = null; }
-    isAutoSyncEnabled = false;
+    setPythonSync(false);
     const removedNames = [];
     db.connections = db.connections.filter(x => {
       if (x.id && x.id.startsWith('mt5-')) {
@@ -718,6 +743,7 @@ async function handleApp(req, res, url) {
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.webp': 'image/webp', '.woff2': 'font/woff2', '.woff': 'font/woff', '.jpg': 'image/jpeg', '.mp4': 'video/mp4', '.webm': 'video/webm', '.mp3': 'audio/mpeg' };
 const server = http.createServer(async (req, res) => {
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) res.setHeader(k, v);
   try {
     const hosts = [HOST + ':' + PORT, 'localhost:' + PORT];
     if (!hosts.includes((req.headers.host || '').toLowerCase())) return send(res, 403, { error: 'Only local journal requests are allowed.' });
@@ -731,10 +757,9 @@ const server = http.createServer(async (req, res) => {
     }
     let rel = decodeURIComponent(url.pathname); if (rel === '/') rel = '/index.html';
     const cleanRel = rel.replace(/^[/\\]+/, '');
-    const publicFile = ['index.html','auth-boot.js','auth.css','auth.js','settings.js','settings.css','daily-journal.js','daily-journal.css','hero.js','hero.css','analytics.js','analytics.css'].includes(cleanRel) || /^fonts[\\/][^\\/]+\.(css|woff2|woff)$/.test(cleanRel) || /^media[\\/][^\\/]+\.(mp4|webm|jpg|png|mp3)$/.test(cleanRel);
+    const publicFile = ['index.html','auth-boot.js','auth.css','auth.js','settings.js','settings.css','daily-journal.js','daily-journal.css','hero.js','hero.css','analytics.js','analytics.css','guide.js','guide.css'].includes(cleanRel) || /^fonts[\\/][^\\/]+\.(css|woff2|woff)$/.test(cleanRel) || /^media[\\/][^\\/]+\.(mp4|webm|jpg|png|mp3)$/.test(cleanRel);
     if (!publicFile) { res.writeHead(404); return res.end('Not found'); }
-    const liveCandidate = path.join('C:\\GPT\\local', cleanRel);
-    const file = (!ISOLATED && !liveCandidate.includes('app.asar') && fs.existsSync(liveCandidate)) ? liveCandidate : path.normalize(path.join(ROOT, cleanRel));
+    const file = path.normalize(path.join(ROOT, cleanRel));
     const ext = path.extname(file).toLowerCase();
     const contentType = MIME[ext] || 'application/octet-stream';
     if (ext === '.mp4' || ext === '.webm') {
@@ -742,10 +767,13 @@ const server = http.createServer(async (req, res) => {
         if (stErr || !stat.isFile()) { res.writeHead(404); return res.end('Not found'); }
         const total = stat.size;
         const range = req.headers.range;
-        if (range) {
-          const parts = range.replace(/bytes=/, '').split('-');
-          const start = parseInt(parts[0], 10);
-          const end = parts[1] ? parseInt(parts[1], 10) : total - 1;
+        const rm = range && /^bytes=(\d*)-(\d*)$/.exec(range.trim());
+        const unsatisfiable = () => { res.writeHead(416, { 'Content-Range': `bytes */${total}` }); res.end(); };
+        if (range && (!rm || (!rm[1] && !rm[2]))) return unsatisfiable();
+        if (rm) {
+          const start = rm[1] ? parseInt(rm[1], 10) : Math.max(0, total - parseInt(rm[2], 10));
+          const end = rm[1] && rm[2] ? Math.min(parseInt(rm[2], 10), total - 1) : total - 1;
+          if (start >= total || start > end) return unsatisfiable();
           const chunk = (end - start) + 1;
           res.writeHead(206, {
             'Content-Range': `bytes ${start}-${end}/${total}`,
@@ -773,13 +801,10 @@ const server = http.createServer(async (req, res) => {
 });
 function findLocalPath(rel) {
   const candidates = [
+    // only next to the app: never the current directory or a fixed folder other users could create
     path.join(ROOT, rel),
-    path.join(process.cwd(), rel),
-    path.join(__dirname, '..', rel),
-    path.join(path.dirname(process.execPath), rel),
-    path.join(path.dirname(process.execPath), '..', rel),
-    path.join(path.dirname(process.execPath), '..', '..', rel),
-    path.join('c:\\GPT\\local', rel)
+    path.join(ROOT, '..', rel),
+    path.join(path.dirname(process.execPath), rel)
   ];
   for (const c of candidates) {
     if (fs.existsSync(c)) return c;
@@ -790,8 +815,7 @@ function findLocalPath(rel) {
 function getSyncScriptPath() {
   const candidates = [
     path.join(ROOT, 'tools', 'mt5_sync.py'),
-    path.join(process.resourcesPath || '', 'tools', 'mt5_sync.py'),
-    path.join(process.cwd(), 'tools', 'mt5_sync.py')
+    path.join(process.resourcesPath || '', 'tools', 'mt5_sync.py')
   ];
   for (const c of candidates) {
     if (!c.includes('app.asar') && fs.existsSync(c)) return c;
@@ -845,7 +869,52 @@ function getPythonExe() {
 }
 
 let mt5Worker = null;
-let isAutoSyncEnabled = true;
+// The always-on Python watcher is opt-in: a hidden Python process reading MetaTrader data is what antivirus
+// heuristics flag. The MT5 add-on (connector/) is the default way to sync; this stays for people who turn it on.
+let isAutoSyncEnabled = !!(db.localSync && db.localSync.auto);
+function setPythonSync(on) {
+  isAutoSyncEnabled = !!on;
+  db.localSync = Object.assign({}, db.localSync, { auto: isAutoSyncEnabled });
+  save();
+}
+
+/* ---------- MT5 add-on install: copy the Expert Advisor into MetaTrader and leave a one-time pairing code ---------- */
+const ADDON_FILE = 'TradersJournalSync_MT5.ex5';
+const PAIR_CODE_FILE = 'TradersJournalSync_MT5.paircode';   // read by the add-on from MetaTrader's shared Files folder
+const ADDON_CODE_TTL_MS = 24 * 3600 * 1000;
+const metaQuotesDir = () => path.join(process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\', 'AppData', 'Roaming'), 'MetaQuotes', 'Terminal');
+function mt5Terminals() {
+  let dirs = [];
+  try { dirs = fs.readdirSync(metaQuotesDir(), { withFileTypes: true }).filter(d => d.isDirectory() && /^[0-9A-F]{32}$/i.test(d.name)).map(d => path.join(metaQuotesDir(), d.name)); } catch (e) { /* MT5 not installed */ }
+  return dirs.filter(d => fs.existsSync(path.join(d, 'MQL5', 'Experts')));
+}
+function pairCodePath() { return path.join(metaQuotesDir(), 'Common', 'Files', PAIR_CODE_FILE); }
+function clearPairCodeFile(code) {
+  try { if (fs.readFileSync(pairCodePath(), 'utf8').trim().toUpperCase() === code) fs.unlinkSync(pairCodePath()); } catch (e) { /* already gone */ }
+}
+function installMt5Addon(me) {
+  const terminals = mt5Terminals();
+  if (!terminals.length) throw new Error('MetaTrader 5 was not found on this PC. Install MetaTrader 5, open it once, then try again.');
+  const ex5 = fs.readFileSync(path.join(ROOT, 'connector', ADDON_FILE)); // works from inside app.asar too
+  const installed = [];
+  for (const t of terminals) {
+    try { fs.writeFileSync(path.join(t, 'MQL5', 'Experts', ADDON_FILE), ex5); installed.push(t); } catch (e) { /* folder locked: skip it */ }
+  }
+  if (!installed.length) throw new Error('Could not copy the add-on into MetaTrader 5. Close MetaTrader 5 and try again.');
+  // reuse a waiting add-on code, otherwise make a new one
+  let c = db.connections.find(x => x.addon && !x.token && x.ownerId === me.id && x.codeExpires > now());
+  if (!c) {
+    c = {
+      id: crypto.randomBytes(6).toString('hex'), name: 'MetaTrader 5', platform: 'mt5', addon: true,
+      code: genCode(), codeExpires: now() + ADDON_CODE_TTL_MS, token: null, deviceId: null, account: null, createdAt: now(),
+      lastSeen: 0, syncEnabled: true, syncOpenPositions: true, syncRequestVersion: 0, completedVersion: 0, importStartDate: '', ownerId: me.id
+    };
+    db.connections.push(c); bump();
+  }
+  fs.mkdirSync(path.dirname(pairCodePath()), { recursive: true });
+  fs.writeFileSync(pairCodePath(), c.code, 'ascii');
+  return { ok: true, installed: installed.map(t => path.basename(t)), code: c.code, codeExpires: c.codeExpires, apiUrl: 'http://' + HOST + ':' + PORT };
+}
 
 function startMt5SyncWorker() {
   if (!isAutoSyncEnabled || ISOLATED) return;
@@ -894,9 +963,60 @@ server.on('error', e => {
   console.error(e.code === 'EADDRINUSE' ? 'Port ' + PORT + ' is already in use (is Traders Journal already running?)' : 'Server error: ' + e.message);
   if (require.main === module) process.exit(1);
 });
+/* ---------- open MetaTrader 5 ----------
+   Starts the terminal the way a double-click does: one visible program, no helper process, no script. It only
+   starts MetaTrader when it is not already running, and it can be switched off. */
+const openMt5Setting = () => !(db.localSync && db.localSync.openMt5 === false); // on unless turned off
+function mt5Installs() {
+  const found = [];
+  const add = (exe, hasAddon) => { if (exe && fs.existsSync(exe) && !found.some(f => f.exe.toLowerCase() === exe.toLowerCase())) found.push({ exe, hasAddon: !!hasAddon }); };
+  // every MetaTrader data folder records the folder it was installed in (origin.txt, UTF-16)
+  try {
+    for (const d of fs.readdirSync(metaQuotesDir(), { withFileTypes: true })) {
+      if (!d.isDirectory() || !/^[0-9A-F]{32}$/i.test(d.name)) continue;
+      try {
+        const origin = fs.readFileSync(path.join(metaQuotesDir(), d.name, 'origin.txt'), 'utf16le').replace(/^﻿/, '').trim();
+        if (origin) add(path.join(origin, 'terminal64.exe'), fs.existsSync(path.join(metaQuotesDir(), d.name, 'MQL5', 'Experts', ADDON_FILE)));
+      } catch (e) { /* no origin.txt: skip */ }
+    }
+  } catch (e) { /* MetaTrader not installed */ }
+  for (const base of [process.env.ProgramFiles, process.env['ProgramFiles(x86)'], process.env.LOCALAPPDATA && path.join(process.env.LOCALAPPDATA, 'Programs')]) {
+    if (base) add(path.join(base, 'MetaTrader 5', 'terminal64.exe'), false);
+  }
+  return found.sort((a, b) => b.hasAddon - a.hasAddon); // the terminal that already has the add-on comes first
+}
+function isMt5Running(cb) {
+  require('child_process').execFile('tasklist', ['/FI', 'IMAGENAME eq terminal64.exe', '/FO', 'CSV', '/NH'], { windowsHide: true, timeout: 5000 },
+    (err, out) => cb(!err && /terminal64\.exe/i.test(String(out))));
+}
+function openMt5() {
+  return new Promise(resolve => {
+    if (process.platform !== 'win32') return resolve({ ok: false, error: 'Opening MetaTrader 5 is only supported on Windows.' });
+    const installs = mt5Installs();
+    if (!installs.length) return resolve({ ok: false, error: 'MetaTrader 5 was not found on this PC.' });
+    isMt5Running(running => {
+      if (running) return resolve({ ok: true, already: true });
+      let done = false;
+      const finish = r => { if (!done) { done = true; resolve(r); } };
+      try {
+        const exe = installs[0].exe;
+        const child = require('child_process').spawn(exe, [], { detached: true, stdio: 'ignore', cwd: path.dirname(exe) });
+        child.on('error', e => finish({ ok: false, error: 'Could not open MetaTrader 5: ' + e.message }));
+        child.unref();
+        setTimeout(() => finish({ ok: true, started: true }), 400);
+      } catch (e) { finish({ ok: false, error: 'Could not open MetaTrader 5: ' + e.message }); }
+    });
+  });
+}
+
 server.listen(PORT, HOST, () => {
   console.log('Traders Journal running at http://' + HOST + ':' + PORT);
   startMt5SyncWorker();
+  // give the app a moment to finish starting, then open MetaTrader 5 if the person wants that
+  if (!ISOLATED) setTimeout(() => {
+    if (!openMt5Setting()) return;
+    openMt5().then(r => { if (r.started) addMt5Log('Opened MetaTrader 5', 'info'); }).catch(() => {});
+  }, 5000);
 });
 
 module.exports = {
@@ -907,14 +1027,13 @@ module.exports = {
   flush: () => {
     try {
       const data = JSON.stringify(db, null, 2);
+      clearTimeout(saveTimer);
       fs.mkdirSync(DATA_DIR, { recursive: true });
-      fs.writeFileSync(DB_FILE, data);
-      if (!ISOLATED) {
-        fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
-        fs.writeFileSync(path.join(ROOT, 'data', 'db.json'), data);
-      }
+      fs.writeFileSync(DB_FILE + '.tmp', data);
+      fs.renameSync(DB_FILE + '.tmp', DB_FILE);
     } catch (e) { /* ignore */ }
   },
+  openMt5,
   stopWorker: () => {
     if (mt5Worker) {
       try { mt5Worker.kill(); } catch (e) {}

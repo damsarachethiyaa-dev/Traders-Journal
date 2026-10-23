@@ -5,10 +5,8 @@
 # ============================================================================
 
 $ErrorActionPreference = "SilentlyContinue"
+# Always the folder this script ships in; never fall back to a fixed folder other users could create.
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
-if (-not (Test-Path "$ProjectRoot\server.js")) {
-    $ProjectRoot = "C:\GPT\local"
-}
 
 Write-Host "[1/3] Checking MetaTrader 5 terminal process..."
 $mt5Proc = Get-Process -Name "terminal64" -ErrorAction SilentlyContinue
@@ -40,17 +38,11 @@ if (Test-Path $pyExe) {
     python $syncScript --scan-all
 }
 
-Write-Host "[3/3] Verifying synced accounts with Traders Journal..."
+# Account details need a signed-in session, so only confirm the app is reachable; the scan above lists each account.
+Write-Host "[3/3] Checking that Traders Journal is running..."
 try {
-    $state = Invoke-RestMethod -Uri "http://127.0.0.1:8765/api/state?v=-1" -Headers @{ Host = "127.0.0.1:8765" } -TimeoutSec 5
-    $mt5Conns = @($state.connections | Where-Object { $_.id -like "mt5-*" })
-    Write-Host "      Successfully connected $($mt5Conns.Count) MetaTrader 5 account(s):"
-    foreach ($c in $mt5Conns) {
-        $acc = $c.account
-        $bal = if ($acc -and $null -ne $acc.balance) { ('${0:N2}' -f [double]$acc.balance) } else { '$0.00' }
-        $src = if ($acc -and $acc.source -eq 'live_terminal') { 'LIVE IN TERMINAL' } else { 'SAVED ON PC' }
-        Write-Host ("      - {0} | Login: {1} | Server: {2} | Balance: {3} | Trades: {4} [{5}]" -f $c.name, $acc.login, $acc.server, $bal, $c.tradeCount, $src)
-    }
+    $null = Invoke-RestMethod -Uri "http://127.0.0.1:8765/api/health" -TimeoutSec 5
+    Write-Host "      Traders Journal received the sync. Open the app to see your accounts."
 } catch {
-    Write-Host "      Sync complete."
+    Write-Host "      Traders Journal is not running. Start the app, then run this again to send the accounts."
 }

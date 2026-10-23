@@ -1,7 +1,7 @@
 {
   "name": "traders-journal",
   "productName": "Traders Journal",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Traders Journal desktop app with MetaTrader 5 sync",
   "main": "main.js",
   "author": "Traders Journal",
@@ -50,6 +50,8 @@
       "hero.js",
       "analytics.css",
       "analytics.js",
+      "guide.js",
+      "guide.css",
       "index.html",
       "auth-boot.js",
       "auth.js",
@@ -109,7 +111,10 @@
     "@fontsource/inter": "^5.3.0",
     "@fontsource/jetbrains-mono": "^5.3.0",
     "@fontsource/space-grotesk": "^5.3.0",
-    "electron": "^41.7.1",
+    "electron": "^41.10.7",
     "electron-builder": "^26.15.3"
+  },
+  "overrides": {
+    "global-agent": "^4.1.3"
   }
 }

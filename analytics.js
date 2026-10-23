@@ -186,12 +186,12 @@
     let lines = ''; series2.forEach((s, si) => { const pts = s.v.map((v, i) => v == null ? null : [X(i), Y(v)]).filter(Boolean); if (!pts.length) return;
       lines += `<path d="${pathOf(pts)}" fill="none" stroke="${s.c}" stroke-width="2.2" stroke-linejoin="round" ${pts.length > 1 ? 'pathLength="1" class="an-draw"' : ''}/>` + pts.map((p, i) => `<circle cx="${p[0]}" cy="${p[1]}" r="3.4" fill="${s.c}" class="an-dot" style="--i:${i + si}"/>`).join(''); });
     const lab = labels.map((l, i) => `<text x="${X(i)}" y="${f.H - 8}" text-anchor="middle" class="an-ax">${l}</text>`).join('');
-    const hits = labels.map((l, i) => `<rect class="an-hit" x="${X(i) - (f.iw / Math.max(1, n - 1)) / 2}" y="${f.m.t}" width="${f.iw / Math.max(1, n - 1)}" height="${f.ih}" data-cx="${X(i)}" data-tip="${esc(`<b>${l}</b>` + series2.map(s => `<span>${s.name}</span><em>${s.v[i] == null ? '—' : pc(s.v[i])}</em>`).join(''))}"/>`).join('');
+    const hits = labels.map((l, i) => `<rect class="an-hit" x="${X(i) - (f.iw / Math.max(1, n - 1)) / 2}" y="${f.m.t}" width="${f.iw / Math.max(1, n - 1)}" height="${f.ih}" data-cx="${X(i)}" data-tip="${esc(`<b>${esc(l)}</b>` + series2.map(s => `<span>${s.name}</span><em>${s.v[i] == null ? '—' : pc(s.v[i])}</em>`).join(''))}"/>`).join('');
     return svgWrap(f, g + lab + lines + hits);
   }
   function donut(parts, centerTop, centerBot) {
     const tot = parts.reduce((a, p) => a + p.v, 0) || 1; let off = 0, segs = '';
-    parts.forEach((p, i) => { const pct = p.v / tot * 100; segs += `<circle class="an-seg" r="15.915" cx="21" cy="21" fill="none" stroke="${p.c}" stroke-width="5.2" pathLength="100" style="stroke-dasharray:${Math.max(0, pct - .8)} ${100 - Math.max(0, pct - .8)};stroke-dashoffset:${-off};--i:${i}" data-tip="${esc(`<b>${p.l}</b><span>Trades</span><em>${p.v}</em>${p.x ? `<span>P&amp;L</span><em class="${cls(p.pnl)}">${p.x}</em>` : ''}`)}"/>`; off += pct; });
+    parts.forEach((p, i) => { const pct = p.v / tot * 100; segs += `<circle class="an-seg" r="15.915" cx="21" cy="21" fill="none" stroke="${p.c}" stroke-width="5.2" pathLength="100" style="stroke-dasharray:${Math.max(0, pct - .8)} ${100 - Math.max(0, pct - .8)};stroke-dashoffset:${-off};--i:${i}" data-tip="${esc(`<b>${esc(p.l)}</b><span>Trades</span><em>${p.v}</em>${p.x ? `<span>P&amp;L</span><em class="${cls(p.pnl)}">${p.x}</em>` : ''}`)}"/>`; off += pct; });
     return `<svg viewBox="0 0 42 42" class="an-donut"><circle r="15.915" cx="21" cy="21" fill="none" stroke="var(--border)" stroke-width="5.2"/>${segs}<text x="21" y="21.5" text-anchor="middle" class="an-dc1">${centerTop}</text><text x="21" y="26.6" text-anchor="middle" class="an-dc2">${centerBot}</text></svg>`;
   }
   function hbars(rows, opts) {

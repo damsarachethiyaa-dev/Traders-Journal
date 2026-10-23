@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="daily-journal.css">
 <link rel="stylesheet" href="hero.css">
 <link rel="stylesheet" href="analytics.css">
+<link rel="stylesheet" href="guide.css">
 
 <style>
 :root{
@@ -388,19 +389,6 @@ body.collapsed #fnav{left:0}
 #toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--card2);border:1px solid var(--border2);padding:10px 16px;border-radius:9px;font-size:11.5px;font-weight:500;opacity:0;transition:.25s;z-index:300;box-shadow:var(--shadow);pointer-events:none}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 
-.tour-hl{position:relative;z-index:150;outline:2px solid var(--blue);outline-offset:4px;border-radius:10px;animation:tourPulse 1.8s ease-in-out infinite}
-@keyframes tourPulse{0%,100%{outline-color:rgba(59,130,246,.95);box-shadow:0 0 0 0 rgba(59,130,246,.35)}50%{outline-color:rgba(59,130,246,.55);box-shadow:0 0 0 9px rgba(59,130,246,0)}}
-#sidebar.tour-up{z-index:150}
-#tour.step{animation:tourStep .4s cubic-bezier(.22,1,.36,1)}
-@keyframes tourStep{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
-#tour{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);z-index:160;background:var(--card);border:1px solid var(--blue);border-radius:12px;padding:16px 18px;width:360px;max-width:92vw;box-shadow:var(--shadow);display:none}
-#tour.on{display:block}
-#tour h4{font:600 13px var(--head);margin-bottom:5px} #tour p{font-size:11.5px;color:var(--muted);margin-bottom:12px}
-#tour .ft{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted)}
-#tour .ft div{display:flex;gap:6px}
-#tour .btn{height:28px;font-size:11px;padding:0 12px}
-#shade{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:140;display:none}
-#shade.on{display:block}
 
 /* simple pages */
 .ph{margin:90px auto 0;text-align:center;max-width:420px}
@@ -423,13 +411,6 @@ input.dt{height:30px;border-radius:6px;border:1px solid var(--border2);backgroun
 .sm+.sm{border-top:1px solid var(--border)}
 .sm small{display:block;font-size:7px;letter-spacing:.8px;color:var(--faint);font-weight:700;margin-bottom:3px;text-transform:uppercase}
 .sm b{font:600 9.5px var(--mono)}
-#support{position:fixed;right:30px;bottom:96px;width:200px;background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:14px;box-shadow:var(--shadow);z-index:60;display:none}
-#support.open{display:block;animation:pp .15s}
-#support h4{font:600 11.5px var(--head);margin-bottom:4px}#support p{font-size:9px;color:var(--muted);margin-bottom:10px;line-height:1.4}
-#support .si{display:flex;align-items:center;gap:10px;padding:9px;border:1px solid var(--border);border-radius:9px;margin-top:8px;text-decoration:none;color:var(--text);background:var(--card2)}
-#support .si:hover{border-color:var(--blue)}#support .si b{font-size:10px;display:block}#support .si small{display:block;font-size:8px;color:var(--muted);margin-top:2px;line-height:1.3}
-#support .yt-i,#support .wa-i,#support .tg-i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none}
-#support .yt-i{background:#e11d1d;color:#fff;width:30px;height:30px}#support .wa-i{background:rgba(34,197,94,.15);color:#22c55e}#support .tg-i{background:rgba(59,130,246,.15);color:#3b82f6}
 /* ===== connections ===== */
 .cn-wrap{width:100%;max-width:1600px;margin:0 auto;padding:12px 20px 70px}
 .cn-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:10px 0 24px;padding-bottom:18px;border-bottom:1px solid var(--border);flex-wrap:wrap}
@@ -527,7 +508,38 @@ select.cn-in option{background:#18181b;color:#eee}
   .cn-meta{grid-template-columns:1fr 1fr}
   .cn-accounts-bar{flex-direction:column;align-items:flex-start}
 }
-/* ===== tutorial ===== */
+/* ===== MT5 add-on (default sync) ===== */
+.addon-card{border:1px solid rgba(34,197,94,.32);background:linear-gradient(180deg,rgba(34,197,94,.07),rgba(14,14,16,.7));border-radius:12px;padding:20px 22px 16px;margin-bottom:16px}
+[data-theme=light] .addon-card{background:linear-gradient(180deg,rgba(34,197,94,.07),#fff)}
+.addon-head{display:flex;align-items:flex-start;gap:12px}
+.addon-head h3{font-size:14px;font-weight:600;margin:0}
+.addon-head p{margin:3px 0 0;font-size:11.5px;color:var(--muted);line-height:1.5}
+.addon-head .local-mt-icon{background:rgba(34,197,94,.14);color:var(--green)}
+.addon-rec{font:700 9.5px var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--green);background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);padding:2px 7px;border-radius:99px}
+.addon-head .st{margin-left:auto}
+.addon-steps{list-style:none;display:flex;flex-direction:column;gap:10px;margin:16px 0 0}
+.addon-steps li{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card)}
+.addon-steps li>span{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:700 11px var(--mono);background:var(--card2);border:1px solid var(--border2);color:var(--muted)}
+.addon-steps li.done>span{background:var(--green);border-color:var(--green);color:#04130a}
+.addon-steps li>div{flex:1;min-width:0}
+.addon-steps b{font-size:12.5px;font-weight:600}
+.addon-steps small{display:block;font-size:11px;color:var(--muted);line-height:1.5;margin-top:2px}
+.addon-steps small b{font-size:11px;color:var(--text)}
+.addon-steps .btn{height:30px;font-size:11.5px;gap:6px;flex:none}
+.addon-launch{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.addon-launch .btn{height:30px;font-size:11.5px;gap:6px}
+.addon-launch .cn-sw{margin:0}
+.addon-foot{margin-top:12px;font-size:11.5px;color:var(--muted)}
+.addon-foot b{color:var(--text)}
+.cn-adv{margin-top:16px;border:1px solid var(--border);border-radius:12px;padding:12px 16px;background:var(--card)}
+.cn-adv>summary{cursor:pointer;font-size:12.5px;font-weight:600;list-style:none;display:flex;align-items:center;gap:8px}
+.cn-adv>summary::-webkit-details-marker{display:none}
+.cn-adv>summary small{font-weight:400;color:var(--muted)}
+.cn-adv>summary:before{content:"›";display:inline-block;transition:transform .2s;color:var(--muted)}
+.cn-adv[open]>summary:before{transform:rotate(90deg)}
+.cn-adv[open]>summary{margin-bottom:14px}
+.cn-adv .cn-warn{font-size:11.5px;color:var(--amber);background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:8px;padding:8px 10px;margin-bottom:12px;line-height:1.5}
+/* ===== connection troubleshooting ===== */
 .cn-ts{margin-top:20px;border-top:1px solid var(--border);padding-top:16px}
 .cn-ts summary{cursor:pointer;font-size:13px;font-weight:600;list-style:none;display:flex;align-items:center;gap:8px}
 .cn-ts summary:before{content:"›";display:inline-block;transition:transform .2s;color:var(--muted);font-size:16px}
@@ -535,134 +547,6 @@ select.cn-in option{background:#18181b;color:#eee}
 .cn-ts>div{margin-top:14px;font-size:12.5px;line-height:1.6}.cn-ts>div b{font-size:12.5px}.cn-ts>div p{color:var(--muted);margin-top:3px}
 .cn-ts code{font:500 11.5px var(--mono);background:var(--card2);border:1px solid var(--border);padding:1px 6px;border-radius:5px}
 
-.modal.tut-box{width:860px;max-width:95vw;overflow:hidden;display:flex;flex-direction:column;max-height:94vh;border:1px solid rgba(59,130,246,.28);box-shadow:0 28px 80px rgba(0,0,0,.72),0 0 40px rgba(59,130,246,.08);background:var(--card);padding:0}
-.tut-box header{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(59,130,246,.06),transparent)}
-.tut-kick{font-size:10.5px;letter-spacing:1.4px;color:var(--blue);font-weight:700;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.tut-kick:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--blue);animation:bping 1.8s infinite}
-.tut-prog-wrap{height:3px;width:100%;background:var(--border);overflow:hidden;flex:none}
-.tut-prog-bar{height:100%;background:linear-gradient(90deg,#2f80ed,#22c55e);width:20%;transition:width .45s cubic-bezier(.2,.8,.2,1)}
-.tut-Subnav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:10px 20px;background:var(--bg2);border-bottom:1px solid var(--border);flex:none}
-.tut-step-tab{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:8px;border:1px solid transparent;background:transparent;color:var(--muted);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .2s ease;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tut-step-tab:hover{background:var(--card);color:var(--text);border-color:var(--border)}
-.tut-step-tab .num{width:18px;height:18px;border-radius:50%;background:var(--card2);border:1px solid var(--border2);display:grid;place-items:center;font-size:10px;font-weight:700;flex:none;transition:all .2s}
-.tut-step-tab.active{background:rgba(47,128,237,.12);border-color:rgba(47,128,237,.45);color:var(--text)}
-.tut-step-tab.active .num{background:#2f80ed;border-color:#2f80ed;color:#fff;box-shadow:0 0 10px rgba(47,128,237,.5)}
-.tut-step-tab.done .num{background:rgba(34,197,94,.18);border-color:rgba(34,197,94,.5);color:var(--green)}
-
-.tut-stage{height:276px;flex:none;background:radial-gradient(120% 140% at 50% 0%,#131824 0%,#0b0d13 100%);border-bottom:1px solid var(--border);display:grid;place-items:center;padding:14px 24px;position:relative;overflow:hidden}
-.tut-stage:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse at center,black 45%,transparent 85%);pointer-events:none}
-.tut-stage-glow{position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(47,128,237,.16),transparent 70%);top:-140px;left:50%;transform:translateX(-50%);pointer-events:none;animation:tutGlowPulse 4s ease-in-out infinite}
-@keyframes tutGlowPulse{0%,100%{opacity:.6;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.12)}}
-.tut-replay-btn{position:absolute;top:12px;right:14px;z-index:5;height:26px;padding:0 10px;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:rgba(15,18,26,.75);backdrop-filter:blur(6px);color:#b9c0d0;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:5px;cursor:pointer;transition:all .18s}
-.tut-replay-btn:hover{border-color:#3b82f6;color:#fff;background:rgba(59,130,246,.18)}
-
-.tut-stage>*:not(.tut-stage-glow):not(.tut-replay-btn){animation:tutStageIn .35s cubic-bezier(.16,1,.3,1) backwards;position:relative;z-index:2}
-@keyframes tutStageIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-
-.tut-body{padding:15px 26px 12px;overflow-y:auto;flex:1;animation:tutIn .3s cubic-bezier(.2,.8,.2,1) backwards}
-.tut-body-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:4px}
-.tut-body h3{font:700 18px var(--head);margin:0 0 4px;display:flex;align-items:center;gap:10px}
-.tut-body p{color:var(--muted);font-size:12.8px;line-height:1.55;margin:0}
-.tut-body ul{margin:10px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px 14px}
-.tut-body li{font-size:12.2px;display:flex;gap:8px;line-height:1.45;background:var(--bg2);border:1px solid var(--border);padding:7px 11px;border-radius:8px;align-items:flex-start;animation:tutItemIn .35s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--li,0)*55ms + 50ms)}
-.tut-body li:before{content:"✓";flex:none;width:16px;height:16px;border-radius:50%;background:rgba(47,128,237,.16);color:#3b82f6;font-size:10px;font-weight:800;display:grid;place-items:center;margin-top:1px}
-@keyframes tutItemIn{from{opacity:0;transform:translateY(8px)}}
-.tut-body code{font:500 11.5px var(--mono);background:var(--card2);border:1px solid var(--border);padding:1px 6px;border-radius:5px;color:#60a5fa}
-.tut-body kbd{font:600 11px var(--mono);background:var(--card2);border:1px solid var(--border2);border-bottom-width:2px;padding:1px 6px;border-radius:5px}
-.tut-inline-acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
-.tut-inline-btn{height:29px;padding:0 12px;border-radius:7px;font-size:11.8px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border:1px solid var(--border2);background:var(--card2);color:var(--text);transition:all .18s;white-space:nowrap}
-.tut-inline-btn:hover{border-color:#2f80ed;background:rgba(47,128,237,.12);transform:translateY(-1px)}
-.tut-inline-btn.pri{background:linear-gradient(180deg,#3b82f6,#2563eb);border-color:#2563eb;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.3)}
-.tut-inline-btn.pri:hover{filter:brightness(1.08)}
-.tut-inline-btn.grn{background:rgba(34,197,94,.14);border-color:rgba(34,197,94,.4);color:#4ade80}
-.tut-inline-btn.grn:hover{background:rgba(34,197,94,.22)}
-
-.tut-foot{display:flex;align-items:center;justify-content:space-between;padding:12px 26px 14px;border-top:1px solid var(--border);background:var(--bg2);flex:none}
-.tut-dots{display:flex;gap:7px;align-items:center}.tut-dots i{width:8px;height:8px;border-radius:50%;background:var(--border2);cursor:pointer;transition:all .25s}.tut-dots i.done{background:var(--green)}.tut-dots i.on{width:26px;border-radius:5px;background:var(--blue)}
-@keyframes tutIn{from{opacity:0;transform:translateY(8px)}}
-.tut-ok{color:var(--green)}
-.tut-live{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:8px 13px;border:1px solid var(--border2);border-radius:10px;background:var(--card2);font-size:12px}
-.tut-live-left{display:flex;align-items:center;gap:10px}
-.tut-live .d{width:10px;height:10px;border-radius:50%;background:var(--faint);flex:none}
-.tut-live.ok{border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.05)}.tut-live.ok .d{background:var(--green);animation:bping 2s infinite;box-shadow:0 0 0 0 rgba(34,197,94,.6)}
-.tut-live.wait .d{background:var(--blue);animation:bping 1.4s infinite;box-shadow:0 0 0 0 rgba(59,130,246,.6)}
-.tut-live.off{border-color:rgba(245,158,11,.5)}.tut-live.off .d{background:var(--amber)}
-
-/* Animated Mockups inside .tut-stage */
-.mk{width:100%;max-width:660px;border:1px solid #2b3040;border-radius:12px;background:#12151e;color:#e2e8f0;font-size:11.5px;box-shadow:0 20px 50px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden;text-align:left;line-height:1.4;position:relative}
-.mk-t{height:28px;background:#191d28;display:flex;align-items:center;gap:6px;padding:0 12px;font-size:10.5px;color:#94a3b8;border-bottom:1px solid #262b38}
-.mk-t i{width:8px;height:8px;border-radius:50%;background:#3b4254;flex:none}
-.mk-t i:nth-child(1){background:#ef4444}.mk-t i:nth-child(2){background:#f59e0b}.mk-t i:nth-child(3){background:#22c55e}
-.mk-t span{margin-left:6px;font-weight:600;color:#cbd5e1}
-.mk-t .mk-pill-r{margin-left:auto;font-size:9.5px;padding:2px 8px;border-radius:99px;background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
-.mk-b{padding:12px 16px;position:relative}
-.mk-l{display:block;font-size:10px;color:#94a3b8;margin-bottom:4px}
-.mk-in{height:26px;border:1px solid #33343b;border-radius:6px;background:#0e0f12;display:flex;align-items:center;padding:0 9px;margin-bottom:9px}
-.mk-btn{height:30px;padding:0 14px;border-radius:7px;background:#f4f4f6;color:#111;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:700;font-size:11px;white-space:nowrap;width:auto;flex:none;transition:all .2s}
-.mk-btn.blue{background:linear-gradient(180deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.4)}
-.mk-btn.green{background:linear-gradient(180deg,#22c55e,#16a34a);color:#062814;box-shadow:0 4px 14px rgba(34,197,94,.35)}
-.mk-btn.ghost{background:#1c2130;color:#cbd5e1;border:1px solid #2e364a}
-.mk-code{margin-top:2px;display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #283044;background:#0b0e14;border-radius:8px;padding:7px 12px;font:500 11px var(--mono);color:#93c5fd;overflow:hidden}
-.mk-code .cmd-type{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-right:2px solid #4ade80;padding-right:4px;animation:tutCaret 1s step-end infinite}
-@keyframes tutCaret{50%{border-color:transparent}}
-.tut-draw-line{stroke-dasharray:420;stroke-dashoffset:0;animation:tutDrawSvg 1.2s cubic-bezier(.2,.8,.2,1) backwards .1s}
-@keyframes tutDrawSvg{from{stroke-dashoffset:420}to{stroke-dashoffset:0}}
-.mk-code span.cp-tag{font:600 10px var(--sans);letter-spacing:0;color:#cbd5e1;background:#19202e;border:1px solid #2e384d;padding:3px 8px;border-radius:5px;flex:none}
-.mk .hl{outline:2px solid #3b82f6;outline-offset:2px;border-radius:7px;animation:hlp 1.5s ease-in-out infinite;position:relative}
-@keyframes hlp{50%{outline-color:rgba(59,130,246,.2);outline-offset:5px}}
-.mk-acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.mk-acts .mk-btn{width:auto;min-width:0;height:30px;padding:0 14px;font-size:11px;white-space:nowrap}
-
-/* Step 1 Terminal & Cursor Animations */
-.mk-term-out{margin-top:10px;background:#090b10;border:1px solid #23293a;border-radius:8px;padding:8px 12px;font:500 10.5px var(--mono);display:flex;flex-direction:column;gap:4px}
-.mk-term-line{animation:tutLineIn .35s ease backwards;display:flex;align-items:center;gap:7px}
-.mk-term-line.l1{animation-delay:.4s;color:#94a3b8}
-.mk-term-line.l2{animation-delay:.9s;color:#60a5fa}
-.mk-term-line.l3{animation-delay:1.4s;color:#4ade80;font-weight:700}
-@keyframes tutLineIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
-
-.tut-cursor{position:absolute;width:22px;height:22px;pointer-events:none;z-index:10;animation:tutCursorMove 3.2s cubic-bezier(.22,1,.36,1) infinite}
-.tut-cursor svg{filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
-.tut-cursor:after{content:"";position:absolute;top:-4px;left:-4px;width:20px;height:20px;border-radius:50%;border:2px solid #4ade80;opacity:0;animation:tutClickRipple 3.2s ease-out infinite}
-@keyframes tutCursorMove{0%{transform:translate(220px,65px);opacity:0}15%{opacity:1}35%{transform:translate(95px,18px) scale(1)}42%{transform:translate(95px,18px) scale(.86)}50%{transform:translate(95px,18px) scale(1)}85%{opacity:1;transform:translate(135px,34px)}100%{opacity:0;transform:translate(160px,45px)}}
-@keyframes tutClickRipple{0%,38%{transform:scale(.4);opacity:0}43%{opacity:.95;transform:scale(1)}62%{opacity:0;transform:scale(2.4)}100%{opacity:0}}
-
-/* Step 2 Scanner Cards Animation */
-.mk-scan-list{display:flex;flex-direction:column;gap:7px}
-.mk-scan-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;border:1px solid #283044;background:#161b26;animation:tutRowPop .45s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--ri,0)*140ms + .15s)}
-.mk-scan-row.checked{border-color:#3b82f6;background:rgba(59,130,246,.08)}
-.mk-scan-row.ignored{border-color:rgba(239,68,68,.28);background:rgba(239,68,68,.04);opacity:.78}
-@keyframes tutRowPop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
-.mk-chk-box{width:16px;height:16px;border-radius:4px;border:1.5px solid #475569;display:grid;place-items:center;font-size:10px;font-weight:800;flex:none}
-.mk-chk-box.on{background:#3b82f6;border-color:#3b82f6;color:#fff;box-shadow:0 0 10px rgba(59,130,246,.4)}
-.mk-chk-box.off{background:#1e2433;border-color:#ef4444;color:#ef4444}
-
-/* Step 3 Telemetry Bridge Animation */
-.mk-bridge{display:grid;grid-template-columns:185px 1fr 185px;align-items:center;gap:10px;width:100%;max-width:650px}
-.mk-node{background:#141824;border:1px solid #2b3348;border-radius:11px;padding:12px;box-shadow:0 12px 30px rgba(0,0,0,.45);position:relative}
-.mk-node-h{display:flex;align-items:center;gap:7px;font-weight:700;font-size:11.5px;margin-bottom:8px;color:#fff}
-.mk-stream{position:relative;height:110px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px}
-.mk-track{width:100%;height:2px;background:rgba(59,130,246,.22);position:relative;overflow:hidden;border-radius:2px}
-.mk-track:after{content:"";position:absolute;top:0;left:-40%;width:40%;height:100%;background:linear-gradient(90deg,transparent,#60a5fa,#4ade80,transparent);animation:tutPacket 1.6s linear infinite;animation-delay:var(--td,0s)}
-@keyframes tutPacket{to{left:100%}}
-.mk-stream-pill{padding:4px 10px;border-radius:99px;background:rgba(34,197,94,.14);border:1px solid rgba(34,197,94,.4);color:#4ade80;font:700 10px var(--mono);display:inline-flex;align-items:center;gap:6px;box-shadow:0 0 20px rgba(34,197,94,.18)}
-
-/* Step 4 Multi-Account Switcher Animation */
-.mk-acc-grid{display:grid;grid-template-columns:210px 1fr;gap:12px;align-items:stretch}
-.mk-pop-menu{background:#171c28;border:1px solid #2e364a;border-radius:9px;padding:6px;display:flex;flex-direction:column;gap:4px}
-.mk-pop-item{padding:6px 9px;border-radius:6px;font-size:11px;display:flex;align-items:center;justify-content:space-between;color:#94a3b8}
-.mk-pop-item.on{background:rgba(59,130,246,.18);color:#fff;font-weight:700;border:1px solid rgba(59,130,246,.4);animation:tutMenuPulse 3s ease-in-out infinite}
-@keyframes tutMenuPulse{0%,100%{box-shadow:0 0 0 rgba(59,130,246,0)}50%{box-shadow:0 0 14px rgba(59,130,246,.35)}}
-
-.mk-badge{background:rgba(34,197,94,.16);color:#4ade80;padding:2px 9px;border-radius:10px;font-size:9.5px;font-weight:700;margin-left:8px;white-space:nowrap}
-.mk-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}.mk-stats div{background:#0d1017;border:1px solid #252b3b;border-radius:8px;padding:8px 10px}.mk-stats small{display:block;font-size:8.5px;color:#80808a;letter-spacing:.6px;margin-bottom:2px}.mk-stats b{font:700 12.5px var(--mono)}
-
-@media(max-width:760px){
-  .tut-Subnav{grid-template-columns:repeat(3,1fr)}
-  .tut-body ul{grid-template-columns:1fr}
-  .mk-bridge{grid-template-columns:1fr}
-  .mk-acc-grid{grid-template-columns:1fr}
-  .tut-stage{height:auto;min-height:260px}
-}
 /* ===== desktop app chrome ===== */
 html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!important;display:none}
 .is-electron .topbar{-webkit-app-region:drag;padding-right:var(--ctl-pad,150px)}
@@ -710,6 +594,33 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
 .boot .topbar{animation:fadeDown .6s cubic-bezier(.2,.7,.2,1) backwards}
 .boot #menu>*{animation:slideR .55s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--k,0)*45ms + .15s)}
 .nav-item{transition:background .15s,transform .15s}.nav-item:hover{transform:translateX(3px)}
+/* sidebar: a coloured icon tile per page, a tinted highlight that slides in, and a glowing tile on the active page */
+#sidebar .nav-item{--nc:var(--blue);isolation:isolate;gap:10px;padding:4px 8px 4px 4px;border-radius:10px;opacity:1}
+#sidebar .nav-item:hover{background:transparent}
+#sidebar .nav-item:before{content:"";position:absolute;inset:0;z-index:-1;border-radius:10px;background:var(--nc);opacity:0;transform:scaleX(.55);transform-origin:left;
+  transition:opacity .25s,transform .4s cubic-bezier(.22,1,.36,1)}
+#sidebar .nav-item:hover:before{opacity:.08;transform:scaleX(1)}
+#sidebar .nav-item.active:before{opacity:.14;transform:scaleX(1)}
+#sidebar .nav-item .ni{position:relative;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;flex:none;
+  background:color-mix(in srgb,var(--nc) 15%,transparent);color:var(--nc);
+  transition:background .25s,color .25s,box-shadow .3s,transform .4s cubic-bezier(.34,1.56,.64,1)}
+#sidebar .nav-item .ni .ic{color:inherit;transition:none}
+#sidebar .nav-item:hover .ni .ic,#sidebar .nav-item.active .ni .ic{transform:none}
+#sidebar .nav-item:hover .ni{transform:translateY(-1px) scale(1.1) rotate(-6deg)}
+#sidebar .nav-item.active .ni{background:var(--nc);color:#fff;box-shadow:0 4px 14px color-mix(in srgb,var(--nc) 50%,transparent);animation:niPop .55s cubic-bezier(.34,1.56,.64,1)}
+#sidebar .nav-item.active:after{background:var(--nc);right:2px}
+#sidebar .nav-item.active>span:not(.ni):not(.chev):not(.pro){color:var(--text)}
+#sidebar .nav-item .chev{color:var(--muted)}
+#sidebar .nav-item.open .chev{color:var(--nc)}
+#sidebar .sub{margin-left:17px;padding-left:10px;gap:1px}
+#sidebar .sub .nav-item{padding:3px 8px 3px 3px;gap:9px;font-size:11px}
+#sidebar .nav-item .ni.ni-s{width:22px;height:22px;border-radius:7px}
+#sidebar .sub.open .nav-item{animation:subIn .4s cubic-bezier(.22,1,.36,1) backwards}
+#sidebar .sub.open .nav-item:nth-child(1){animation-delay:.03s}#sidebar .sub.open .nav-item:nth-child(2){animation-delay:.08s}
+#sidebar .sub.open .nav-item:nth-child(3){animation-delay:.13s}#sidebar .sub.open .nav-item:nth-child(4){animation-delay:.18s}
+#sidebar .side-bottom .nav-item{padding-left:4px}
+@keyframes niPop{0%{transform:scale(.6) rotate(-14deg)}60%{transform:scale(1.18) rotate(4deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes subIn{from{opacity:0;transform:translateX(-10px)}}
 .tbtn,.btn,.pill,.btn-add,.icon-btn,.btn-premium,.seg button{transition:transform .12s,background .15s,border-color .15s,color .15s}
 .tbtn:active,.btn:active,.pill:active,.btn-add:active,.icon-btn:active,.btn-premium:active{transform:scale(.95)}
 .seg button{transition:background .25s,color .25s,box-shadow .25s}
@@ -755,7 +666,7 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
   <div class="logo"><img class="mark" src="media/app-logo.png" alt="" width="28" height="28">Traders Journal</div>
   <nav class="menu" id="menu"></nav>
   <div class="side-bottom">
-    <button class="nav-item" data-page="settings" style="padding-left:6px"><i data-ic="settings" data-s="14"></i>Settings</button>
+    <button class="nav-item" data-page="settings" style="--nc:#94a3b8"><span class="ni"><i data-ic="settings" data-s="14"></i></span><span>Settings</span></button>
     <div class="profile" id="profile" role="button" aria-label="Open my profile"><span class="king-avatar small" data-avatar></span><div><div class="nm" data-profile-first>Your profile</div><div class="em"><span class="king-text">KING</span></div></div></div>
   </div>
 </aside>
@@ -812,7 +723,7 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
           <button class="tbtn conn" id="bConn" title="Connect MetaTrader"></button>
           <button class="tbtn" id="bAccount" title="Switch MetaTrader 5 Trading Account"><span class="acc-wallet-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2f80ed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg></span><span id="accLbl">All Accounts</span><i data-ic="down" data-s="12"></i></button>
           <button class="tbtn" id="bFilter"><i data-ic="filter" data-s="13"></i>Filter</button>
-          <button class="tbtn" id="bTour"><i data-ic="help" data-s="13"></i>Tour</button>
+          <button class="tbtn" id="bTour"><i data-ic="help" data-s="13"></i>Guide</button>
           <button class="tbtn" id="bRange"><i data-ic="calendar" data-s="13"></i><span id="rangeLbl">Last 30 Days</span><i data-ic="down" data-s="12"></i></button>
           <button class="tbtn" id="bCust"><i data-ic="settings" data-s="13"></i>Customize</button>
         </div>
@@ -928,22 +839,44 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
-        <button class="btn gh" onclick="openAccountScanner()" style="height:32px;padding:0 14px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Scan &amp; Choose Accounts</button>
+        <button class="btn gh" onclick="openAccountScanner()" style="height:32px;padding:0 14px;display:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Scan &amp; Choose Accounts</button>
       </div>
     </div>
 
     <!-- UPPER 2-COLUMN HUB -->
     <div class="cn-grid">
       <div class="cn-left">
+        <div class="addon-card" id="addonCard">
+          <div class="addon-head">
+            <div class="local-mt-icon"><i data-ic="shield" data-s="20"></i></div>
+            <div><div style="display:flex;align-items:center;gap:8px"><h3>MetaTrader 5 add-on</h3><span class="addon-rec">Recommended</span></div>
+              <p>MetaTrader sends your trades straight to Traders Journal. No background program runs, so antivirus has nothing to block.</p></div>
+            <span class="st" id="addonState">Checking...</span>
+          </div>
+          <ol class="addon-steps">
+            <li id="addonStep1"><span>1</span><div><b>Install the add-on</b><small>Copies it into MetaTrader 5 and prepares a one-time code, so you never type one.</small></div><button type="button" class="btn pri" id="bAddonInstall"><i data-ic="download" data-s="13"></i>Install add-on</button></li>
+            <li id="addonStep2"><span>2</span><div><b>Let it talk to this app</b><small>In MetaTrader 5 open <b>Tools → Options → Expert Advisors</b>, tick <b>Allow WebRequest for listed URL</b>, add <b>http://127.0.0.1:8765</b>, then OK.</small></div><button type="button" class="btn gh" id="bAddonCopyUrl"><i data-ic="copy" data-s="13"></i>Copy address</button></li>
+            <li id="addonStep3"><span>3</span><div><b>Start it on any chart</b><small>Press <b>Ctrl+N</b>, right-click <b>Expert Advisors → Refresh</b>, drag <b>TradersJournalSync_MT5</b> onto any chart, tick <b>Allow Algo Trading</b>, then OK.</small></div></li>
+          </ol>
+          <div class="addon-launch">
+            <button type="button" class="btn gh" id="bOpenMt5"><i data-ic="play" data-s="13"></i>Open MetaTrader 5</button>
+            <label class="cn-sw"><input type="checkbox" id="chkOpenMt5" checked><span>Open MetaTrader 5 when Traders Journal starts</span></label>
+          </div>
+          <div class="addon-foot" id="addonFoot"></div>
+        </div>
+
+        <details class="cn-adv" id="cnAdvanced">
+        <summary>Advanced: Python scanner <small>· optional</small></summary>
+        <div class="cn-warn">Reads MetaTrader with a background Python program. Some antivirus apps, like Kaspersky, block this. The add-on above does the same job without it.</div>
         <div class="local-mt-card">
           <div class="local-mt-head">
             <div class="local-mt-icon"><i data-ic="activity" data-s="20"></i></div>
             <div style="flex:1">
               <div style="display:flex;align-items:center;gap:8px">
-                <h3 style="font-size:14px;font-weight:600;margin:0">MetaTrader 5 Direct Local Sync</h3>
+                <h3 style="font-size:14px;font-weight:600;margin:0">Python live scanner</h3>
                 <span class="st" id="localBadge">Checking...</span>
               </div>
-              <p style="margin:2px 0 0;font-size:11px;color:var(--muted)">Direct in-memory connection to your local MT5 terminal. Zero manual EA or WebRequest needed.</p>
+              <p style="margin:2px 0 0;font-size:11px;color:var(--muted)">Reads your MT5 terminal and account folders with Python. Off unless you turn on Live Auto-Sync.</p>
             </div>
           </div>
 
@@ -958,7 +891,7 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
             <button class="btn pri" id="bLmSync" style="height:32px;padding:0 14px"><i data-ic="refresh" data-s="13"></i>Sync Now</button>
             <button class="btn gh" id="bLmScanAccounts" style="height:32px;padding:0 13px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Scan &amp; Choose Accounts</button>
             <label class="cn-sw" style="display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-size:11.5px">
-              <input type="checkbox" id="chkLmAuto" checked>
+              <input type="checkbox" id="chkLmAuto">
               <span>Live Auto-Sync (Every 3s)</span>
             </label>
             <button class="btn gh dng" id="bLmDisc" style="margin-left:auto;height:32px;padding:0 12px"><i data-ic="trash" data-s="13"></i>Disconnect All</button>
@@ -988,8 +921,8 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
           </div>
 
           <div class="auto-cmd-box">
-            <code id="autoCmdTxt">powershell -ExecutionPolicy Bypass -File "C:\GPT\local\tools\auto_connect_mt5.ps1"</code>
-            <button type="button" class="cn-b" id="bCopyAutoCmd" data-cact="copy" data-v="powershell -ExecutionPolicy Bypass -File &quot;C:\GPT\local\tools\auto_connect_mt5.ps1&quot;" style="height:26px;padding:0 10px;font-size:10.5px;flex:none"><i data-ic="copy" data-s="12"></i>Copy</button>
+            <code id="autoCmdTxt">Loading the command for this PC...</code>
+            <button type="button" class="cn-b" id="bCopyAutoCmd" data-cact="copy" data-v="" style="height:26px;padding:0 10px;font-size:10.5px;flex:none"><i data-ic="copy" data-s="12"></i>Copy</button>
           </div>
 
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -1000,20 +933,21 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
 
           <div class="auto-cmd-out" id="autoCmdOut"></div>
         </div>
+        </details>
       </div>
 
       <aside class="card cn-guide">
         <div class="cn-gt"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue);vertical-align:-2px"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Quick Setup Guide</div>
-        <p class="cn-note">All account records and trade history stay 100% locally on your PC. Zero Expert Advisor or WebRequest configuration required.</p>
-        <div class="cn-sub">1-Click Multi-Account Auto-Connect</div>
+        <p class="cn-note">Your trades go from MetaTrader 5 to this app on the same PC. Nothing is sent anywhere else, and your broker password is never needed.</p>
+        <div class="cn-sub">Connect in about a minute</div>
         <ol class="cn-steps">
-          <li><span>1</span><div>Click <b>Auto-Connect All MT5 Accounts</b> to automatically scan your running MT5 terminal and local MT5 account folders.</div></li>
-          <li><span>2</span><div>Or copy the <b>PowerShell / CMD</b> command and run it in any terminal window to launch MT5 and import all accounts you trade on.</div></li>
-          <li><span>3</span><div>Select any account under <b>Your MetaTrader 5 Trading Accounts</b> (or use the Dashboard account switcher) to filter your stats and trades.</div></li>
+          <li><span>1</span><div>Press <b>Install add-on</b>. MetaTrader 5 can stay open.</div></li>
+          <li><span>2</span><div>In MetaTrader 5, allow <b>WebRequest</b> for <code>http://127.0.0.1:8765</code>.</div></li>
+          <li><span>3</span><div>Drag <b>TradersJournalSync_MT5</b> onto any chart. It connects by itself and your trades appear. Repeat in each MT5 you use.</div></li>
         </ol>
 
         <div style="margin-top:auto;padding-top:16px">
-          <button class="cn-b pri" id="cnTutBtn" style="width:100%;justify-content:center;height:36px;margin-bottom:12px"><i data-ic="play" data-s="13"></i>Open Interactive Tutorial</button>
+          <button class="cn-b pri" id="cnTutBtn" style="width:100%;justify-content:center;height:36px;margin-bottom:12px"><i data-ic="play" data-s="13"></i>Open the connection guide</button>
           <div class="cn-privacy-pill">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             <span><b>100% Local PC Security</b> · Credentials never leave your machine</span>
@@ -1040,7 +974,7 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
           <p class="cn-accounts-sub">All configured broker accounts on this PC. Select an account to filter your journal dashboard, or switch active terminal sync.</p>
         </div>
         <div style="display:flex;align-items:center;gap:10px">
-          <button class="btn gh" id="bCnScanAccounts" style="height:32px;padding:0 14px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Scan &amp; Choose Accounts</button>
+          <button class="btn gh" id="bCnScanAccounts" style="height:32px;padding:0 14px;display:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Scan &amp; Choose Accounts</button>
           <span class="cn-badge-count" id="cnAccCount">0 accounts</span>
         </div>
       </div>
@@ -1059,7 +993,7 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
   <section class="page" id="page-other"><div class="ph"><div class="big c-blue" id="phIc"></div><h2 id="phT">Coming soon</h2><p id="phP">This section is coming in a future update.</p><button class="btn pri" onclick="go('dashboard')">Back to Dashboard</button></div></section>
 </div>
 
-<button class="chat" id="chat" title="Chat support"><i data-ic="chat" data-s="22"></i></button>
+<button class="chat" id="chat" title="Help &amp; guide" aria-label="Open the guide"><i data-ic="chat" data-s="22"></i></button>
 
 <div class="overlay" id="ovAdd"><div class="modal">
   <header><h3 id="addTitle">Add Trade</h3><button class="icon-btn" onclick="closeAdd()"><i data-ic="x" data-s="16"></i></button></header>
@@ -1098,10 +1032,6 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
     </button>
   </div>
 </div></div>
-<div id="support"><h4>Support &amp; Community</h4><p>We're here to help you succeed in your trading journey.</p>
-  <a class="si" href="https://youtube.com" target="_blank" rel="noopener"><span class="yt-i"></span><span><b>Watch walkthrough playlist</b><small>The full Traders Journal 2.0 tutorial library.</small></span></a>
-  <a class="si" href="https://wa.me/" target="_blank" rel="noopener"><span class="wa-i" data-icon="chat"></span><b>WhatsApp support</b></a>
-  <a class="si" href="https://t.me" target="_blank" rel="noopener"><span class="tg-i" data-icon="send"></span><b>Telegram support</b></a></div>
 <div class="overlay" id="ovAccountScanner">
   <div class="modal" style="width:540px;max-width:95vw;max-height:85vh;display:flex;flex-direction:column;overflow:hidden;padding:0">
     <div style="padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between">
@@ -1134,27 +1064,6 @@ html{scrollbar-width:none}*::-webkit-scrollbar{width:0!important;height:0!import
   </div>
 </div>
 <div class="overlay" id="ovAsk"><div class="modal" style="width:380px"><header><h3 id="askTitle"></h3></header><form id="askForm" style="grid-template-columns:1fr"><label class="fld"><span id="askLabel"></span><input id="askInp" type="text" inputmode="decimal" autocomplete="off"></label><div class="actions"><span></span><div style="display:flex;gap:8px"><button type="button" class="btn gh" id="askCancel">Cancel</button><button class="btn pri" type="submit">Save</button></div></div></form></div></div>
-<div class="overlay" id="ovTut"><div class="modal tut-box" role="dialog" aria-modal="true" aria-label="Connect MetaTrader tutorial">
-  <header>
-    <div><div class="tut-kick" id="tutKick"></div></div>
-    <div style="display:flex;align-items:center;gap:8px">
-      <button type="button" class="tut-inline-btn" id="tutVidBtn" style="height:26px;padding:0 10px;font-size:11px" title="Watch the full 1080p narrated tutorial video">🎬 Video Guide</button>
-      <button type="button" class="tut-inline-btn" id="tutAutoBtn" style="height:26px;padding:0 10px;font-size:11px" title="Auto-advance through tutorial steps">▶ Auto-Play</button>
-      <button class="icon-btn" id="tutX" aria-label="Close"><i data-ic="x" data-s="16"></i></button>
-    </div>
-  </header>
-  <div class="tut-prog-wrap"><div class="tut-prog-bar" id="tutProgBar"></div></div>
-  <div class="tut-Subnav" id="tutSubnav"></div>
-  <div class="tut-stage" id="tutStage"></div>
-  <div class="tut-body" id="tutBody"></div>
-  <div class="tut-foot">
-    <button class="btn gh" id="tutBack" style="min-width:96px">← Previous</button>
-    <div class="tut-dots" id="tutDots"></div>
-    <button class="btn pri" id="tutNext" style="min-width:110px">Next Step →</button>
-  </div>
-</div></div>
-<div id="shade"></div>
-<div id="tour"><h4 id="tTitle"></h4><p id="tText"></p><div class="ft"><span id="tStep"></span><div><button class="btn gh" id="tSkip">Skip</button><button class="btn gh" id="tBack">Back</button><button class="btn pri" id="tNext">Next</button></div></div></div>
 <div id="toast"></div>
 
 <script>
@@ -1216,7 +1125,7 @@ function tween(el,to,fmt,dur=850){const from=el._v==null?0:el._v;el._v=to;cancel
 /* ================= state ================= */
 const NOW=new Date(); const TODAY=new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());
 const def={mode:'live',range:'30',currency:'$',account:'All Accounts',theme:'dark',live:[],month:NOW.getMonth(),year:NOW.getFullYear(),
-  fSide:'all',fOut:'all',fSym:'',hide:{},page:'dashboard',startEquity:0,journal:{},collapsed:true};
+  fSide:'all',fOut:'all',fSym:'',hide:{},page:'dashboard',startEquity:0,journal:{},collapsed:false};
 let S=Object.assign({},def);
 try{Object.assign(S,JSON.parse(localStorage.getItem('tj_state')||'{}'))}catch(e){}
 S.month=NOW.getMonth();S.year=NOW.getFullYear();S.account=S.account||'All Accounts';S.currency=S.currency||'$';S.mode='live';
@@ -1268,17 +1177,18 @@ function calc(ts){const o={n:ts.length,net:0,gp:0,gl:0,w:0,l:0,b:0,bw:0,bl:0,fee
 
 /* ================= sidebar ================= */
 const NAV=[
- {id:'dashboard',t:'Dashboard',i:'grid',open:true},
- {id:'logging',t:'Trade Logging',i:'list'},
- {id:'journal',t:'Daily Journal',i:'sparkles'},
- {id:'analytics',t:'Analytics',i:'chartline',sub:[{id:'an-performance',t:'Performance'},{id:'an-edge',t:'Edge Analysis'},{id:'an-behavior',t:'Behavior'},{id:'an-progress',t:'Progress'}]},
- {id:'connect',t:'Connections',i:'link'},
+ {id:'dashboard',t:'Dashboard',i:'grid',c:'#3b82f6',open:true},
+ {id:'logging',t:'Trade Logging',i:'list',c:'#14b8a6'},
+ {id:'journal',t:'Daily Journal',i:'sparkles',c:'#8b5cf6'},
+ {id:'analytics',t:'Analytics',i:'chartline',c:'#f59e0b',sub:[{id:'an-performance',t:'Performance',i:'trend',c:'#22c55e'},{id:'an-edge',t:'Edge Analysis',i:'target',c:'#3b82f6'},{id:'an-behavior',t:'Behavior',i:'activity',c:'#ec4899'},{id:'an-progress',t:'Progress',i:'bars',c:'#8b5cf6'}]},
+ {id:'connect',t:'Connections',i:'link',c:'#22c55e'},
 ];
 const openSub={dashboard:true};
 function renderMenu(){const m=$('#menu');m.innerHTML=NAV.map(n=>{
  const act=S.page===n.id||(n.sub&&n.sub.some(s=>s.id===S.page));
- let h=`<button class="nav-item ${act&&!(n.sub&&S.page!==n.id)?'active':''} ${openSub[n.id]?'open':''}" data-go="${n.id}" ${n.sub?`data-tog="${n.id}"`:''}>${ic(n.i,14)}<span>${n.t}</span>${n.pro?'<span class="pro">PRO</span>':''}${n.sub?`<span class="chev">${ic(n.id==='dashboard'?'down':'right',13)}</span>`:''}</button>`;
- if(n.sub)h+=`<div class="sub ${openSub[n.id]?'open':''}">${n.sub.map(s=>`<button class="nav-item ${(S.page===s.id||(S.page==='analytics'&&s.id==='an-'+(S.anTab||'performance')))?'active':''}" data-go="${s.id}">${s.t}</button>`).join('')}</div>`;return h}).join('');
+ let h=`<button class="nav-item ${act&&!(n.sub&&S.page!==n.id)?'active':''} ${openSub[n.id]?'open':''}" data-go="${n.id}" style="--nc:${n.c}" ${n.sub?`data-tog="${n.id}"`:''}><span class="ni">${ic(n.i,14)}</span><span>${n.t}</span>${n.pro?'<span class="pro">PRO</span>':''}${n.sub?`<span class="chev">${ic(n.id==='dashboard'?'down':'right',13)}</span>`:''}</button>`;
+ if(n.sub)h+=`<div class="sub ${openSub[n.id]?'open':''}">${n.sub.map(s=>`<button class="nav-item ${(S.page===s.id||(S.page==='analytics'&&s.id==='an-'+(S.anTab||'performance')))?'active':''}" data-go="${s.id}" style="--nc:${s.c}"><span class="ni ni-s">${ic(s.i,12)}</span><span>${s.t}</span></button>`).join('')}</div>`;return h}).join('');
+ const setBtn=$('.nav-item[data-page="settings"]');if(setBtn)setBtn.classList.toggle('active',S.page==='settings');
  [...m.children].forEach((e,i)=>e.style.setProperty('--k',i));$$('.nav-item',m).forEach(b=>b.onclick=()=>{const id=b.dataset.go;if(b.dataset.tog){openSub[id]=!openSub[id]}go(id);if(innerWidth<=900)document.body.classList.remove('collapsed')&&0});}
 
 const TITLES={connect:'Connections',dashboard:'Dashboard',calendar:'Calendar',logging:'Trade Logging',journal:'Daily Journal',analytics:'Analytics','a-over':'Analytics','a-rep':'Reports','b-ses':'Backtesting','b-str':'Strategies',backtest:'Backtesting',chart:'Super Chart',feature:'Feature Request',support:'Support',ref:'Referrals',guide:'Guide',settings:'Settings'};
@@ -1558,7 +1468,7 @@ $('#fAdd').addEventListener('submit',e=>{e.preventDefault();const f=e.target;con
  const previousTrades=[...S.live],ix=S.live.findIndex(x=>x.id===rec.id);if(ix>=0)S.live[ix]=rec;else S.live.push(rec);
  S.mode='live';S.showManual=true;if(!save()){S.live=previousTrades;return}closeAdd();renderAll();if(dayOpen)openDay(dayOpen);if(typeof tradeMessage==='function')tradeMessage(ix>=0?'Trade updated':'Trade saved');else toast(ix>=0?'Trade updated':'Trade saved')});
 const _bAdd=$('#btnAdd');if(_bAdd)_bAdd.onclick=()=>openAdd();
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAdd();closeDay();$('#support').classList.remove('open');closePops();endTour()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAdd();closeDay();closePops()}});
 
 /* ================= day modal ================= */
 let dayOpen=null;
@@ -1658,9 +1568,7 @@ const bVj=$('#bViewJournal');
 if(bVj)bVj.onclick=()=>openDailyJournalForDay(dayOpen||dkey(TODAY));
 $('#dayAdd').onclick=()=>openAdd(dayOpen);
 $('#ovDay').addEventListener('mousedown',e=>{if(e.target.id==='ovDay')closeDay()});
-$$('#support [data-icon]').forEach(e=>e.innerHTML=ic(e.dataset.icon,15));$('#support .yt-i').innerHTML=ic('youtube',16);
-on('#chat',()=>$('#support').classList.toggle('open'));
-document.addEventListener('click',e=>{if(!e.target.closest('#support,#chat'))$('#support').classList.remove('open');const r=e.target.closest('tr[data-edit]');if(r&&!e.target.closest('[data-del]'))openEdit(r.dataset.edit)});
+document.addEventListener('click',e=>{const r=e.target.closest('tr[data-edit]');if(r&&!e.target.closest('[data-del]'))openEdit(r.dataset.edit)});
 /* export + equity */
 function exportCsv(){const ts=[...allTrades()].sort((a,b)=>a.date<b.date?-1:1);if(!ts.length){toast('No trades to export');return}
  const h=['date','symbol','side','qty','entry','exit','fees','pnl','strategy','account','notes'];const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
@@ -1911,49 +1819,6 @@ function onScroll(){const show=S.page==='dashboard'&&scrollY>330;$('#fnav').clas
 addEventListener('scroll',onScroll,{passive:true});
 $$('#fnav button').forEach(b=>b.onclick=()=>{const e=document.getElementById(b.dataset.t);if(!e)return;window.scrollTo({top:e.getBoundingClientRect().top+scrollY-120,behavior:'smooth'})});
 
-/* tour: walks through the whole app, page by page; a step's 4th value is the page to open first */
-const STEPS=[
- ['#menu','Your navigation','Everything lives in this sidebar: Dashboard, Trade Logging, Daily Journal, Analytics and Connections.','dashboard'],
- ['#sec-stats','Performance at a glance','Net P&L, win rate, profit factor, equity and risk:reward update live from your trades.','dashboard'],
- ['#sec-chart','Equity curve','Hover the chart to see daily P&L and account equity.','dashboard'],
- ['#sec-calendar','Trading calendar','Each day shows its P&L and trade count. Click any day to log a trade for it.','dashboard'],
- ['#sec-clock','Performance clock','Find your best and worst hours of the day.','dashboard'],
- ['#sec-activity','Activity heatmap','A year of trading days in one glance.','dashboard'],
- ['#bCust','Make it yours','Use Customize to show or hide any dashboard section.','dashboard'],
- ['#page-logging .page-head','Trade Logging','Log trades by hand with Add Trade, or let MetaTrader 5 sync them for you.','logging'],
- ['#calBigCard','Calendar','Pick any day to review or log its trades.','logging'],
- ['#page-logging table.tbl','All trades','Every trade with side, symbol, entry, exit and net P&L. Change the page limit or flip through pages.','logging'],
- ['.dj-heading','Daily Journal','Review each trade, write what you learned and keep a streak of completed reviews.','journal'],
- ['.dj-trades','Trades to review','Search and filter your trades, then pick one to review.','journal'],
- ['.dj-review','Your review','Write notes, tag mistakes and attach chart screenshots. Everything stays on this PC.','journal'],
- ['.dj-analytics','Journal analytics','Win rate, record and total P&L for the trades you have reviewed.','journal'],
- ['#page-analytics .an-tabs','Performance','Analytics has four views. Performance shows returns, drawdown and consistency.','an-performance'],
- ['#page-analytics .an-tabs','Edge analysis','See which symbols, sessions and setups actually make you money.','an-edge'],
- ['#page-analytics .an-tabs','Behavior','Spot overtrading, revenge trades and other habits that cost you.','an-behavior'],
- ['#page-analytics .an-tabs','Progress','Track your improvement over time and your personal milestones.','an-progress'],
- ['#page-connect .cn-head','Connections','Connect MetaTrader 5 so your trades arrive automatically. Nothing leaves your PC.','connect'],
- ['#cnTutBtn','Connection guide','Replay the 5-step Auto-Connect guide whenever you need it.','connect'],
- ['#settingsNav','Settings','Profile, connected accounts, sign-in and people, preferences, alerts, membership, privacy and backups.','settings'],
- ['#profile','Your profile','Click your name here any time to open your profile.','settings'],
- ['#bTour','All set','Replay this tour any time from the Tour button on the dashboard. Happy trading!','dashboard']
-];
-let ti=0,tEl=null,tourPage='dashboard';
-function tourEnter(pg){if(!pg||pg===tourPage)return false;tourPage=pg;go(pg);return true}
-function showTour(){
- const[s,t,x,pg]=STEPS[ti];if(tEl)tEl.classList.remove('tour-hl');tEl=null;
- const moved=tourEnter(pg);
- const place=()=>{
-  tEl=$(s);if(!tEl||tEl.offsetParent===null){tEl=null;ti++;return ti<STEPS.length?showTour():finishTour()}
-  const sb=$('#sidebar');if(sb)sb.classList.toggle('tour-up',!!tEl.closest('#sidebar'));
-  tEl.classList.add('tour-hl');$('#shade').classList.add('on');const card=$('#tour');card.classList.remove('step');void card.offsetWidth;card.classList.add('on','step');
-  $('#tTitle').textContent=t;$('#tText').textContent=x;$('#tStep').textContent=`${ti+1} / ${STEPS.length}`;$('#tBack').style.visibility=ti?'visible':'hidden';$('#tNext').textContent=ti===STEPS.length-1?'Done':'Next';
-  window.scrollTo({top:Math.max(0,tEl.getBoundingClientRect().top+scrollY-140),behavior:'smooth'})};
- moved?setTimeout(place,240):place()}
-function endTour(){if(tEl)tEl.classList.remove('tour-hl');tEl=null;const sb=$('#sidebar');if(sb)sb.classList.remove('tour-up');$('#shade').classList.remove('on');$('#tour').classList.remove('on','step')}
-function finishTour(){endTour();tourPage='dashboard';if(S.page!=='dashboard')go('dashboard')}
-on('#bTour',()=>{go('dashboard');tourPage='dashboard';ti=0;setTimeout(showTour,60)});
-$('#tNext').onclick=()=>{if(ti>=STEPS.length-1)return finishTour();ti++;showTour()};$('#tBack').onclick=()=>{ti=Math.max(0,ti-1);showTour()};$('#tSkip').onclick=finishTour;$('#shade').onclick=finishTour;
-
 /* ================= MetaTrader connections ================= */
 let SRV={ok:false,version:-1,connections:[]},SYNCED=[],cnVer='mt5',cnActive=null,cnApiUrl=location.origin.startsWith('http')?location.origin:'http://127.0.0.1:8765';
 const ago=ms=>{if(!ms)return'never';const s=Math.max(0,Math.round((Date.now()-ms)/1000));return s<10?'just now':s<60?s+'s ago':s<3600?Math.floor(s/60)+'m ago':s<86400?Math.floor(s/3600)+'h ago':Math.floor(s/86400)+'d ago'};
@@ -1999,8 +1864,8 @@ async function renderLocalMt5(){
     const st = await res.json();
     if (st.root) {
       const r = st.root.replace(/[\/]+$/, '');
-      AUTO_CMDS.ps = 'powershell -ExecutionPolicy Bypass -File "' + r + '\tools\auto_connect_mt5.ps1"';
-      AUTO_CMDS.cmd = '"' + r + '\.venv\Scripts\python.exe" "' + r + '\tools\mt5_sync.py" --scan-all';
+      AUTO_CMDS.ps = 'powershell -ExecutionPolicy Bypass -File "' + r + '\\tools\\auto_connect_mt5.ps1"';
+      AUTO_CMDS.cmd = '"' + r + '\\.venv\\Scripts\\python.exe" "' + r + '\\tools\\mt5_sync.py" --scan-all';
       const codeEl = $('#autoCmdTxt'), cpBtn = $('#bCopyAutoCmd');
       const tab = $('#cmdShellTabs button.on');
       const cur = tab && tab.dataset.shell === 'cmd' ? AUTO_CMDS.cmd : AUTO_CMDS.ps;
@@ -2078,8 +1943,8 @@ function renderConn(){
 }
 
 const AUTO_CMDS={
-  ps:'powershell -ExecutionPolicy Bypass -File "C:\\GPT\\local\\tools\\auto_connect_mt5.ps1"',
-  cmd:'"C:\\GPT\\local\\.venv\\Scripts\\python.exe" "C:\\GPT\\local\\tools\\mt5_sync.py" --scan-all'
+  ps:'Loading the command for this PC...',
+  cmd:'Loading the command for this PC...'
 };
 $$('#cmdShellTabs button').forEach(btn=>{
   btn.onclick=()=>{
@@ -2170,324 +2035,28 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-cact
  if(a==='disc'){if(b.dataset.q==='1'&&!confirm('Disconnect this terminal and remove its synced trades from the dashboard?'))return;await api('/api/connections/'+id,'DELETE');if(cnActive===id)cnActive=null;toast('Connection removed');await poll();renderConn()}
  }catch(err){toast(err.message==='Failed to fetch'?'Backend not reachable — run node server.js':err.message)}});
 setInterval(()=>{if(!document.hidden)poll()},3000);poll();
-/* ================= MT5 tutorial ================= */
-const MKBAR=(t,badge='')=>`<div class="mk-t"><i></i><i></i><i></i><span>${t}</span>${badge?`<b class="mk-pill-r">${badge}</b>`:''}</div>`;
-const CURSOR_SVG=`<div class="tut-cursor"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.86a.5.5 0 0 0-.85.35Z" fill="#fff" stroke="#0f172a" stroke-width="1.6"/></svg></div>`;
-
-const TUT_DIRECT=[
- {
-  tab:'1. Auto-Connect',
-  k:'Auto-Connect · Step 1 of 5 · 1-Click Terminal & PC Runner',
-  t:'1-Click Auto-Connect & PowerShell Runner',
-  p:'Traders Journal connects directly to MetaTrader 5 and scans your PC for all MT5 trading accounts automatically — zero manual Expert Advisor or WebRequest setup needed.',
-  tips:[
-   'Click <b>Auto-Connect All MT5 Accounts</b> to launch MT5 (if closed) and discover every broker account on your PC.',
-   'Or copy the <b>PowerShell / CMD</b> one-liner to run the connector from any external terminal window.',
-   'Reads trade history, open positions, deposits, and live equity directly from your local terminal memory.',
-   '100% local execution — your broker login credentials never leave your computer.'
-  ],
-  acts:[
-   {lbl:'⚡ Run Auto-Connect Now',cls:'pri',act:'run-auto'},
-   {lbl:'📋 Copy PowerShell Command',cls:'',act:'copy-ps'},
-   {lbl:'▷ Open in PowerShell',cls:'',act:'open-ps'}
-  ],
-  mock:()=>`
-   <div class="mk">
-    ${MKBAR('Quick Auto-Connect (PowerShell / CMD)','1-Click Engine')}
-    <div class="mk-b">
-     <div class="mk-code">
-      <span class="cmd-type">powershell -ExecutionPolicy Bypass -File "C:\\GPT\\local\\tools\\auto_connect_mt5.ps1"</span>
-      <span class="cp-tag">Copy</span>
-     </div>
-     <div class="mk-acts" style="margin-top:11px;position:relative">
-      <div class="mk-btn green hl">⚡ Auto-Connect All MT5 Accounts</div>
-      <div class="mk-btn ghost">▷ Run in PowerShell</div>
-      <div class="mk-btn ghost">▷ Run in CMD</div>
-      ${CURSOR_SVG}
-     </div>
-     <div class="mk-term-out">
-      <div class="mk-term-line l1"><span>[1/3]</span><span>Connecting to local MetaTrader 5 terminal64.exe...</span></div>
-      <div class="mk-term-line l2"><span>[2/3]</span><span>Scanning PC account caches &amp; broker deal history...</span></div>
-      <div class="mk-term-line l3"><span>[3/3]</span><span>✓ Discovered &amp; synced MT5 trading accounts to Traders Journal!</span></div>
-     </div>
-    </div>
-   </div>`
- },
- {
-  tab:'2. Account Selector',
-  k:'Account Control · Step 2 of 5 · Smart Scanner & Deletion Guard',
-  t:'Choose Which Accounts to Track (Permanent Ignore Guard)',
-  p:'Not every demo or old challenge account belongs in your journal. Use the Account Scanner to pick the exact accounts you want — and permanently block unwanted ones.',
-  tips:[
-   'Click <b>Scan &amp; Choose Accounts</b> anytime to see all MT5 accounts stored on your PC.',
-   'Check the accounts you want imported and uncheck any demo or old accounts you don’t need.',
-   '<b>Permanent Deletion Guard:</b> Any account you remove or uncheck is remembered and will <b>never</b> be re-added automatically without asking.',
-   'Re-enable a previously ignored account anytime by ticking its checkbox in the scanner.'
-  ],
-  acts:[
-   {lbl:'🔍 Open Account Scanner & Selector',cls:'pri',act:'open-scanner'}
-  ],
-  mock:()=>`
-   <div class="mk">
-    ${MKBAR('MetaTrader 5 Accounts on this PC','Smart Selection Guard')}
-    <div class="mk-b">
-     <div class="mk-scan-list">
-      <div class="mk-scan-row checked" style="--ri:0">
-       <div class="mk-chk-box on">✓</div>
-       <div style="flex:1;min-width:0">
-        <div style="display:flex;align-items:center;gap:8px"><b style="color:#fff">FTMO-Demo (1514969074)</b><span class="mk-badge" style="margin:0">● Active in MT5</span></div>
-        <div style="font-size:10px;color:#94a3b8;margin-top:2px">Balance: <b style="color:#4ade80">$190,529.61</b> · Starting: $200,000.00 · 8 trades</div>
-       </div>
-      </div>
-      <div class="mk-scan-row checked" style="--ri:1">
-       <div class="mk-chk-box on">✓</div>
-       <div style="flex:1;min-width:0">
-        <div style="display:flex;align-items:center;gap:8px"><b style="color:#fff">ICMarkets-SC-Live (88412095)</b><span style="font-size:9.5px;padding:1px 7px;border-radius:6px;background:#1e293b;color:#94a3b8">Saved on PC</span></div>
-        <div style="font-size:10px;color:#94a3b8;margin-top:2px">Balance: <b style="color:#4ade80">$42,810.50</b> · Starting: $25,000.00 · 64 trades</div>
-       </div>
-      </div>
-      <div class="mk-scan-row ignored" style="--ri:2">
-       <div class="mk-chk-box off">✕</div>
-       <div style="flex:1;min-width:0">
-        <div style="display:flex;align-items:center;gap:8px"><b style="color:#cbd5e1;text-decoration:line-through">MetaQuotes-Demo (50192831)</b><span style="font-size:9.5px;padding:1px 7px;border-radius:6px;background:rgba(239,68,68,.15);color:#f87171">Ignored · Won’t Auto-Import</span></div>
-        <div style="font-size:10px;color:#64748b;margin-top:2px">Unchecked / Removed — permanently skipped during auto-sync</div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>`
- },
- {
-  tab:'3. Live 3s Sync',
-  k:'Real-Time Telemetry · Step 3 of 5 · Direct In-Memory Bridge',
-  t:'Live Auto-Sync Every 3 Seconds',
-  p:'While MetaTrader 5 is open, Traders Journal polls the local terminal bridge every 3 seconds so closed trades, open floating positions, and equity updates appear automatically.',
-  tips:[
-   'Keep <b>Live Auto-Sync (Every 3s)</b> checked on the Connections page for hands-free background updates.',
-   'Press <b>Sync Now</b> anytime to force an immediate refresh of all deals and account balances.',
-   'Automatically calculates initial starting balance from your first deposit deal in MT5.',
-   'Logs every background sync event in the <b>Recent Sync Activity</b> console.'
-  ],
-  live:true,
-  acts:[
-   {lbl:'⟳ Sync MT5 Now',cls:'grn',act:'sync-now'}
-  ],
-  mock:()=>`
-   <div class="mk-bridge">
-    <div class="mk-node">
-     <div class="mk-node-h"><span style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e"></span>MetaTrader 5</div>
-     <div style="font-size:10px;color:#94a3b8;margin-bottom:8px">terminal64.exe · Local IPC</div>
-     <div style="background:#0c0f17;border:1px solid #242b3d;border-radius:6px;padding:6px 8px;font:600 10px var(--mono)">
-      <div style="color:#60a5fa">XAUUSD · BUY 2.00</div>
-      <div style="color:#4ade80;margin-top:2px">Deal #98412 · +$1,420.00</div>
-     </div>
-    </div>
-    <div class="mk-stream">
-     <div class="mk-stream-pill"><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;animation:bping 1.2s infinite"></span>LIVE 3s SYNC STREAM</div>
-     <div class="mk-track" style="--td:0s"></div>
-     <div class="mk-track" style="--td:.45s"></div>
-     <div class="mk-track" style="--td:.9s"></div>
-     <div style="font-size:10px;color:#94a3b8;font-family:var(--mono)">Deals · Balance · Equity · SL/TP</div>
-    </div>
-    <div class="mk-node" style="border-color:rgba(59,130,246,.45)">
-     <div class="mk-node-h"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;box-shadow:0 0 8px #3b82f6"></span>Traders Journal</div>
-     <div style="font-size:10px;color:#94a3b8;margin-bottom:8px">KING Edition · Local DB</div>
-     <div style="background:#0c0f17;border:1px solid #242b3d;border-radius:6px;padding:6px 8px;font:600 10px var(--mono)">
-      <div style="color:#cbd5e1">Eq: <b style="color:#4ade80">$190,529.61</b></div>
-      <div style="color:#94a3b8;margin-top:2px">Synced: <span style="color:#60a5fa">just now</span></div>
-     </div>
-    </div>
-   </div>`
- },
- {
-  tab:'4. Account Switcher',
-  k:'Multi-Account Workflow · Step 4 of 5 · Filter & Compare',
-  t:'Instant Multi-Account Switcher & Cards',
-  p:'Seamlessly switch between individual trading accounts or view your combined portfolio across the Dashboard, Calendar, Trade Logging, and Analytics pages.',
-  tips:[
-   'Use the <b>Account Switcher</b> button in the top Dashboard toolbar to filter everything by a single MT5 account or <b>All Accounts</b>.',
-   'Or click <b>View on Dashboard</b> on any card under <b>Your MetaTrader 5 Trading Accounts</b>.',
-   'Each account tracks its own true starting balance, drawdown, win rate, and trade log independently.',
-   'Click <b>Remove</b> on any account card to delete it and prevent future auto-imports.'
-  ],
-  acts:[
-   {lbl:'📊 View All Accounts on Dashboard',cls:'',act:'go-dash'}
-  ],
-  mock:()=>`
-   <div class="mk">
-    ${MKBAR('Traders Journal · Multi-Account Filter','Instant Switcher')}
-    <div class="mk-b">
-     <div class="mk-acc-grid">
-      <div class="mk-pop-menu">
-       <div style="font-size:9.5px;color:#64748b;font-weight:700;padding:2px 6px;letter-spacing:.6px">SELECT ACCOUNT</div>
-       <div class="mk-pop-item on"><span>● FTMO-Demo (1514969074)</span><b>✓</b></div>
-       <div class="mk-pop-item"><span>○ ICMarkets-Live (88412095)</span><small>64</small></div>
-       <div class="mk-pop-item"><span>○ All Accounts (Combined)</span><small>All</small></div>
-      </div>
-      <div style="background:#0d1018;border:1px solid #242b3d;border-radius:9px;padding:10px 12px;display:flex;flex-direction:column;justify-content:space-between">
-       <div style="display:flex;justify-content:space-between;align-items:center">
-        <div><small style="color:#94a3b8;font-size:9.5px;display:block">ACTIVE ACCOUNT EQUITY</small><b style="font:700 15px var(--mono);color:#4ade80">$190,529.61</b></div>
-        <span class="mk-badge">Active · Live</span>
-       </div>
-       <svg viewBox="0 0 260 54" style="width:100%;height:50px;margin-top:6px;overflow:visible">
-        <defs><linearGradient id="tutEqG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6" stop-opacity=".35"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></linearGradient></defs>
-        <path d="M0,44 C35,40 55,28 85,30 C115,32 140,16 175,18 C205,20 230,6 256,4 L256,52 L0,52 Z" fill="url(#tutEqG)"/>
-        <path d="M0,44 C35,40 55,28 85,30 C115,32 140,16 175,18 C205,20 230,6 256,4" fill="none" stroke="#3b82f6" stroke-width="2.5" class="tut-draw-line"/>
-        <circle cx="256" cy="4" r="4" fill="#4ade80"><animate attributeName="r" values="3.5;6;3.5" dur="1.6s" repeatCount="indefinite"/></circle>
-       </svg>
-      </div>
-     </div>
-    </div>
-   </div>`
- },
- {
-  tab:'5. Ready & Live',
-  k:'Verification · Step 5 of 5 · Live Telemetry Check',
-  t:'Your Trading Journal is Ready',
-  p:'Verify your live MetaTrader 5 connection below and start exploring your automated Dashboard, Daily Journal, Calendar Heatmap, and 4-Pillar Analytics.',
-  tips:[
-   'Check the live status banner below to confirm your MT5 terminal is online and streaming.',
-   'Click any day on the <b>Calendar</b> to inspect individual trade executions, session tags, and add <b>Daily Journal</b> notes.',
-   'Visit <b>Analytics</b> for deep breakdowns across Performance, Edge Analysis, Behavior, and Progress.',
-   'Re-open this interactive guide anytime from the <b>Connections</b> page.'
-  ],
-  live:true,
-  acts:[
-   {lbl:'🚀 Go to Dashboard',cls:'pri',act:'go-dash'},
-   {lbl:'🔍 Scan & Choose Accounts',cls:'',act:'open-scanner'},
-   {lbl:'⟳ Refresh Live Status',cls:'grn',act:'sync-now'}
-  ],
-  mock:()=>`
-   <div class="mk">
-    ${MKBAR('Traders Journal · KING Edition Dashboard','All Systems Go')}
-    <div class="mk-b">
-     <div class="mk-stats" style="grid-template-columns:repeat(4,1fr);margin-top:0">
-      <div><small>NET P&amp;L</small><b class="tut-ok">+$14,820</b></div>
-      <div><small>WIN RATE</small><b style="color:#60a5fa">68.4%</b></div>
-      <div><small>PROFIT FACTOR</small><b>2.41</b></div>
-      <div><small>MT5 SYNC</small><b class="tut-ok">● LIVE 3s</b></div>
-     </div>
-     <div style="display:grid;grid-template-columns:1fr 140px;gap:10px;margin-top:8px;align-items:center">
-      <div style="background:#0c0f17;border:1px solid #242b3d;border-radius:8px;padding:8px 12px">
-       <div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-bottom:4px"><span>EQUITY PROGRESSION</span><span style="color:#4ade80;font-weight:700">+14.8% Peak</span></div>
-       <svg viewBox="0 0 300 42" style="width:100%;height:38px;overflow:visible">
-        <defs><linearGradient id="tutEqG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity=".3"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>
-        <path d="M0,36 Q45,34 75,24 T155,18 T230,9 T296,4 L296,40 L0,40 Z" fill="url(#tutEqG2)"/>
-        <path d="M0,36 Q45,34 75,24 T155,18 T230,9 T296,4" fill="none" stroke="#22c55e" stroke-width="2.5" class="tut-draw-line"/>
-        <circle cx="296" cy="4" r="4" fill="#22c55e"/>
-       </svg>
-      </div>
-      <div style="background:#0c0f17;border:1px solid #242b3d;border-radius:8px;padding:8px 10px;text-align:center">
-       <small style="font-size:8.5px;color:#94a3b8;display:block;margin-bottom:4px">LOCAL SECURITY</small>
-       <div style="color:#4ade80;font-weight:800;font-size:12px">100% ON-PC</div>
-       <div style="font-size:9.5px;color:#64748b;margin-top:2px">Zero Cloud Leak</div>
-      </div>
-     </div>
-    </div>
-   </div>`
- }
-];
-let tutI=0,tutTrack='direct',LMST=null,tutAutoTimer=null,WELCOME_ON=false;
-const tutSteps=()=>TUT_DIRECT;
-async function tutPollLocal(){try{const r=await fetch('/api/local-mt5/status',{cache:'no-store'});if(r.ok)LMST=await r.json()}catch(e){}}
-function tutLiveHtml(){
- const c=LMST&&LMST.connection;
- const cnt=(LMST&&Array.isArray(LMST.accounts))?LMST.accounts.length:(c?1:0);
- if(!c||c.status!=='online')return `<div class="tut-live wait"><div class="tut-live-left"><span class="d"></span><div><b>Waiting for MetaTrader 5…</b><br><span class="muted">Click “Run Auto-Connect Now” or “Scan &amp; Choose Accounts” to link your MT5 terminal.</span></div></div><button type="button" class="tut-inline-btn pri" data-tact="run-auto">⚡ Auto-Connect</button></div>`;
- return `<div class="tut-live ok"><div class="tut-live-left"><span class="d"></span><div><b>Connected (${cnt} Account${cnt===1?'':'s'})</b>${c.account?` · ${esc(fmtAcc(c.account))}`:''}<br><span class="muted">${c.tradeCount||0} trade${c.tradeCount===1?'':'s'} synced on active account${LMST.autoSync?' · live 3s auto-sync enabled':''}</span></div></div><span class="st online" style="flex:none">● Live</span></div>`;
+/* ================= MT5 add-on ================= */
+// The add-on connection is the newest MetaTrader connection that is not from the Python scanner (those ids start with mt5-).
+const addonConns=()=>SRV.connections.filter(c=>c.platform==='mt5'&&c.id&&c.id.indexOf('mt5-')!==0);
+function renderAddon(){
+ const st=$('#addonState'),foot=$('#addonFoot');if(!st)return;
+ const cs=addonConns(),live=cs.find(c=>c.status==='online')||cs.find(c=>c.status==='offline'),wait=cs.find(c=>c.status==='pending');
+ const mark=n=>['addonStep1','addonStep2','addonStep3'].forEach((id,i)=>{const e=document.getElementById(id);if(e)e.classList.toggle('done',i<n)});
+ if(live){const a=live.account||{};st.className='st '+live.status;st.textContent=live.status==='online'?'Connected':'MetaTrader closed';mark(3);
+  foot.innerHTML=`Account <b>${esc(String(a.login||'—'))}</b>${a.server?' · '+esc(a.server):''} · <b>${live.tradeCount}</b> trade${live.tradeCount===1?'':'s'} synced${cs.filter(c=>c.status==='online').length>1?' · more MetaTrader terminals connected':''}`}
+ else if(wait){st.className='st pending';st.textContent='Waiting for MetaTrader';mark(1);foot.innerHTML=`One-time code <b class="mono">${esc(wait.code||'')}</b> is ready. Do steps 2 and 3 and this turns green.`}
+ else{st.className='st expired';st.textContent='Not connected';mark(0);foot.textContent='Takes about a minute. Your broker password is never needed.'}
 }
-function stopTutAuto(){
- if(tutAutoTimer){clearInterval(tutAutoTimer);tutAutoTimer=null}
- const btn=$('#tutAutoBtn');
- if(btn){btn.textContent='▶ Auto-Play';btn.classList.remove('pri')}
-}
-function toggleTutAuto(){
- if(tutAutoTimer){stopTutAuto();return}
- const btn=$('#tutAutoBtn');
- if(btn){btn.textContent='⏸ Pause Auto-Play';btn.classList.add('pri')}
- tutAutoTimer=setInterval(()=>{
-  const steps=tutSteps();
-  if(!$('#ovTut').classList.contains('open')){stopTutAuto();return}
-  if(WELCOME_ON&&tutI>=steps.length-1){stopTutAuto();closeTut();return}
-  tutI=(tutI+1)%steps.length;
-  tutRender();
- },5500);
-}
-let tutVidMode=false;
-function renderTutVideo(){
- stopTutAuto();
- tutVidMode=true;
- const vBtn=$('#tutVidBtn');if(vBtn){vBtn.classList.add('pri');vBtn.textContent='✦ Interactive Steps'}
- $('#tutKick').textContent='Full Video Tutorial · 1080p HD · Created by Chethiya Rathnasekara';
- $$('.tut-step-tab',$('#tutSubnav')).forEach(b=>b.classList.remove('active'));
- $('#tutStage').style.height='360px';
- $('#tutStage').style.padding='0';
- $('#tutStage').innerHTML=`<video id="tutVideoEl" src="media/traders-journal-promo.mp4" poster="media/traders-journal-poster.jpg" controls autoplay style="width:100%;height:100%;object-fit:contain;background:#05070c"></video>`;
- const chapters=[
-  ['0:00 · Intro',0],['0:12 · Auto-Connect',12],['0:32 · Account Selection',32],
-  ['0:52 · Dashboard',52],['1:10 · Calendar',70],['1:28 · Daily Journal',88],['1:45 · Analytics',105]
- ];
- $('#tutBody').innerHTML=`
-  <div class="tut-body-top">
-   <div>
-    <h3>Full Project &amp; MT5 Connection Video Walkthrough</h3>
-    <p>Watch the complete narrated guide covering 1-Click MT5 Auto-Connect, Smart Account Selection, and all KING Edition analytics features. Click any chapter below to jump directly to that section:</p>
-   </div>
-  </div>
-  <div class="tut-inline-acts" style="margin-top:10px">
-   ${chapters.map(([lbl,sec])=>`<button type="button" class="tut-inline-btn" data-vseek="${sec}">▶ ${lbl}</button>`).join('')}
-  </div>`;
-}
-function tutRender(){
- tutVidMode=false;
- const vBtn=$('#tutVidBtn');if(vBtn){vBtn.classList.remove('pri');vBtn.textContent='🎬 Video Guide'}
- $('#tutStage').style.height='';
- $('#tutStage').style.padding='';
- const steps=tutSteps(),s=steps[tutI]||steps[0];
- $('#tutKick').textContent=s.k;
- const prog=$('#tutProgBar');
- if(prog)prog.style.width=((tutI+1)/steps.length*100)+'%';
- const subnav=$('#tutSubnav');
- if(subnav){
-  subnav.innerHTML=steps.map((st,i)=>`<button type="button" class="tut-step-tab ${i===tutI?'active':i<tutI?'done':''}" data-ti="${i}"><span class="num">${i<tutI?'✓':i+1}</span><span>${st.tab||('Step '+(i+1))}</span></button>`).join('');
- }
- $('#tutStage').innerHTML=`<div class="tut-stage-glow"></div><button type="button" class="tut-replay-btn" id="tutReplayBtn" title="Replay stage animation">↻ Replay Animation</button>${s.mock()}`;
- const actsHtml=(s.acts&&s.acts.length)?`<div class="tut-inline-acts">${s.acts.map(a=>`<button type="button" class="tut-inline-btn ${a.cls||''}" data-tact="${a.act}">${a.lbl}</button>`).join('')}</div>`:'';
- $('#tutBody').innerHTML=`<div class="tut-body-top"><div><h3>${s.t}</h3><p>${s.p}</p></div></div><ul>${s.tips.map((t,idx)=>`<li style="--li:${idx}"><span>${t}</span></li>`).join('')}</ul>${actsHtml}${s.live?`<div id="tutLive">${tutLiveHtml()}</div>`:''}`;
- $('#tutDots').innerHTML=steps.map((_,i)=>`<i class="${i===tutI?'on':i<tutI?'done':''}" data-ti="${i}" title="Step ${i+1}"></i>`).join('');
- $('#tutBack').style.visibility=tutI>0?'visible':'hidden';$('#tutNext').style.visibility='visible';$('#tutNext').textContent=tutI===steps.length-1?'Finish ✓':'Next Step →';
- const repBtn=$('#tutReplayBtn');
- if(repBtn)repBtn.onclick=()=>{const stg=$('#tutStage');stg.innerHTML=`<div class="tut-stage-glow"></div><button type="button" class="tut-replay-btn" id="tutReplayBtn" title="Replay stage animation">↻ Replay Animation</button>${s.mock()}`;const rb=$('#tutReplayBtn');if(rb)rb.onclick=repBtn.onclick};
- if(s.live)tutPollLocal().then(()=>{const el=$('#tutLive');if(el&&$('#ovTut').classList.contains('open'))el.innerHTML=tutLiveHtml()});
- hydrate($('#ovTut'));$('#tutBody').scrollTop=0}
-function openTut(){stopTutAuto();tutTrack='direct';tutI=0;tutRender();$('#ovTut').classList.add('open');try{localStorage.setItem('tj_tut_seen','1')}catch(e){}}
-function closeTut(){stopTutAuto();const v=$('#tutVideoEl');if(v)v.pause();$('#ovTut').classList.remove('open');
- if(WELCOME_ON){WELCOME_ON=false;setTimeout(()=>{go('dashboard');tourPage='dashboard';ti=0;setTimeout(showTour,350)},450)}}
-/* after a sign-in: play the Auto-Connect guide on its own (every step), then walk through the whole app */
-function startWelcome(){if(WELCOME_ON||$('#ovTut').classList.contains('open'))return;WELCOME_ON=true;openTut();toggleTutAuto()}
-$('#cnTutBtn').onclick=()=>openTut();$('#tutX').onclick=closeTut;
-const bTutAuto=$('#tutAutoBtn');if(bTutAuto)bTutAuto.onclick=toggleTutAuto;
-const bTutVid=$('#tutVidBtn');if(bTutVid)bTutVid.onclick=()=>{if(tutVidMode)tutRender();else renderTutVideo()};
-$('#tutNext').onclick=()=>{stopTutAuto();if(tutVidMode){tutRender();return}const n=tutSteps().length;if(tutI>=n-1){closeTut();return}tutI++;tutRender()};
-$('#tutBack').onclick=()=>{stopTutAuto();if(tutVidMode){tutRender();return}if(tutI>0){tutI--;tutRender()}};
-$('#tutDots').onclick=e=>{const d=e.target.closest('[data-ti]');if(d){stopTutAuto();tutI=+d.dataset.ti;tutRender()}};
-const elSubnav=$('#tutSubnav');if(elSubnav)elSubnav.onclick=e=>{const d=e.target.closest('[data-ti]');if(d){stopTutAuto();tutI=+d.dataset.ti;tutRender()}};
-$('#ovTut').addEventListener('click',async e=>{
- const vs=e.target.closest('[data-vseek]');
- if(vs){const v=$('#tutVideoEl');if(v){v.currentTime=+vs.dataset.vseek;v.play()}return}
- const b=e.target.closest('[data-tact]');
- if(!b)return;
- const act=b.dataset.tact;WELCOME_ON=false;
- if(act==='run-auto'){const runBtn=$('#bRunAutoConnect');if(runBtn)runBtn.click();setTimeout(()=>{tutPollLocal().then(()=>{const el=$('#tutLive');if(el)el.innerHTML=tutLiveHtml()})},2500)}
- else if(act==='copy-ps'){const cmd=AUTO_CMDS.ps;try{await navigator.clipboard.writeText(cmd)}catch(x){}toast('Copied PowerShell auto-connect command!')}
- else if(act==='open-ps'){const psBtn=$('#bOpenPs');if(psBtn)psBtn.click()}
- else if(act==='open-scanner'){closeTut();openAccountScanner()}
- else if(act==='sync-now'){const sBtn=$('#bLmSync');if(sBtn)sBtn.click();setTimeout(()=>{tutPollLocal().then(()=>{const el=$('#tutLive');if(el)el.innerHTML=tutLiveHtml()})},1200)}
- else if(act==='go-dash'){closeTut();go('dashboard')}
-});
-$('#ovTut').addEventListener('mousedown',e=>{if(e.target.id==='ovTut')closeTut()});
-document.addEventListener('keydown',e=>{if(!$('#ovTut').classList.contains('open'))return;if(e.key==='ArrowRight')$('#tutNext').click();else if(e.key==='ArrowLeft')$('#tutBack').click();else if(e.key==='Escape')closeTut()});
-setInterval(()=>{if($('#ovTut').classList.contains('open')&&!tutVidMode&&tutSteps()[tutI]&&tutSteps()[tutI].live){tutPollLocal().then(()=>{const el=$('#tutLive');if(el)el.innerHTML=tutLiveHtml()})}},2000);
+on('#bAddonInstall',async()=>{const b=$('#bAddonInstall');b.disabled=true;b.textContent='Installing...';
+ try{const j=await api('/api/local-mt5/addon-install','POST',{});toast(`Add-on installed in MetaTrader 5 (${j.installed.length} folder${j.installed.length===1?'':'s'})`);await poll()}
+ catch(e){toast(e.message)}finally{b.disabled=false;b.innerHTML=ic('download',13)+'Install again';renderAddon()}});
+on('#bAddonCopyUrl',async()=>{try{await navigator.clipboard.writeText('http://127.0.0.1:8765');toast('Address copied: http://127.0.0.1:8765')}catch(e){toast('Copy failed. Type http://127.0.0.1:8765')}});
+on('#bOpenMt5',async()=>{try{const j=await api('/api/local-mt5/open-mt5','POST',{});toast(j.already?'MetaTrader 5 is already open':'Opening MetaTrader 5...')}catch(e){toast(e.message)}});
+$('#chkOpenMt5').onchange=async e=>{const box=e.target;try{await api('/api/local-mt5/open-mt5-setting','POST',{enabled:box.checked});toast(box.checked?'MetaTrader 5 will open with Traders Journal':'MetaTrader 5 will no longer open with Traders Journal')}catch(err){box.checked=!box.checked;toast(err.message)}};
+// the start-up switch follows the saved setting (checked a few seconds apart, never while it is being clicked)
+let openMt5Seen=0;
+async function syncOpenMt5Switch(){if(Date.now()-openMt5Seen<8000)return;openMt5Seen=Date.now();try{const r=await fetch('/api/local-mt5/status',{cache:'no-store'});if(!r.ok)return;const j=await r.json(),c=$('#chkOpenMt5');if(c&&document.activeElement!==c)c.checked=!!j.openMt5}catch(e){/* app restarting */}}
+setInterval(()=>{if(S.page==='connect'){renderAddon();syncOpenMt5Switch()}},1500);
 /* ================= animations ================= */
 function replay(){if(REDUCED)return;$$('#page-dashboard .card').forEach((e,i)=>{e.classList.remove('flash');void e.offsetWidth;e.style.setProperty('--fd',(i*40)+'ms');e.classList.add('flash')})}
 (function(){
@@ -2504,19 +2073,19 @@ function replay(){if(REDUCED)return;$$('#page-dashboard .card').forEach((e,i)=>{
 function openDashboard(){
  // Restore the opening layout while keeping trades, journal notes and the starting balance.
  Object.assign(S,{page:'dashboard',mode:'live',range:S.preferences?.range||'30',theme:S.preferences?.theme||'dark',collapsed:S.preferences?.collapsed===true,fSide:'all',fOut:'all',fSym:'',hide:{}});
- closeAdd();closeDay();closePops();endTour();
- $('#support').classList.remove('open');
+ closeAdd();closeDay();closePops();if(window.TJGuide)TJGuide.close();
  document.body.classList.toggle('collapsed',S.collapsed);
  go('dashboard');
 }
 hydrate();openDashboard();
 if(window.tjDesktop)tjDesktop.onOpen(openDashboard);
-try{if(window.TJ_AUTH&&window.TJ_AUTH.authed&&sessionStorage.getItem('tj_post_login')==='1'){sessionStorage.removeItem('tj_post_login');window.__tjJustSignedIn=true;setTimeout(startWelcome,1600)}}catch(e){}
+try{if(window.TJ_AUTH&&window.TJ_AUTH.authed&&sessionStorage.getItem('tj_post_login')==='1'){sessionStorage.removeItem('tj_post_login');window.__tjJustSignedIn=true;setTimeout(()=>{if(window.TJGuide)TJGuide.welcome()},1600)}}catch(e){}
 </script>
 <script src="auth.js"></script>
 <script src="settings.js"></script>
 <script src="daily-journal.js"></script>
 <script src="hero.js"></script>
 <script src="analytics.js"></script>
+<script src="guide.js"></script>
 </body>
 </html>

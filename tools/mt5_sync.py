@@ -166,22 +166,53 @@ def _sync_headers():
 
 
 
+_FX_CODES = {"USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "NZD", "SEK", "NOK", "DKK", "SGD", "HKD", "ZAR", "MXN", "TRY", "PLN", "CNH"}
+# Rough USD value of one unit of each currency, only used when no live MT5 quote is available.
+_USD_PER_UNIT_FALLBACK = {"EUR": 1.08, "GBP": 1.27, "JPY": 0.0067, "CHF": 1.12, "CAD": 0.73, "AUD": 0.66, "NZD": 0.60,
+                          "SEK": 0.095, "NOK": 0.093, "DKK": 0.145, "SGD": 0.74, "HKD": 0.128, "ZAR": 0.055,
+                          "MXN": 0.055, "TRY": 0.03, "PLN": 0.25, "CNH": 0.14}
+
+
+def _usd_per_unit(ccy):
+    """USD value of one unit of `ccy`, from the live terminal when it is connected."""
+    if ccy == "USD":
+        return 1.0
+    for sym, invert in ((ccy + "USD", False), ("USD" + ccy, True)):
+        try:
+            tick = mt5.symbol_info_tick(sym)
+            price = (tick.bid + tick.ask) / 2.0 if tick and tick.bid and tick.ask else 0.0
+        except Exception:
+            price = 0.0
+        if price > 0:
+            return 1.0 / price if invert else price
+    return _USD_PER_UNIT_FALLBACK.get(ccy, 1.0)
+
+
 def _calc_symbol_profit(side, symbol, volume, entry_price, exit_price):
-    """Calculate profit for log-reconstructed trades using MT5 or standard contract sizes."""
+    """Estimate USD profit for log-reconstructed trades using standard contract sizes."""
     diff = (
         (exit_price - entry_price)
         if side == "LONG"
         else (entry_price - exit_price)
     )
-    sym_u = symbol.upper()
+    # Broker suffixes/prefixes (EURUSD.r, EURUSDm, #US30) do not change the instrument.
+    sym_u = re.sub(r"[^A-Z0-9]", "", symbol.upper())
     if "XAU" in sym_u or "GOLD" in sym_u:
         mult = 100.0
     elif "XAG" in sym_u or "SILVER" in sym_u:
         mult = 5000.0
-    elif len(sym_u) == 6 and sym_u.endswith("USD"):
-        mult = 100000.0
     elif "BTC" in sym_u or "ETH" in sym_u or "US30" in sym_u or "NAS" in sym_u or "USTEC" in sym_u:
         mult = 1.0
+    elif sym_u[:3] in _FX_CODES and sym_u[3:6] in _FX_CODES:
+        # Forex: 100,000 units per lot, profit is in the quote currency.
+        quote = sym_u[3:6]
+        if quote == "USD":
+            rate = 1.0
+        elif sym_u[:3] == "USD":
+            rate = 1.0 / exit_price if exit_price else 0.0
+        else:
+            rate = _usd_per_unit(quote)
+        return round(diff * volume * 100000.0 * rate, 2)
     else:
         mult = 100.0
     return round(diff * volume * mult, 2)

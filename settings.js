@@ -30,7 +30,7 @@ const SETTINGS_SECTIONS=[
  ['danger','Danger Zone','Reset local journal data','alert']
 ];
 const PROFILE_DEFAULTS={firstName:'',lastName:'',username:'',email:'',phone:'',country:'',location:'',bio:'',photo:'',role:'KING Member',linked:{}};
-const PREFERENCE_DEFAULTS={theme:'dark',range:'30',collapsed:true,density:'comfortable',reducedMotion:false,maskBalances:false,accountName:'Main Account',monthlyGoal:0};
+const PREFERENCE_DEFAULTS={theme:'dark',range:'30',collapsed:false,density:'comfortable',reducedMotion:false,maskBalances:false,accountName:'Main Account',monthlyGoal:0};
 const TRADING_DEFAULTS={riskPercent:1,dailyLoss:0,maxTrades:0,quantity:1,fees:0,strategy:'',market:'Forex'};
 const ALERT_DEFAULTS={desktop:false,dailyReminder:false,tradeMessages:true,reminderTime:'20:00',timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||'Asia/Colombo',lastReminderDay:''};
 S.profile={...PROFILE_DEFAULTS,...S.profile};
@@ -547,7 +547,7 @@ document.addEventListener('click',async e=>{
  }
  if(action==='delete-me')askModal({title:'Delete my account',danger:true,body:'Your profile, journal, settings and connections are removed from this PC. This can\'t be undone.',cta:'Delete my account',fields:[{name:'password',label:'Your password',type:'password',ac:'current-password'}],
   onSubmit:async d=>{const r=await authPost('/api/auth/delete-user',{password:d.password});if(!r.ok)return r.j.error||'Could not delete the account.';try{localStorage.removeItem('tj_state')}catch(x){}location.reload()}});
- if(action.startsWith('zoom-')){if(!window.tjDesktop?.setZoom)return toast('Zoom controls are available in the desktop app.');const z=tjDesktop.getZoom();tjDesktop.setZoom(action==='zoom-reset'?1:z+(action==='zoom-in'?.1:-.1));$('#settingsZoom').textContent=Math.round(tjDesktop.getZoom()*100)+'%'}
+ if(action.startsWith('zoom-')){if(!window.tjDesktop?.setZoom)return toast('Zoom controls are available in the desktop app.');const z=tjDesktop.getZoom();tjDesktop.setZoom(action==='zoom-reset'?(tjDesktop.defaultZoom||1.2):z+(action==='zoom-in'?.1:-.1));$('#settingsZoom').textContent=Math.round(tjDesktop.getZoom()*100)+'%'}
  if(action==='test-notice'){b.classList.add('st-ring');setTimeout(()=>b.classList.remove('st-ring'),900);const delivered=await showLocalNotice('Traders Journal · KING','Your local journal notifications are ready.');if(!delivered)toast(S.alerts.desktop?'Test shown in app. Desktop delivery depends on Windows notification settings.':'Test shown in app. Turn on desktop notifications for a system notification.')}
  if(action==='backup')downloadJournalBackup();
  if(action==='restore')chooseJournalBackup();
@@ -633,10 +633,13 @@ function nfAgo(ts){
  if(s<45)return 'just now';if(s<3600)return Math.round(s/60)+'m ago';if(s<86400)return Math.round(s/3600)+'h ago';
  if(s<172800)return 'Yesterday';return new Date(ts).toLocaleDateString(undefined,{month:'short',day:'numeric'});
 }
+let nfBadgeN=-1;
 function nfBadge(){
  const b=document.getElementById('pBell');if(!b)return;
  let k=b.querySelector('.nf-badge');if(!k){k=document.createElement('span');k.className='nf-badge';b.appendChild(k)}
  const n=nfUnread();k.textContent=n>9?'9+':String(n);k.classList.toggle('on',n>0);
+ if(nfBadgeN>=0&&n!==nfBadgeN&&n>0&&!calm()){k.classList.remove('bump');void k.offsetWidth;k.classList.add('bump')}
+ nfBadgeN=n;
 }
 /* nf({type:'account'|'trade'|'security'|'system', title, text, tone:'green'|'blue'|'amber'|'red'|'gold', icon, go, key, desktop}) */
 function nf(o){
@@ -756,18 +759,51 @@ function nfStatusHtml(){
  const synced=(typeof SYNCED!=='undefined'?SYNCED.filter(t=>!t.open).length:0),on=SRV.connections.filter(c=>c.status==='online').length;
  return `<div class="nf-st"><span><b>${on}</b> terminal${on===1?'':'s'} online</span><span><b>${synced}</b> trades synced</span><span><b>${Object.keys(S.journal||{}).length}</b> journal days</span><span>${S.alerts&&S.alerts.dailyReminder?'Reminder '+esc(S.alerts.reminderTime):'Reminder off'}</span></div>`;
 }
+const NF_DWELL=600; // how long the pointer rests on a new notification before it counts as read (ms)
+let nfHoverTimer=0;
+const nfCount=k=>nfList().filter(n=>!n.read&&(k==='all'||n.type===k)).length;
+function nfDayLabel(ts){
+ const d=new Date(ts),t=new Date(),diff=Math.round((new Date(t.getFullYear(),t.getMonth(),t.getDate())-new Date(d.getFullYear(),d.getMonth(),d.getDate()))/864e5);
+ return diff<=0?'Today':diff===1?'Yesterday':d.toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'});
+}
+function nfItemHtml(n,i){
+ return `<div class="nf-item tone-${n.tone}${n.read?'':' unread'}" data-nf-id="${n.id}" tabindex="0" role="button" style="--i:${Math.min(i,8)}"><span class="nf-ic">${ic(n.icon,16)}</span><div class="nf-b"><b>${esc(n.title)}</b>${n.text?`<small>${esc(n.text)}</small>`:''}</div><div class="nf-side"><span class="nf-time" title="${esc(new Date(n.t).toLocaleString())}">${nfAgo(n.t)}</span></div><div class="nf-tools">${n.go?`<button type="button" class="nf-open" aria-label="Open" title="Open">${ic('right',12)}</button>`:''}<button type="button" class="nf-x" data-nf-del="${n.id}" aria-label="Dismiss" title="Dismiss">${ic('x',12)}</button></div><i class="nf-prog"></i></div>`;
+}
 function nfItemsHtml(){
  const list=nfList().filter(n=>nfFilter==='all'||n.type===nfFilter);
  if(!list.length)return `<div class="nf-empty"><span class="nf-check">${ic('check',22)}</span><b>${nfFilter==='all'?'You’re all caught up':'Nothing here yet'}</b><small>New account, trade and security events will appear here.</small></div>`;
- return list.map((n,i)=>`<div class="nf-item tone-${n.tone}${n.read?'':' unread'}" data-nf-id="${n.id}" style="--i:${Math.min(i,8)}"><span class="nf-ic">${ic(n.icon,15)}</span><div class="nf-b"><b>${esc(n.title)}</b>${n.text?`<small>${esc(n.text)}</small>`:''}</div><span class="nf-time">${nfAgo(n.t)}</span><button class="nf-x" data-nf-del="${n.id}" aria-label="Dismiss" title="Dismiss">${ic('x',11)}</button></div>`).join('');
+ let html='',day='';
+ list.forEach((n,i)=>{const d=nfDayLabel(n.t);if(d!==day){day=d;html+=`<div class="nf-day">${esc(d)}</div>`}html+=nfItemHtml(n,i)});
+ return html;
 }
+function nfSubHtml(n){return n?`<b>${n}</b> unread`:'You’re all caught up'}
+const nfHintHtml=n=>n?`<div class="nf-hint">${ic('radio',11)}Rest the pointer on a new notification to mark it read</div>`:'';
 function nfHtml(){
  const n=nfUnread();
- return `<div class="nf-head"><h4>Notifications</h4><span class="nf-new${n?' on':''}">${n?n+' new':''}</span><div class="nf-acts"><button data-nf="read">Mark all read</button><button data-nf="clear">Clear all</button></div></div>
-  <div class="nf-tabs">${NF_CATS.map(([k,l])=>`<button data-nf-tab="${k}" class="${k===nfFilter?'on':''}">${l}</button>`).join('')}</div>
-  <div class="nf-list">${nfItemsHtml()}</div>${nfStatusHtml()}`;
+ return `<div class="nf-head"><span class="nf-hic">${ic('bell',18)}</span><div class="nf-ht"><h4>Notifications</h4><span class="nf-sub${n?'':' ok'}">${nfSubHtml(n)}</span></div><div class="nf-acts"><button type="button" data-nf="read" class="${n?'':'dim'}">${ic('check',12)}Mark all read</button><button type="button" data-nf="clear">${ic('trash',12)}Clear all</button></div></div>
+  <div class="nf-tabs">${NF_CATS.map(([k,l])=>{const c=nfCount(k);return `<button type="button" data-nf-tab="${k}" class="${k===nfFilter?'on':''}">${l}${c?`<em class="nf-n">${c}</em>`:''}</button>`}).join('')}</div>
+  <div class="nf-hintwrap">${nfHintHtml(n)}</div><div class="nf-list">${nfItemsHtml()}</div>${nfStatusHtml()}`;
+}
+// counts (header, tabs, bell) follow reads and deletions instantly, without redrawing the list under the pointer
+function nfSyncCounts(){
+ if(!nfPanel)return;
+ const n=nfUnread(),sub=nfPanel.querySelector('.nf-sub');
+ if(sub){sub.innerHTML=nfSubHtml(n);sub.classList.toggle('ok',!n)}
+ nfPanel.querySelectorAll('[data-nf-tab]').forEach(b=>{const c=nfCount(b.dataset.nfTab);let e=b.querySelector('.nf-n');
+  if(c){if(!e){e=document.createElement('em');e.className='nf-n';b.appendChild(e)}if(e.textContent!==String(c)){e.textContent=c;if(!calm()){e.style.animation='none';void e.offsetWidth;e.style.animation=''}}}else if(e)e.remove()});
+ const all=nfPanel.querySelector('[data-nf="read"]');if(all)all.classList.toggle('dim',!n);
+ const hw=nfPanel.querySelector('.nf-hintwrap');if(hw&&!!hw.firstElementChild!==!!n)hw.innerHTML=nfHintHtml(n);
+}
+function nfMarkRead(id){
+ const n=nfList().find(x=>x.id===id);if(!n||n.read)return false;
+ n.read=true;save();nfBadge();
+ if(nfPanel){const row=nfPanel.querySelector(`[data-nf-id="${id}"]`);
+  if(row){row.classList.remove('unread');if(!calm()){row.classList.add('just-read');setTimeout(()=>row.classList.remove('just-read'),700)}}
+  nfSyncCounts()}
+ return true;
 }
 function nfRefresh(){
+ clearTimeout(nfHoverTimer);
  if(!nfPanel||!document.body.contains(nfPanel)){nfPanel=null;return}
  const list=nfPanel.querySelector('.nf-list'),top=list?list.scrollTop:0;
  nfPanel.innerHTML=nfHtml();const l2=nfPanel.querySelector('.nf-list');if(l2)l2.scrollTop=top;
@@ -775,26 +811,32 @@ function nfRefresh(){
 function nfOpen(anchor){
  nfFilter='all';
  const p=pop(anchor,nfHtml(),'nf-pop');nfPanel=p;
+ p.style.setProperty('--dwell',NF_DWELL+'ms');
+ // resting the pointer on a new notification marks it read; moving away first cancels it
+ p.addEventListener('mouseover',e=>{const row=e.target.closest('.nf-item.unread');if(!row||row.contains(e.relatedTarget))return;clearTimeout(nfHoverTimer);nfHoverTimer=setTimeout(()=>nfMarkRead(row.dataset.nfId),NF_DWELL)});
+ p.addEventListener('mouseout',e=>{const row=e.target.closest('.nf-item');if(!row||row.contains(e.relatedTarget))return;clearTimeout(nfHoverTimer)});
+ p.addEventListener('keydown',e=>{const row=e.target.closest&&e.target.closest('.nf-item');if(row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();row.click()}});
  p.addEventListener('click',e=>{
   const t=e.target;
   const tab=t.closest('[data-nf-tab]');if(tab){nfFilter=tab.dataset.nfTab;nfRefresh();return}
   const act=t.closest('[data-nf]');
   if(act){
-   if(act.dataset.nf==='read'){nfList().forEach(n=>n.read=true);save();nfBadge();nfRefresh()}
+   if(act.dataset.nf==='read'){nfList().forEach(n=>n.read=true);save();nfBadge();
+    nfPanel.querySelectorAll('.nf-item.unread').forEach((row,i)=>setTimeout(()=>{row.classList.remove('unread');if(!calm())row.classList.add('just-read')},calm()?0:Math.min(i,12)*45));nfSyncCounts()}
    if(act.dataset.nf==='clear'){S.notifs=[];save();nfBadge();nfRefresh()}
    return;
   }
   const del=t.closest('[data-nf-del]');
   if(del){const row=del.closest('.nf-item');S.notifs=nfList().filter(n=>n.id!==del.dataset.nfDel);save();nfBadge();
-   if(row&&!document.documentElement.classList.contains('reduce-motion')){row.classList.add('out');setTimeout(nfRefresh,260)}else nfRefresh();return}
+   if(row&&!document.documentElement.classList.contains('reduce-motion')){row.classList.add('out');nfSyncCounts();setTimeout(nfRefresh,260)}else nfRefresh();return}
   const item=t.closest('.nf-item');
   if(item){
    const n=nfList().find(x=>x.id===item.dataset.nfId);if(!n)return;
-   n.read=true;save();nfBadge();
-   if(n.go){closePops();if(n.go.startsWith('settings:'))openSettings(n.go.slice(9));else go(n.go)}else nfRefresh();
+   nfMarkRead(n.id);
+   if(n.go){closePops();if(n.go.startsWith('settings:'))openSettings(n.go.slice(9));else go(n.go)}
   }
  });
- clearInterval(nfClock);nfClock=setInterval(()=>{if(nfPanel&&document.body.contains(nfPanel))nfRefresh();else clearInterval(nfClock)},30000);
+ clearInterval(nfClock);nfClock=setInterval(()=>{if(nfPanel&&document.body.contains(nfPanel)){if(!nfPanel.querySelector('.nf-item:hover'))nfRefresh()}else clearInterval(nfClock)},30000);
 }
 (function nfInit(){
  nfBadge();

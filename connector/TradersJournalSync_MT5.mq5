@@ -1,5 +1,5 @@
 #property strict
-#property version   "1.05"
+#property version   "1.06"
 #property description "Local-only, read-only Traders Journal sync for MetaTrader 5."
 #property description "This EA never opens, closes, edits, or copies trades."
 
@@ -114,10 +114,16 @@ void OnTimer()
 
 bool PairDevice()
 {
+   static bool asked = false;
    string code = Trim(ConnectionCode);
+   // No code typed: use the one-time code Traders Journal leaves when you press "Install add-on".
+   if(code == "")
+      code = Trim(ReadTextFile(PairCodeFileName()));
    if(code == "")
    {
-      Print("TradersJournal Sync: enter the connection code in EA Inputs.");
+      if(!asked)
+         Print("TradersJournal Sync: open Traders Journal > Connections and press Install add-on, or enter the connection code in EA Inputs.");
+      asked = true;
       return false;
    }
 
@@ -588,6 +594,11 @@ string ReadTextFile(string name)
 string TokenFileName()
 {
    return "TradersJournalSync_MT5_" + DeviceId() + ".token";
+}
+
+string PairCodeFileName()
+{
+   return "TradersJournalSync_MT5.paircode";
 }
 
 string PendingFileName()

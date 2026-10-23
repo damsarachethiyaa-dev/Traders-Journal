@@ -1,6 +1,6 @@
 // Ctrl + mouse wheel (and touchpad pinch) zoom for the desktop window.
 const { webFrame, contextBridge, ipcRenderer } = require('electron');
-const STEP = 0.1, MIN = 0.5, MAX = 3;
+const STEP = 0.1, MIN = 0.5, MAX = 3, DEFAULT_ZOOM = 1.2; // 120% unless the person chose another zoom
 let hud, hudTimer;
 
 function showHud(z) {
@@ -34,6 +34,7 @@ contextBridge.exposeInMainWorld('tjDesktop', {
   setTheme: t => ipcRenderer.invoke('tj:theme', t),
   setZoom: z => setZoom(Number(z) || 1),
   getZoom: () => webFrame.getZoomFactor(),
+  defaultZoom: DEFAULT_ZOOM,
   notify: (title, body) => ipcRenderer.invoke('tj:notify', { title, body }),
   openDataFolder: () => ipcRenderer.invoke('tj:open-data'),
   deviceKey: () => ipcRenderer.invoke('tj:device-key'),
@@ -43,7 +44,9 @@ contextBridge.exposeInMainWorld('tjDesktop', {
 
 window.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.add('is-electron');
-  try { const saved = parseFloat(localStorage.getItem('tj_zoom')); if (saved >= MIN && saved <= MAX) webFrame.setZoomFactor(saved); } catch (e) { /* ignore */ }
+  let zoom = DEFAULT_ZOOM;
+  try { const saved = parseFloat(localStorage.getItem('tj_zoom')); if (saved >= MIN && saved <= MAX) zoom = saved; } catch (e) { /* ignore */ }
+  webFrame.setZoomFactor(zoom);
   applyChrome(webFrame.getZoomFactor());
 });
 
@@ -55,7 +58,7 @@ window.addEventListener('wheel', e => {
 
 window.addEventListener('keydown', e => {
   if (!(e.ctrlKey || e.metaKey)) return;
-  if (e.key === '0') { e.preventDefault(); setZoom(1); }
+  if (e.key === '0') { e.preventDefault(); setZoom(DEFAULT_ZOOM); }
   else if (e.key === '=' || e.key === '+') { e.preventDefault(); setZoom(webFrame.getZoomFactor() + STEP); }
   else if (e.key === '-' || e.key === '_') { e.preventDefault(); setZoom(webFrame.getZoomFactor() - STEP); }
 });

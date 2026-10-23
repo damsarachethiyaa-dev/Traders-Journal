@@ -12,7 +12,7 @@ const { spawnSync } = require('child_process');
 
 const PY_VERSION = '3.14.4';                       // keep in sync with PY_TAG below
 const PY_TAG = '314';
-const PACKAGES = ['MetaTrader5', 'requests'];
+const PACKAGES = ['MetaTrader5==5.0.6231', 'requests==2.34.2']; // pinned so every build ships the same tested code
 
 const root = path.join(__dirname, '..');
 const runtimeDir = path.join(root, 'runtime');
@@ -70,14 +70,19 @@ function findHostPython() {
   log('extracting');
   fs.rmSync(pyDir, { recursive: true, force: true });
   fs.mkdirSync(pyDir, { recursive: true });
-  const ex = run('tar', ['-xf', zipPath, '-C', pyDir]);
+  // Windows' own bsdtar reads zip files; a GNU tar earlier on PATH (Git Bash) treats "C:" as a remote host.
+  const winTar = path.join(process.env.SystemRoot || 'C:\\Windows', 'System32', 'tar.exe');
+  const ex = run(fs.existsSync(winTar) ? winTar : 'tar', ['-xf', zipPath, '-C', pyDir]);
   if (ex.status !== 0) fail('extract failed: ' + (ex.stderr || ex.stdout));
   if (!fs.existsSync(path.join(pyDir, 'python.exe'))) fail('python.exe missing after extract');
 
-  // Make sure we got the genuine python.org build before shipping it.
+  // Make sure we got the genuine python.org build before shipping it: a valid signature from the PSF, not just anyone.
   const sig = run('powershell.exe', ['-NoProfile', '-Command',
-    `(Get-AuthenticodeSignature '${path.join(pyDir, 'python.exe')}').Status`]);
-  if (String(sig.stdout).trim() !== 'Valid') fail('python.exe signature is not valid: ' + String(sig.stdout).trim());
+    `$s = Get-AuthenticodeSignature -LiteralPath $env:TJ_PY_EXE; "$($s.Status)|$($s.SignerCertificate.Subject)"`],
+    { env: Object.assign({}, process.env, { TJ_PY_EXE: path.join(pyDir, 'python.exe') }) });
+  const [sigStatus, signer = ''] = String(sig.stdout).trim().split('|');
+  if (sigStatus !== 'Valid') fail('python.exe signature is not valid: ' + sigStatus);
+  if (!/O=Python Software Foundation/.test(signer)) fail('python.exe is not signed by the Python Software Foundation: ' + signer);
 
   // Embeddable builds ignore site-packages unless the ._pth file enables it.
   const pth = path.join(pyDir, `python${PY_TAG}._pth`);

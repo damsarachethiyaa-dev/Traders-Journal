@@ -205,6 +205,7 @@
   /* ---------- agenda (private iCal link) ---------- */
   let AG = { linked: false, name: '', events: [], error: '', loaded: false, at: 0 };
   async function loadAgenda(force) {
+    if (!(window.TJ_AUTH && window.TJ_AUTH.authed)) return; // signed out: the calendar API would only answer 401
     try {
       const r = await fetch('/api/gcal/events?days=2' + (force ? '&refresh=1' : ''), { cache: 'no-store' });
       if (!r.ok) throw new Error('HTTP ' + r.status);

@@ -20,11 +20,10 @@ slog('Single instance lock:', gotLock);
 if (!gotLock) { slog('Lock failed, quitting'); app.quit(); } else { boot(); }
 
 function boot() {
-  const localProjectData = 'C:\\GPT\\local\\data';
   const localData = path.join(__dirname, 'data');
   const userData = app.getPath('userData');
   const appData = path.join(userData, 'data');
-  process.env.TJ_DATA = (!__dirname.includes('app.asar') && fs.existsSync(localData)) ? localData : (fs.existsSync(localProjectData) ? localProjectData : appData);
+  process.env.TJ_DATA = (!__dirname.includes('app.asar') && fs.existsSync(localData)) ? localData : appData;
   // Lets the app's own window sign in automatically. Browsers and other programs never see this key.
   const DEVICE_KEY = require('crypto').randomBytes(24).toString('hex');
   process.env.TJ_DEVICE_KEY = DEVICE_KEY;
@@ -53,6 +52,7 @@ function boot() {
       dialog.showErrorBox('Traders Journal', 'Port ' + backend.PORT + ' is already in use by another program.\nClose it (or another copy of Traders Journal) and start the app again.');
       return app.quit();
     }
+    setupPermissions();
     setupDownloads();
     buildMenu();
     createWindow();
@@ -183,6 +183,7 @@ function boot() {
     if (!tray) return;
     tray.setContextMenu(Menu.buildFromTemplate([
       { label: 'Open Traders Journal', click: showWindow },
+      { label: 'Open MetaTrader 5', click: () => { if (backend && backend.openMt5) backend.openMt5().then(r => { if (!r.ok) dialog.showErrorBox('Traders Journal', r.error || 'Could not open MetaTrader 5.'); }); } },
       { label: 'Watch app film', click: openFilm },
       { type: 'separator' },
       { label: 'Keep running in tray when window is closed', type: 'checkbox', checked: settings.hideOnClose, click: m => { settings.hideOnClose = m.checked; saveSettings(); } },
@@ -215,6 +216,13 @@ function boot() {
       }
       shell.openPath(film).then(error => { if (error) dialog.showErrorBox('Traders Journal film', error); });
     } catch (error) { dialog.showErrorBox('Traders Journal film', error.message); }
+  }
+
+  // The dashboard only needs clipboard writes, notifications and fullscreen; refuse camera, mic, location, etc.
+  const ALLOWED_PERMISSIONS = new Set(['clipboard-sanitized-write', 'notifications', 'fullscreen']);
+  function setupPermissions() {
+    session.defaultSession.setPermissionRequestHandler((wc, permission, done) => done(ALLOWED_PERMISSIONS.has(permission)));
+    session.defaultSession.setPermissionCheckHandler((wc, permission) => ALLOWED_PERMISSIONS.has(permission));
   }
 
   function setupDownloads() {
