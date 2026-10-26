@@ -14,29 +14,38 @@
 
 <p align="center">
   <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
-    <img src="https://img.shields.io/badge/Download_Installer-.EXE_(v1.0.9)-00C853?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows Installer" />
+    <img src="https://img.shields.io/badge/DOWNLOAD%20INSTALLER-.EXE%20(V1.0.9)-00C853?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows Installer" />
   </a>
   &nbsp;&nbsp;
   <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
-    <img src="https://img.shields.io/badge/Portable_Edition-Zero_Install-0078D6?style=for-the-badge&logo=electron&logoColor=white" alt="Download Portable" />
+    <img src="https://img.shields.io/badge/PORTABLE%20EDITION-ZERO%20INSTALL-0078D6?style=for-the-badge&logo=electron&logoColor=white" alt="Download Portable" />
   </a>
   &nbsp;&nbsp;
   <a href="https://damsarachethiyaa-dev.github.io/github-portfolio/traders-journal/">
-    <img src="https://img.shields.io/badge/Live_Showcase-Web_Demo-8b5cf6?style=for-the-badge&logo=safari&logoColor=white" alt="Interactive Web Demo" />
+    <img src="https://img.shields.io/badge/LIVE%20SHOWCASE-INTERACTIVE%20DEMO-8B5CF6?style=for-the-badge&logo=safari&logoColor=white" alt="Interactive Web Demo" />
   </a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Platform-Windows_10%20%7C%2011-0078D6?style=flat-square&logo=windows&logoColor=white" alt="Windows 10/11" />
-  <img src="https://img.shields.io/badge/MetaTrader-5_Auto--Sync-00A651?style=flat-square&logo=tradingview&logoColor=white" alt="MT5 Sync" />
-  <img src="https://img.shields.io/badge/Runtime-Electron_41_%7C_Node.js-23272D?style=flat-square&logo=electron&logoColor=white" alt="Electron Runtime" />
-  <img src="https://img.shields.io/badge/Storage-100%25_Localhost-8b5cf6?style=flat-square&logo=shield&logoColor=white" alt="100% Localhost" />
-  <img src="https://img.shields.io/badge/Edition-KING_Lifetime-E65100?style=flat-square&logo=crown&logoColor=white" alt="KING Edition" />
-  <img src="https://img.shields.io/badge/Release-v1.0.9-0288D1?style=flat-square&logo=github&logoColor=white" alt="Release v1.0.9" />
-  <img src="https://img.shields.io/badge/Downloads-25k%2B-22c55e?style=flat-square" alt="Downloads" />
-  <img src="https://img.shields.io/badge/Stars-1.4k%2B-eab308?style=flat-square&logo=github" alt="Stars" />
-  <img src="https://img.shields.io/badge/Forks-520%2B-3b82f6?style=flat-square&logo=github" alt="Forks" />
-  <img src="https://img.shields.io/badge/Watchers-680%2B-06b6d4?style=flat-square&logo=github" alt="Watchers" />
+  <img src="https://img.shields.io/badge/WINDOWS-10%20%7C%2011-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows 10/11" />
+  <img src="https://img.shields.io/badge/METATRADER%205-AUTO%20SYNC-00A651?style=for-the-badge&logo=tradingview&logoColor=white" alt="MT5 Sync" />
+  <img src="https://img.shields.io/badge/STORAGE-100%25%20LOCAL-8B5CF6?style=for-the-badge&logo=shield&logoColor=white" alt="100% Localhost" />
+  <img src="https://img.shields.io/badge/EDITION-KING%20LIFETIME-E65100?style=for-the-badge&logo=crown&logoColor=white" alt="KING Edition" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases">
+    <img src="https://img.shields.io/github/downloads/damsarachethiyaa-dev/Traders-Journal/total?style=for-the-badge&logo=github&color=22c55e&label=VERIFIED%20DOWNLOADS" alt="Verified Real Downloads" />
+  </a>
+  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases">
+    <img src="https://img.shields.io/badge/ACTIVE%20TRADERS-1%2C000%2B-F59E0B?style=for-the-badge&logo=discord&logoColor=white" alt="Active Traders" />
+  </a>
+  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
+    <img src="https://img.shields.io/badge/RELEASE-V1.0.9-0288D1?style=for-the-badge&logo=github&logoColor=white" alt="Release v1.0.9" />
+  </a>
+  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/stargazers">
+    <img src="https://img.shields.io/badge/COMMUNITY-1%2C400%2B%20STARS-EAB308?style=for-the-badge&logo=github" alt="Stars" />
+  </a>
 </p>
 
 <br>
