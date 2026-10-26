@@ -1,15 +1,31 @@
-# 📈 Traders Journal (Desktop App — KING Edition)
+<div align="center">
 
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x64-0078D6?logo=windows&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
-[![Download EXE](https://img.shields.io/badge/Download-Windows%20Installer%20(.EXE)-00C853?logo=windows&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)
-[![Release](https://img.shields.io/github/v/release/damsarachethiyaa-dev/Traders-Journal?color=success&logo=github)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)
-[![Runtime](https://img.shields.io/badge/Runtime-Electron%2041%20%7C%20Node.js-23272D?logo=electron&logoColor=white)](https://electronjs.org)
-[![Sync](https://img.shields.io/badge/Terminal-MetaTrader%205%20Auto--Sync-00A651?logo=tradingview&logoColor=white)](https://www.metatrader5.com)
-[![Privacy](https://img.shields.io/badge/Privacy-100%25%20Localhost%20%7C%20Zero%20Cloud-success)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
-[![License](https://img.shields.io/badge/Edition-KING%20Lifetime%20Edition-FFD700?logo=crown&logoColor=black)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
+<img src="build/icon.png" width="96" height="96" alt="Traders Journal" style="border-radius: 22px;" />
 
-> **Created by Chethiya Rathnasekara**  
-> *A privacy-first, professional desktop trading journal and analytics workstation with direct MetaTrader 5 real-time synchronization. 100% offline, zero subscriptions, zero cloud data leaks.*
+# Traders Journal
+
+Your trades. Your edge. Your own private journal.  
+Yours, encrypted, and local-first by default.
+
+<br>
+
+[![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?style=flat-square&logo=windows&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)
+[![MetaTrader 5](https://img.shields.io/badge/MetaTrader-5%20Auto--Sync-00A651?style=flat-square&logo=tradingview&logoColor=white)](https://www.metatrader5.com)
+[![Runtime](https://img.shields.io/badge/Electron-41%20%7C%20Node.js-23272D?style=flat-square&logo=electron&logoColor=white)](https://electronjs.org)  
+[![Storage](https://img.shields.io/badge/Storage-100%25%20Localhost-8b5cf6?style=flat-square&logo=shield&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
+[![Edition](https://img.shields.io/badge/edition-KING%20Lifetime-E65100?style=flat-square&logo=crown&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
+[![Release](https://img.shields.io/badge/release-v1.0.9-0288D1?style=flat-square&logo=github&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)  
+[![Downloads](https://img.shields.io/badge/downloads-1.2k%2B-689F38?style=flat-square)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases)
+
+<br>
+
+[Download for Windows (.exe)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest) &nbsp;·&nbsp; [Portable Edition](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest) &nbsp;·&nbsp; [Unpacked Standalone](https://github.com/damsarachethiyaa-dev/Traders-Journal) &nbsp;·&nbsp; [MT5 EA Connector](connector/TradersJournalSync_MT5.mq5)
+
+[Interactive Showcase](https://damsarachethiyaa-dev.github.io/github-portfolio/traders-journal/) &nbsp;·&nbsp; [Architecture Docs](docs/ARCHITECTURE.md) &nbsp;·&nbsp; [Release Notes](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases) &nbsp;·&nbsp; [Chethiya Rathnasekara](https://github.com/damsarachethiyaa-dev)
+
+</div>
+
+<br>
 
 ---
 
