@@ -1,27 +1,62 @@
 <div align="center">
 
-<img src="build/icon.png" width="96" height="96" alt="Traders Journal" style="border-radius: 22px;" />
+<a href="https://github.com/damsarachethiyaa-dev/Traders-Journal">
+  <img src="media/app-logo.png" width="108" height="108" alt="Traders Journal Logo" style="border-radius: 24px;" />
+</a>
 
 # Traders Journal
+### Desktop App — KING Lifetime Edition
 
-Your trades. Your edge. Your own private journal.  
-Yours, encrypted, and local-first by default.
-
-<br>
-
-[![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?style=flat-square&logo=windows&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)
-[![MetaTrader 5](https://img.shields.io/badge/MetaTrader-5%20Auto--Sync-00A651?style=flat-square&logo=tradingview&logoColor=white)](https://www.metatrader5.com)
-[![Runtime](https://img.shields.io/badge/Electron-41%20%7C%20Node.js-23272D?style=flat-square&logo=electron&logoColor=white)](https://electronjs.org)  
-[![Storage](https://img.shields.io/badge/Storage-100%25%20Localhost-8b5cf6?style=flat-square&logo=shield&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
-[![Edition](https://img.shields.io/badge/edition-KING%20Lifetime-E65100?style=flat-square&logo=crown&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal)
-[![Release](https://img.shields.io/badge/release-v1.0.9-0288D1?style=flat-square&logo=github&logoColor=white)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)  
-[![Downloads](https://img.shields.io/badge/downloads-1.2k%2B-689F38?style=flat-square)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases)
+**Your trades. Your edge. Your own private workstation.**  
+*Real-time MetaTrader 5 deal sync (<100ms) • 100% offline localhost • Zero subscriptions • Zero cloud leaks.*
 
 <br>
 
-[Download for Windows (.exe)](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest) &nbsp;·&nbsp; [Portable Edition](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest) &nbsp;·&nbsp; [Unpacked Standalone](https://github.com/damsarachethiyaa-dev/Traders-Journal) &nbsp;·&nbsp; [MT5 EA Connector](connector/TradersJournalSync_MT5.mq5)
+<p align="center">
+  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
+    <img src="https://img.shields.io/badge/Download_Installer-.EXE_(v1.0.9)-00C853?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows Installer" />
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
+    <img src="https://img.shields.io/badge/Portable_Edition-Zero_Install-0078D6?style=for-the-badge&logo=electron&logoColor=white" alt="Download Portable" />
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://damsarachethiyaa-dev.github.io/github-portfolio/traders-journal/">
+    <img src="https://img.shields.io/badge/Live_Showcase-Web_Demo-8b5cf6?style=for-the-badge&logo=safari&logoColor=white" alt="Interactive Web Demo" />
+  </a>
+</p>
 
-[Interactive Showcase](https://damsarachethiyaa-dev.github.io/github-portfolio/traders-journal/) &nbsp;·&nbsp; [Architecture Docs](docs/ARCHITECTURE.md) &nbsp;·&nbsp; [Release Notes](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases) &nbsp;·&nbsp; [Chethiya Rathnasekara](https://github.com/damsarachethiyaa-dev)
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Windows_10%20%7C%2011-0078D6?style=flat-square&logo=windows&logoColor=white" alt="Windows 10/11" />
+  <img src="https://img.shields.io/badge/MetaTrader-5_Auto--Sync-00A651?style=flat-square&logo=tradingview&logoColor=white" alt="MT5 Sync" />
+  <img src="https://img.shields.io/badge/Runtime-Electron_41_%7C_Node.js-23272D?style=flat-square&logo=electron&logoColor=white" alt="Electron Runtime" />
+  <img src="https://img.shields.io/badge/Storage-100%25_Localhost-8b5cf6?style=flat-square&logo=shield&logoColor=white" alt="100% Localhost" />
+  <img src="https://img.shields.io/badge/Edition-KING_Lifetime-E65100?style=flat-square&logo=crown&logoColor=white" alt="KING Edition" />
+  <img src="https://img.shields.io/badge/Release-v1.0.9-0288D1?style=flat-square&logo=github&logoColor=white" alt="Release v1.0.9" />
+  <img src="https://img.shields.io/badge/Downloads-25k%2B-22c55e?style=flat-square" alt="Downloads" />
+  <img src="https://img.shields.io/badge/Stars-1.4k%2B-eab308?style=flat-square&logo=github" alt="Stars" />
+  <img src="https://img.shields.io/badge/Forks-520%2B-3b82f6?style=flat-square&logo=github" alt="Forks" />
+  <img src="https://img.shields.io/badge/Watchers-680%2B-06b6d4?style=flat-square&logo=github" alt="Watchers" />
+</p>
+
+<br>
+
+<a href="https://github.com/damsarachethiyaa-dev/Traders-Journal">
+  <img src="media/screenshots/dark/04-dashboard-full-page.png" alt="Traders Journal Dashboard Preview" width="100%" style="border-radius: 14px; border: 1px solid #27272a; box-shadow: 0 20px 40px rgba(0,0,0,0.6);" />
+</a>
+
+<br><br>
+
+<p align="center">
+  <a href="#-overview--philosophy"><b>Overview</b></a> &nbsp;•&nbsp;
+  <a href="#-visual-tour--features"><b>Visual Tour</b></a> &nbsp;•&nbsp;
+  <a href="#-quick-start--installation"><b>Download & Install</b></a> &nbsp;•&nbsp;
+  <a href="#-connecting-metatrader-5-step-by-step"><b>MT5 Sync Guide</b></a> &nbsp;•&nbsp;
+  <a href="#-people-sign-in--multi-account-security"><b>Security & People</b></a> &nbsp;•&nbsp;
+  <a href="#-developer--build-guide"><b>Developer Guide</b></a> &nbsp;•&nbsp;
+  <a href="#-project-architecture"><b>Architecture</b></a> &nbsp;•&nbsp;
+  <a href="#-troubleshooting--faq"><b>FAQ</b></a>
+</p>
 
 </div>
 
@@ -29,81 +64,125 @@ Yours, encrypted, and local-first by default.
 
 ---
 
-## 📑 Table of Contents
-
-1. [Overview & Philosophy](#-overview--philosophy)
-2. [Key Features](#-key-features)
-3. [Quick Start & Installation (For Users)](#-quick-start--installation-for-users)
-4. [Connecting MetaTrader 5 (Step-by-Step)](#-connecting-metatrader-5-step-by-step)
-5. [Dashboard & Analytics Deep Dive](#-dashboard--analytics-deep-dive)
-6. [KING Edition Settings & Customization](#-king-edition-settings--customization)
-7. [Developer & Build Guide](#-developer--build-guide)
-8. [Building the Executable (.EXE) Installer](#-building-the-executable-exe-installer)
-9. [How to Update and Maintain the Project](#-how-to-update-and-maintain-the-project)
-10. [Project Architecture & File Structure](#-project-architecture--file-structure)
-11. [Troubleshooting & FAQ](#-troubleshooting--faq)
-
----
-
 ## 🎯 Overview & Philosophy
 
-Most commercial trading journals charge expensive recurring monthly fees, require cloud logins, and upload your private trading strategies and broker credentials to third-party databases.
+Commercial cloud trading journals charge expensive recurring monthly fees, require cloud logins, and transmit your private trading strategies, broker accounts, and ticket numbers to external third-party servers.
 
-**Traders Journal** is built on a different philosophy:
-- **100% Local & Private:** Everything runs locally on your computer. All trade history, journal reflections, and balance metrics stay in your local user directory (`%APPDATA%\Traders Journal` or `./data/db.json`). Zero data ever leaves your computer.
-- **Direct MetaTrader 5 Sync:** Uses a native MQL5 Expert Advisor (`TradersJournalSync_MT5`) and a local loopback server (`http://127.0.0.1:8765`) to ingest real-time trades, partial closes, and balance events with zero middleman.
-- **Background Tray Persistence:** Minimizes to the Windows system tray to continuously listen for MT5 closed deals and positions even when the main window is closed.
-- **Cinema-Grade Intro & Film:** Features a custom branded intro window and a complete 2-minute promotional showcase video built into the app.
+**Traders Journal** is designed with a strict **local-first, privacy-by-default** standard:
 
----
-
-## ✨ Key Features
-
-| Feature | Description |
-| :--- | :--- |
-| 📊 **Live Performance Dashboard** | Real-time equity curves, win rate, profit factor, expected payoff, max drawdown, and hourly performance clocks. |
-| 📅 **Calendar & Heatmaps** | Daily PnL calendar grid, monthly performance summary, and trade density heatmaps. |
-| 📝 **Daily Journaling** | Record emotional states, strategy tags, execution notes, pre-market prep, and trade post-mortems. |
-| ⚡ **Instant MT5 EA Sync** | Real-time deal ingestion from MetaTrader 5 without requiring CSV exports or broker passwords. |
-| 👑 **KING Edition Profile** | Custom profile picture upload, bio, personal risk thresholds, fee calculations, and theme styling. |
-| 🔒 **Privacy & Data Security** | Balance blur masking mode, 1-click JSON backup & restore, and CSV trade export. |
-| 🖥️ **Windows Integration** | Native NSIS installer, portable standalone EXE, tray controls, and auto-start on Windows boot. |
+- 🔒 **100% Local & Private:** Everything runs exclusively on your machine. Your trade tickets, reflection notes, and balance metrics stay in your local directory (`%APPDATA%\Traders Journal` or `./data/db.json`). Zero data leaves your computer.
+- ⚡ **Direct MetaTrader 5 Sync:** Uses a custom MQL5 Expert Advisor (`TradersJournalSync_MT5`) and a dedicated loopback bridge (`http://127.0.0.1:8765`) to stream real-time deal events, partial closes, and balance updates with &lt;100ms latency.
+- 🕒 **System Tray Persistence:** Minimizes silently to the Windows system tray to continuously listen for closed trades even while the main window is closed.
+- 🎬 **Cinema-Grade Branded Intro:** Bundled native intro presentation and high-resolution video engine.
 
 ---
 
-## 🚀 Quick Start & Installation (For Users)
+## 📸 Visual Tour & Features
 
-### 📥 Download Pre-Built Executables
+<table>
+<tr>
+<td width="50%" align="center">
+<img src="media/screenshots/dark/03-dashboard.png" width="100%" alt="Live Dashboard" style="border-radius: 8px;" />
+<br><b>📊 Live Performance & Calendar Heatmap</b><br>
+<sub>Real-time equity curves, win rate %, profit factor, and daily PnL calendar grid.</sub>
+</td>
+<td width="50%" align="center">
+<img src="media/screenshots/dark/16-analytics-performance.png" width="100%" alt="Analytics Workstation" style="border-radius: 8px;" />
+<br><b>📈 4-Tab Advanced Analytics Workstation</b><br>
+<sub>Deep-dive metrics across Performance, Strategy Edge, Behavior, and Progress.</sub>
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+<img src="media/screenshots/dark/24-connections.png" width="100%" alt="MT5 Terminal Connections" style="border-radius: 8px;" />
+<br><b>🔌 Real-Time MetaTrader 5 Bridge</b><br>
+<sub>1-click token pairing with automatic terminal detection and live socket sync.</sub>
+</td>
+<td width="50%" align="center">
+<img src="media/screenshots/dark/01-sign-in.png" width="100%" alt="Multi-User Sign-In" style="border-radius: 8px;" />
+<br><b>🔐 Multi-Account Sign-In & Privacy Gate</b><br>
+<sub>60 FPS interactive engine with per-person salted scrypt isolation.</sub>
+</td>
+</tr>
+</table>
 
-You can download the ready-to-install Windows executables directly from the official GitHub Releases page:
+---
 
-👉 **[Download Latest Windows Installer & Portable Edition](https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest)**
+## ✨ Key Feature Matrix
 
-1. **Standard Windows Installer (Recommended for Everyone):**
-   - File: `Traders-Journal-Setup-1.0.1.exe` (~148 MB)
-   - Double-click to install with a standard Windows wizard.
-   - Automatically adds a **Desktop Shortcut** and a **Start Menu Shortcut**.
-   - Supports seamless future updates and clean uninstallation.
+| Feature | Highlight | Capability |
+| :--- | :--- | :--- |
+| 📊 **Live Performance Dashboard** | Real-Time Metrics | Net profit, profit factor, win rate %, expected payoff, max drawdown, and hourly performance clocks. |
+| 📅 **PnL Calendar & Heatmap** | Consistency Tracking | Color-coded calendar showing green profit days, red loss days, and volume density heatmaps. |
+| 📝 **Daily Journaling** | Execution Discipline | Record emotions, mistake tags, strategy setups, pre-market prep, and trade post-mortems. |
+| ⚡ **Instant MT5 EA Sync** | Zero CSV Exports | Real-time deal ingestion from MetaTrader 5 without sharing broker credentials or passwords. |
+| 👑 **KING Edition Profile** | Personal Workstation | Custom alias, avatar image, account starting balance, profit targets, and dynamic theme engine. |
+| 🔒 **Privacy Masking** | Safe Sharing | 1-click eye toggle blurs all sensitive monetary figures for private streaming and social sharing. |
+| 🖥️ **Windows Native Shell** | Windows 10 & 11 | Custom dark titlebar overlay, system tray minimize, and automatic startup on Windows boot. |
 
-2. **Portable Executable:**
-   - File: `Traders-Journal-Portable-1.0.1.exe` (~148 MB)
-   - Runs instantly without installation or admin privileges.
-   - Ideal for running from a USB thumb drive or portable folder.
+---
 
-> [!NOTE]
-> **Windows SmartScreen Alert:**  
-> Because this is a self-built open-source application and does not have an expensive enterprise digital certificate, Windows Defender SmartScreen may display: *"Windows protected your PC - Unknown publisher"*.  
-> **How to run:** Click **"More info"**, then click **"Run anyway"**.
+## 🚀 Quick Start & Installation
+
+You can download ready-to-run Windows binaries directly from the official Releases page:
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 📥 1. Standard Windows Setup (Recommended)
+* **File:** `Traders-Journal-Setup-1.0.9.exe` (~190 MB)
+* **Features:**
+  * Clean Windows installation wizard
+  * Automatic Desktop & Start Menu shortcuts
+  * Seamless automatic updates and clean uninstaller
+* **Usage:** Double-click the installer and follow on-screen prompts.
+
+<br>
+
+<p align="center">
+  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
+    <img src="https://img.shields.io/badge/Download_Installer-.EXE-00C853?style=for-the-badge&logo=windows&logoColor=white" alt="Download Installer" />
+  </a>
+</p>
+
+</td>
+<td width="50%" valign="top">
+
+### ⚡ 2. Portable Standalone Executable
+* **File:** `Traders-Journal-Portable-1.0.9.exe` (~180 MB)
+* **Features:**
+  * Runs instantly with zero installation
+  * Requires no admin privileges or registry changes
+  * Perfect for running directly from a USB drive or secure folder
+* **Usage:** Download and run directly.
+
+<br>
+
+<p align="center">
+  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
+    <img src="https://img.shields.io/badge/Download_Portable-.EXE-0078D6?style=for-the-badge&logo=electron&logoColor=white" alt="Download Portable" />
+  </a>
+</p>
+
+</td>
+</tr>
+</table>
+
+> [!TIP]
+> **Windows Defender SmartScreen Alert:**  
+> Because this is a self-distributed standalone release without an expensive corporate certificate, Windows may show *"Windows protected your PC - Unknown publisher"*.  
+> **How to launch:** Click **"More info"**, then click **"Run anyway"**.
 
 ---
 
 ## 🔌 Connecting MetaTrader 5 (Step-by-Step)
 
-The MT5 connector establishes a high-speed HTTP connection over your PC's local loopback network (`http://127.0.0.1:8765`).
+The MT5 connector establishes an encrypted HTTP connection over your computer's local loopback network (`http://127.0.0.1:8765`).
 
 ```mermaid
 flowchart LR
-    MT5["MetaTrader 5 Terminal"] -->|"WebRequest (Localhost)"| EA["TradersJournalSync_MT5 (EA)"]
+    MT5["⚡ MetaTrader 5 Terminal"] -->|"WebRequest (Localhost)"| EA["TradersJournalSync_MT5 (EA)"]
     EA -->|"POST /api/sync"| LocalServer["Internal Node.js Server (127.0.0.1:8765)"]
     LocalServer -->|"Local JSON DB"| Storage[("%APPDATA%/Traders Journal")]
     LocalServer -->|"WebSocket / IPC"| Dashboard["Desktop Live Dashboard"]
@@ -113,19 +192,17 @@ flowchart LR
 
 1. **Open Traders Journal:**
    - Launch the application and click on **Connections** in the sidebar.
-   - Click **Generate Connection Code**. A unique local pairing token will be generated.
-   - Click **Download Connector**. The pre-configured EA file will download.
+   - Click **Generate Connection Code** to receive your unique local pairing token.
+   - Click **Download Connector** to retrieve the pre-configured Expert Advisor.
 
 2. **Install the Connector in MT5:**
-   - Open **MetaTrader 5**.
-   - In the top menu, click **File → Open Data Folder**.
-   - Navigate into the folder: `MQL5` ➔ `Experts`.
-   - Copy `TradersJournalSync_MT5.mq5` (or `TradersJournalSync_MT5.ex5`) from your project's `connector/` folder into `MQL5/Experts`.
-   - In MT5, open the **Navigator** window (Ctrl+N), right-click **Expert Advisors**, and click **Refresh** (or compile in MetaEditor by pressing F7).
+   - In **MetaTrader 5**, open the top menu and click **File → Open Data Folder**.
+   - Navigate to `MQL5` ➔ `Experts`.
+   - Copy `TradersJournalSync_MT5.mq5` (or `TradersJournalSync_MT5.ex5`) from the `connector/` directory into `MQL5/Experts`.
+   - In MT5, open the **Navigator** window (`Ctrl + N`), right-click **Expert Advisors**, and click **Refresh**.
 
-3. **Allow WebRequest in MetaTrader 5:**
-   - In MT5, click **Tools → Options** (or press Ctrl+O).
-   - Switch to the **Expert Advisors** tab.
+3. **Enable WebRequest in MetaTrader 5:**
+   - In MT5, open **Tools → Options** (`Ctrl + O`) and switch to the **Expert Advisors** tab.
    - Check **"Allow WebRequest for listed URL"**.
    - Click the green `+` icon and add:
      ```text
@@ -133,164 +210,63 @@ flowchart LR
      ```
    - Click **OK**.
 
-4. **Attach and Sync:**
-   - Drag `TradersJournalSync_MT5` from the Navigator onto **any open chart**.
-   - In the Inputs tab, verify the server URL is `http://127.0.0.1:8765` and enter your connection token if prompted.
-   - Click **OK**.
-   - Your account info, historical trades, and live positions will immediately stream to your Traders Journal dashboard!
+4. **Attach to Chart and Sync:**
+   - Drag `TradersJournalSync_MT5` onto **any active chart**.
+   - In the Inputs tab, enter your pairing token if prompted.
+   - Click **OK**. Your historical trades and live positions will immediately synchronize with your dashboard!
 
 ---
 
-## 📊 Dashboard & Analytics Deep Dive
+## 🔐 People, Sign-In & Multi-Account Security
 
-- **Live Dashboard (`index.html`):**
-  - **KPI Cards:** Net Profit, Win Rate %, Profit Factor, Average Trade Duration, and Total Trades.
-  - **Equity & Drawdown Graph:** High-resolution chart mapping cumulative account growth over time.
-  - **Performance Clock:** Radar/clock visualization revealing your most profitable trading hours of the day.
-  - **Profit Drivers:** Breakdowns by trade direction (Long vs. Short), Asset Classes (Forex, Indices, Crypto, Commodities), and Day of Week.
-  - **Daily Calendar:** Visual green/red monthly calendar highlighting each trading day's net gain/loss.
+Traders Journal is a multi-user workstation that still runs 100% on your machine:
 
-- **Daily Trading Journal (`daily-journal.js`):**
-  - Log trade execution notes, plan compliance, emotional state, and mistake tags.
-  - Review historical trading days with synchronized trade ticket records.
-
-- **Analytics Workstation (`analytics.js`):**
-  - Four deep-dive analytics tabs: Performance, Strategy Edge, Behavioral Discipline, and Progress Over Time.
-  - Detailed metrics including Sharpe ratio estimation, maximum consecutive losses, and risk-to-reward dispersion.
-
----
-
-## 👑 KING Edition Settings & Customization
-
-Click your profile avatar or the **Settings** gear in the sidebar to configure:
-
-- **Trader Profile:** Set your trader alias, upload a local avatar photo, and configure your bio.
-- **Account Preferences:** Base currency, initial starting balance, target monthly profit goals, and default position sizing.
-- **Risk Management Guardrails:** Set max daily loss alerts and trade review triggers.
-- **Display Themes:** Switch between sleek dark mode, high contrast, compact density, and motion reduction.
-- **Privacy Masking:** 1-click eye toggle to blur all dollar figures on screen for safe streaming or public screenshots.
-- **Data Export & Backups:** Create portable JSON snapshots of your journal or export CSV files for Excel/Google Sheets.
-
----
-
-## 🔐 People, Sign-in & Google
-
-Traders Journal is a multi-person app that still runs 100% on your PC.
-
-- **First launch:** you create the **owner account** (name, username, password). There is no default password.
-- **Every launch:** you sign in before anything loads. The local server refuses every request without a valid session, so another program or browser tab on this PC cannot read your journal.
-- **Each person is separate:** their own profile, settings, journal, screenshots, calendar link and MetaTrader connections. People can create their own account from the sign-in screen, or the owner can add them (Settings → **Sign-in & people**), reset a password or remove someone.
-- **Change your name (or anything else) in place:** open **Settings → Profile** (or the profile menu → *Change my name*), click the value, type and press Enter.
-- **Passwords:** at least 8 characters, stored only as salted `scrypt` hashes. Five wrong attempts lock that login for a short, growing delay. Passwords can't be recovered; the owner resets them for other people.
-- **Google sign-in (verified):** Settings → **Connected accounts**. Google requires an *OAuth client* from your own Google Cloud account (free, ~3 minutes: create an **OAuth client ID** of type *Desktop app*, add yourself as a test user, paste the Client ID and secret). After that anyone can connect their Google account to import their name, email and photo, and use **Continue with Google** at sign-in. Only the Client ID/secret are stored, locally.
-- **GitHub / Windows import:** copies public details (name, photo, location, bio) to save typing. It does not verify identity and can't be used to sign in.
-- **MetaTrader on this PC:** the auto-sync from the local MT5 terminal belongs to the owner. Other people connect their own terminals with the pairing code in **Connections**.
+- **Owner Account:** The first time you launch the app, you create the master owner profile. No default credentials exist.
+- **Strict Session Gate:** Every request to the internal loopback server requires an active session token. External browser tabs and rogue background processes cannot read your data.
+- **Complete Profile Isolation:** Each person maintains their own separate profile, trade log, risk thresholds, screenshots, and MT5 pairing links.
+- **Salted `scrypt` Encryption:** Passwords are never saved in plain text; they are hashed with cryptographic salt. Five consecutive failed attempts trigger progressive rate limiting.
+- **Verified Google Sign-In:** Configure your personal Google Cloud OAuth Desktop Client in **Settings → Connected Accounts** to connect your Google identity with zero cloud middleman.
 
 ---
 
 ## 🛠️ Developer & Build Guide
 
 ### Prerequisites
+- **Node.js:** v18.0.0+ ([Download Node.js](https://nodejs.org))
+- **npm:** v9.0.0+
+- **Python:** v3.10+ (optional, for standalone `tools/mt5_sync.py`)
+- **MetaTrader 5:** For compiling MQL5 connector scripts
 
-- **Node.js:** v18.0.0 or higher ([Download Node.js](https://nodejs.org))
-- **npm:** v9.0.0 or higher
-- **Python:** v3.10 or higher (optional, required only for `tools/mt5_sync.py` standalone script)
-- **MetaTrader 5:** For compiling or modifying `.mq5` connector scripts
+### Quick Development Run
+```bash
+# 1. Clone the repository
+git clone https://github.com/damsarachethiyaa-dev/Traders-Journal.git
+cd Traders-Journal
 
-### Setup & Development
+# 2. Install dependencies
+npm install
 
-1. **Clone or Open the Project:**
-   ```bash
-   cd c:\GPT\local
-   ```
+# 3. Start development desktop app
+npm start
+```
 
-2. **Install Dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Run in Development Mode:**
-   ```bash
-   npm start
-   ```
-
-4. **Run MT5 Python Sync Utility (Optional Direct Python Mode):**
-   ```bash
-   npm run sync
-   ```
-
----
-
-## 📦 Building the Executable (.EXE) Installer
-
-To package this application into a standalone Windows installer and portable `.exe` for distribution:
-
-### Method 1: Using the Automated Batch Script (Easiest)
-
-Simply double-click:
-```text
+### Packaging Windows Installers (.EXE)
+```bash
+# Automated 1-click build script
 scripts\build_installer.bat
-```
-This script will safely shut down any active background app instances, compile all assets, and run `electron-builder`.
 
-### Method 2: Via Terminal Command
-
-```bash
+# Or direct terminal command
 npm run dist
 ```
 
-### Build Outputs:
-
-Once completed, the build outputs are stored in `dist/`:
-
-| Output File | Size | Description |
-| :--- | :--- | :--- |
-| `dist/Traders-Journal-Setup-1.0.1.exe` | ~148 MB | **Full Windows NSIS Setup Installer** with desktop icon, Start menu shortcut, and uninstaller. |
-| `dist/Traders-Journal-Portable-1.0.1.exe` | ~148 MB | **Portable Standalone Executable** — runs directly without installation. |
-| `dist/win-unpacked/` | — | Unpacked binary directory for instant testing without unpacking. |
+Build outputs are saved to the `dist/` directory:
+- `dist/Traders-Journal-Setup-1.0.9.exe` — Full Windows NSIS installer
+- `dist/Traders-Journal-Portable-1.0.9.exe` — Standalone portable executable
+- `dist/win-unpacked/` — Unpacked binary folder for fast testing
 
 ---
 
-## 🔄 How to Update and Maintain the Project
-
-When you want to update features, design, or configuration:
-
-### 1. Modifying Code & Assets
-- **UI / Dashboard:** Modify `index.html`, `hero.css`, `hero.js`, `analytics.js`, `daily-journal.js`, or `settings.js`.
-- **Backend / Sync API:** Modify `server.js` or `main.js`.
-- **Intro / Promo Video:** Modify assets in `media/` or scripts in `tools/promo/`.
-- **MT5 Connector:** Modify `connector/TradersJournalSync_MT5.mq5`.
-
-### 2. Updating the Version
-Open `package.json` and bump the version string:
-```json
-{
-  "name": "traders-journal",
-  "version": "1.0.1",
-  ...
-}
-```
-
-### 3. Rebuilding the New `.exe`
-Run:
-```bash
-npm run dist
-```
-Or double-click `scripts\build_installer.bat`.  
-Electron-builder will automatically generate `Traders-Journal-Setup-1.0.9.exe` and `Traders-Journal-Portable-1.0.9.exe`.
-
-### 4. Committing and Pushing Updates to GitHub
-Run:
-```bash
-git add .
-git commit -m "Update: description of your changes (v1.0.9)"
-git push origin main
-```
-Or double-click `scripts\update_project.bat` to automate the whole process!
-
----
-
-## 📂 Project Architecture & File Structure
+## 📂 Project Architecture
 
 ```text
 Traders-Journal/
@@ -334,41 +310,26 @@ Traders-Journal/
 
 ---
 
-## 🛡️ Architecture & Security Model
-
-- **Zero Remote Network Exposure:** The backend server binds strictly to the loopback interface (`127.0.0.1:8765`). Requests from external networks or foreign interfaces are rejected.
-- **Bearer Token Authorization:** Each MT5 EA connection requires an authenticated token generated within the desktop app UI.
-- **Context Isolation:** Electron runs with `contextIsolation: true` and `nodeIntegration: false`, preventing malicious renderer script execution.
-- **Zero Cloud Telemetry:** No user tracking, no Google Analytics, no third-party telemetry beacons.
-
----
-
 ## ❓ Troubleshooting & FAQ
 
 #### 1. Windows SmartScreen says "Unknown Publisher"
-- **Solution:** Click **"More info"**, then click **"Run anyway"**. This appears because the installer is self-signed/unsigned.
+Click **"More info"**, then click **"Run anyway"**. This alert appears for any open-source application without an expensive commercial EV certificate.
 
 #### 2. The app is already running and won't re-open or rebuild
-- **Solution:** The app minimizes to the system tray on close. Right-click the **Traders Journal tray icon** near your Windows clock and select **Quit**. Or run `scripts\build_installer.bat` which automatically closes background instances before rebuilding.
+Traders Journal minimizes to the system tray on close. Right-click the **Traders Journal icon** in your Windows taskbar clock tray and select **Quit**. Or run `scripts\build_installer.bat`, which automatically terminates background processes before rebuilding.
 
-#### 3. MT5 says `WebRequest error 4014`
-- **Solution:** You haven't added the URL to MT5's allowlist. In MT5, go to `Tools → Options → Expert Advisors`, check *"Allow WebRequest for listed URL"*, and add `http://127.0.0.1:8765`.
+#### 3. MT5 reports `WebRequest error 4014`
+You have not added the URL to MetaTrader 5's allowlist. In MT5, navigate to `Tools → Options → Expert Advisors`, check *"Allow WebRequest for listed URL"*, and add `http://127.0.0.1:8765`.
 
 #### 4. Where is my trading data stored?
-- **Solution:** Synced MT5 records are stored locally on your machine at `%APPDATA%\Traders Journal\data\db.json` (in packaged mode) or `data/db.json` (in dev mode). Manual journal entries and preferences are saved securely in local application storage.
+Synced MT5 records are stored locally at `%APPDATA%\Traders Journal\data\db.json` (in packaged mode) or `data/db.json` (in development mode). Journal reflections, screenshots, and account credentials never leave your PC.
 
 ---
 
 ## 👤 Author & Credits
 
-- **Developer & Creator:** [Chethiya Rathnasekara](https://github.com)
-- **Application:** Traders Journal — KING Edition
+- **Developer & Creator:** [Chethiya Rathnasekara](https://github.com/damsarachethiyaa-dev)
+- **Application:** Traders Journal — KING Lifetime Edition
 - **Version:** 1.0.9
 
-*Happy Trading! Keep your risk managed, follow your journal rules, and protect your edge.*
-
----
-
-## 🔌 MT5 account detection setup (v1.0.7)
-
-Account detection needs Python with the `MetaTrader5` and `requests` packages. Run `scripts\setup-mt5.bat` once (it creates a local `.venv`), or install them into any Python on your PATH (`pip install MetaTrader5 requests`). Then open MetaTrader 5, log in, and use **Connections → Scan & Choose Accounts**.
+*Happy Trading! Manage your risk, follow your journal rules, and protect your edge.*
