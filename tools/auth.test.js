@@ -23,7 +23,7 @@ test('accounts: login gate, isolation, lockout and Google sign-in', async () => 
   const port = await freePort(), mockPort = await freePort();
   const data = fs.mkdtempSync(path.join(os.tmpdir(), 'tj-auth-test-'));
   Object.assign(process.env, { PORT: String(port), TJ_DATA: data, TJ_ISOLATED: '1' });
-  const backend = require('../server.js');
+  const backend = require('../src/server.js');
   if (!backend.server.listening) await once(backend.server, 'listening');
   const base = `http://127.0.0.1:${port}`;
 

@@ -229,7 +229,7 @@ To package this application into a standalone Windows installer and portable `.e
 
 Simply double-click:
 ```text
-build_installer.bat
+scripts\build_installer.bat
 ```
 This script will safely shut down any active background app instances, compile all assets, and run `electron-builder`.
 
@@ -276,17 +276,17 @@ Run:
 ```bash
 npm run dist
 ```
-Or double-click `build_installer.bat`.  
-Electron-builder will automatically generate `Traders-Journal-Setup-1.0.1.exe` and `Traders-Journal-Portable-1.0.1.exe`.
+Or double-click `scripts\build_installer.bat`.  
+Electron-builder will automatically generate `Traders-Journal-Setup-1.0.9.exe` and `Traders-Journal-Portable-1.0.9.exe`.
 
 ### 4. Committing and Pushing Updates to GitHub
 Run:
 ```bash
 git add .
-git commit -m "Update: description of your changes (v1.0.1)"
+git commit -m "Update: description of your changes (v1.0.9)"
 git push origin main
 ```
-Or double-click `update_project.bat` to automate the whole process!
+Or double-click `scripts\update_project.bat` to automate the whole process!
 
 ---
 
@@ -298,37 +298,38 @@ Traders-Journal/
 ├── .gitattributes                  # Line ending normalization & binary handling
 ├── package.json                    # Project configuration, scripts & electron-builder settings
 ├── package-lock.json               # Locked npm dependency tree
-├── main.js                         # Electron main process (window, tray, app lifecycle)
-├── preload.js                      # Secure Electron preload bridge
-├── server.js                       # Local HTTP backend server (http://127.0.0.1:8765)
-├── index.html                      # Primary Live Dashboard & Analytics UI
-├── hero.js / hero.css              # Main dashboard presentation & KPI rendering
-├── analytics.js / analytics.css    # 4-tab advanced analytics workstation
-├── daily-journal.js / .css         # Daily trade reflections & notes management
-├── settings.js / settings.css      # KING Edition settings panel & data management
-├── app-intro.html / .js / .css     # Native animated intro splash window
-├── gcal.js                         # Economic calendar / Google calendar integration
-├── build_installer.bat             # 1-click script to build Windows .EXE installer
-├── update_project.bat              # 1-click script to commit and push updates
-├── run_app.bat / start.bat         # Fast launcher batch scripts
+├── README.md                       # Modern repository hero & documentation
 │
-├── build/
-│   └── icon.png                    # Application icon for desktop & installer
-├── connector/
-│   ├── TradersJournalSync_MT5.mq5  # MetaTrader 5 Expert Advisor source code
-│   └── TradersJournalSync_MT5.ex5  # Compiled MetaTrader 5 Expert Advisor binary
-├── data/
-│   └── db.json                     # Local trades & accounts database (generated)
-├── dist/
-│   ├── Traders-Journal-Setup-1.0.1.exe    # NSIS Windows Installer
-│   └── Traders-Journal-Portable-1.0.1.exe # Portable standalone executable
-├── docs/
-│   ├── ARCHITECTURE.md             # Detailed architectural specifications & API endpoints
-│   ├── MT5_CONNECTOR_GUIDE.md      # Comprehensive MetaTrader 5 connection guide
-│   └── UPDATE_AND_RELEASE_GUIDE.md # Maintenance, updates & GitHub release instructions
+├── src/                            # Application Source Code
+│   ├── main.js                     # Electron main process (window, tray, app lifecycle)
+│   ├── preload.js                  # Secure Electron preload bridge
+│   ├── server.js                   # Local HTTP backend server (http://127.0.0.1:8765)
+│   ├── accounts.js                 # Local accounts, scrypt auth & session isolation
+│   ├── index.html                  # Primary Live Dashboard & Analytics UI
+│   ├── hero.js / hero.css          # Main dashboard presentation & KPI rendering
+│   ├── analytics.js / .css         # 4-tab advanced analytics workstation
+│   ├── daily-journal.js / .css     # Daily trade reflections & notes management
+│   ├── settings.js / .css          # Settings workstation, profiles & connected accounts
+│   ├── auth.js / auth.css          # High-performance 60 FPS animated sign-in suite
+│   ├── auth-boot.js                # Early authentication bootstrap gate
+│   ├── app-intro.html / .js / .css # Native animated intro splash window
+│   └── gcal.js                     # Economic calendar / Google calendar integration
+│
+├── scripts/                        # Automated Execution & Build Scripts
+│   ├── start.bat                   # Instant application launcher
+│   ├── run_app.bat                 # Fast development runner
+│   ├── build_installer.bat         # 1-click script to build Windows .EXE installer
+│   ├── update_project.bat          # 1-click script to commit and push updates
+│   ├── setup-mt5.bat               # Automated MT5 Python environment setup
+│   ├── sync-mt5.bat                # Direct MT5 sync script
+│   └── Launch Traders Journal.vbs  # Silent Windows background launcher
+│
+├── build/                          # Application icon for desktop & installer
+├── connector/                      # MetaTrader 5 Expert Advisor (source & binary)
+├── docs/                           # Architecture specs, release guides & scan reports
 ├── fonts/                          # Bundled fonts (Inter, JetBrains Mono, Space Grotesk)
 ├── media/                          # Intro video, app film, and graphic assets
-└── tools/                          # MT5 direct sync, font copier, icon and video tools
+└── tools/                          # Test suites, icon builders, and Python MT5 sync
 ```
 
 ---
@@ -348,7 +349,7 @@ Traders-Journal/
 - **Solution:** Click **"More info"**, then click **"Run anyway"**. This appears because the installer is self-signed/unsigned.
 
 #### 2. The app is already running and won't re-open or rebuild
-- **Solution:** The app minimizes to the system tray on close. Right-click the **Traders Journal tray icon** near your Windows clock and select **Quit**. Or run `build_installer.bat` which automatically closes background instances before rebuilding.
+- **Solution:** The app minimizes to the system tray on close. Right-click the **Traders Journal tray icon** near your Windows clock and select **Quit**. Or run `scripts\build_installer.bat` which automatically closes background instances before rebuilding.
 
 #### 3. MT5 says `WebRequest error 4014`
 - **Solution:** You haven't added the URL to MT5's allowlist. In MT5, go to `Tools → Options → Expert Advisors`, check *"Allow WebRequest for listed URL"*, and add `http://127.0.0.1:8765`.
@@ -362,7 +363,7 @@ Traders-Journal/
 
 - **Developer & Creator:** [Chethiya Rathnasekara](https://github.com)
 - **Application:** Traders Journal — KING Edition
-- **Version:** 1.0.1
+- **Version:** 1.0.9
 
 *Happy Trading! Keep your risk managed, follow your journal rules, and protect your edge.*
 
@@ -370,4 +371,4 @@ Traders-Journal/
 
 ## 🔌 MT5 account detection setup (v1.0.7)
 
-Account detection needs Python with the `MetaTrader5` and `requests` packages. Run `setup-mt5.bat` once (it creates a local `.venv`), or install them into any Python on your PATH (`pip install MetaTrader5 requests`). Then open MetaTrader 5, log in, and use **Connections → Scan & Choose Accounts**.
+Account detection needs Python with the `MetaTrader5` and `requests` packages. Run `scripts\setup-mt5.bat` once (it creates a local `.venv`), or install them into any Python on your PATH (`pip install MetaTrader5 requests`). Then open MetaTrader 5, log in, and use **Connections → Scan & Choose Accounts**.

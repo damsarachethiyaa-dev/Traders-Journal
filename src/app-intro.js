@@ -3,7 +3,7 @@ const fs=require('fs'),path=require('path');
 
 // Each native intro has a narrow, sender-checked bridge. It never shares journal storage.
 function showAppIntro({app,BrowserWindow,ipcMain,icon,onFinish,timeout=27000}){
-  const media=path.join(__dirname,'media','traders-journal-intro.mp4');
+  const media=path.join(__dirname,'..','media','traders-journal-intro.mp4');
   if(!fs.existsSync(media))return null;
   let win=null,done=false,timer=null;
   const finish=()=>{

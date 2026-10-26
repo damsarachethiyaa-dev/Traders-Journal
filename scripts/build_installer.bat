@@ -1,5 +1,6 @@
 @echo off
 setlocal
+cd /d "%~dp0\.."
 title Traders Journal - Build Executable Installer
 echo =======================================================
 echo   TRADERS JOURNAL - WINDOWS EXE BUILDER

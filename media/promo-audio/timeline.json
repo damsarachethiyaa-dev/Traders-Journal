@@ -4,7 +4,7 @@
   "width": 1920,
   "height": 1080,
   "fps": 30,
-  "duration": 120,
+  "duration": 128,
   "bpm": 120,
   "scenes": [
     {
@@ -22,6 +22,26 @@
       "voiceEnd": 5.3
     },
     {
+      "id": "login",
+      "duration": 8,
+      "label": "00 / SECURE LOCAL LOGIN",
+      "title": [
+        "THE PRIVATE GATE.",
+        "LOCAL AUTHENTICATION."
+      ],
+      "accent": "#b7ff5c",
+      "image": "login",
+      "chips": [
+        "Zero cloud tracking",
+        "Local scrypt hashing",
+        "Multi-trader PC support"
+      ],
+      "voice": "Every trading record stays locked and private on your PC, protected by local authentication with zero cloud tracking.",
+      "start": 6.0,
+      "voiceStart": 6.8,
+      "voiceEnd": 13.3
+    },
+    {
       "id": "overview",
       "duration": 8,
       "label": "FULL PROJECT OVERVIEW",
@@ -31,10 +51,15 @@
       ],
       "accent": "#b7ff5c",
       "image": "dashboard",
+      "chips": [
+        "Real-time metrics",
+        "Instant clarity",
+        "Dark minimalist UI"
+      ],
       "voice": "Traders Journal gives you full control of your trading performance, journal entries, and broker connections in one private desktop application.",
-      "start": 6.0,
-      "voiceStart": 6.8,
-      "voiceEnd": 13.3
+      "start": 14.0,
+      "voiceStart": 14.8,
+      "voiceEnd": 21.3
     },
     {
       "id": "mt5",
@@ -51,10 +76,10 @@
         "Direct local sync",
         "Read-only connection"
       ],
-      "voice": "Connecting MetaTrader five is fast and seamless. Simply run the one-click PowerShell sync command to automatically link your live terminal and stream trade history with zero manual configuration.",
-      "start": 14.0,
-      "voiceStart": 14.8,
-      "voiceEnd": 25.3445
+      "voice": "Connecting MetaTrader five is fast and seamless. Simply run the one-click sync command to automatically link your live terminal and stream trade history with zero manual configuration.",
+      "start": 22.0,
+      "voiceStart": 22.8,
+      "voiceEnd": 35.3
     },
     {
       "id": "scanner",
@@ -72,9 +97,9 @@
         "Permanent deletion guard"
       ],
       "voice": "Scan your computer to detect all active MT5 accounts. Choose which trading accounts you want in your journal, and safely remove deleted accounts with permanent protection.",
-      "start": 28.0,
-      "voiceStart": 28.8,
-      "voiceEnd": 38.2845
+      "start": 36.0,
+      "voiceStart": 36.8,
+      "voiceEnd": 47.3
     },
     {
       "id": "dashboard",
@@ -92,9 +117,9 @@
         "Profit factor & drawdown"
       ],
       "voice": "The Command Center provides instant clarity on your net profit, win rate, profit factor, and equity curve, updated in real time across all your trading accounts.",
-      "start": 40.0,
-      "voiceStart": 40.8,
-      "voiceEnd": 49.8395
+      "start": 48.0,
+      "voiceStart": 48.8,
+      "voiceEnd": 58.78458333333333
     },
     {
       "id": "logging",
@@ -112,9 +137,9 @@
         "Trading calendar"
       ],
       "voice": "Log every position with precision. Capture your entries, exits, fees, and strategy tags, and track your daily consistency on the trading calendar.",
-      "start": 52.0,
-      "voiceStart": 52.8,
-      "voiceEnd": 61.3
+      "start": 60.0,
+      "voiceStart": 60.8,
+      "voiceEnd": 69.3
     },
     {
       "id": "journal",
@@ -132,9 +157,9 @@
         "Rule break tracking"
       ],
       "voice": "Master trader psychology with the daily journal. Attach chart screenshots, record your execution rating, and track mistakes to build unbreakable discipline.",
-      "start": 62.0,
-      "voiceStart": 62.8,
-      "voiceEnd": 72.34949999999999
+      "start": 70.0,
+      "voiceStart": 70.8,
+      "voiceEnd": 81.20254166666666
     },
     {
       "id": "analytics",
@@ -152,9 +177,9 @@
         "Drawdown recovery"
       ],
       "voice": "Deep dive into performance analytics. Compare strategies, symbols, and session times to uncover your true statistical edge and eliminate losing habits.",
-      "start": 74.0,
-      "voiceStart": 74.8,
-      "voiceEnd": 83.5045
+      "start": 82.0,
+      "voiceStart": 82.8,
+      "voiceEnd": 93.3
     },
     {
       "id": "privacy",
@@ -172,9 +197,9 @@
         "Zero cloud leaks"
       ],
       "voice": "Your financial data and trading records stay entirely on your local machine. Create encrypted JSON backups anytime with complete privacy and zero third-party cloud tracking.",
-      "start": 86.0,
-      "voiceStart": 86.8,
-      "voiceEnd": 95.3
+      "start": 94.0,
+      "voiceStart": 94.8,
+      "voiceEnd": 103.3
     },
     {
       "id": "king",
@@ -192,9 +217,9 @@
         "No recurring fees"
       ],
       "voice": "Make the journal uniquely yours with KING Edition. Personalize themes, configure monthly targets, and enjoy lifetime ownership with no subscriptions.",
-      "start": 96.0,
-      "voiceStart": 96.8,
-      "voiceEnd": 105.3
+      "start": 104.0,
+      "voiceStart": 104.8,
+      "voiceEnd": 113.3
     },
     {
       "id": "outro",
@@ -207,9 +232,9 @@
       ],
       "accent": "#b7ff5c",
       "voice": "Traders Journal. Master your trades, elevate your discipline, and own your journey. Created by Chethiya Rathnasekara.",
-      "start": 106.0,
-      "voiceStart": 106.8,
-      "voiceEnd": 115.3595
+      "start": 114.0,
+      "voiceStart": 114.8,
+      "voiceEnd": 124.3201875
     }
   ]
 }

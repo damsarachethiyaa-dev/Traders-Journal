@@ -1,7 +1,7 @@
 Set WshShell = CreateObject("WScript.Shell")
 Set fso = CreateObject("Scripting.FileSystemObject")
 ' Only start copies inside this project folder or the per-user install, never a fixed folder other users could create.
-here = fso.GetParentFolderName(WScript.ScriptFullName)
+here = fso.GetParentFolderName(fso.GetParentFolderName(WScript.ScriptFullName))
 installed = WshShell.ExpandEnvironmentStrings("%LOCALAPPDATA%") & "\Programs\Traders Journal\Traders Journal.exe"
 For Each exe In Array(here & "\dist\win-unpacked\Traders Journal.exe", here & "\dist\video-edition\win-unpacked\Traders Journal.exe", installed)
     If fso.FileExists(exe) Then

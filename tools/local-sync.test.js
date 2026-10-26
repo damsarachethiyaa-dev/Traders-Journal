@@ -26,7 +26,7 @@ test('MT5 pairing, download and sync stay on the local server', async () => {
   const originalEnv = { ProgramFiles: process.env.ProgramFiles, pf86: process.env['ProgramFiles(x86)'], LOCALAPPDATA: process.env.LOCALAPPDATA };
   process.env.ProgramFiles = process.env['ProgramFiles(x86)'] = process.env.LOCALAPPDATA = path.join(data, 'nowhere');
   process.env.TJ_ISOLATED = '1'; // never touch the real project data folder
-  const backend = require('../server.js');
+  const backend = require('../src/server.js');
   if (!backend.server.listening) await once(backend.server, 'listening');
   const base = `http://127.0.0.1:${port}`;
   let cookie = '';

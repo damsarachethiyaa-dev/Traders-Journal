@@ -33,3 +33,8 @@ backup-*/
 
 # Large walkthrough video recordings
 media/video/Traders-Journal-Walkthrough*.mp4
+
+# Scratch and test captures
+test_*.png
+test_*.js
+inspect_dom.js

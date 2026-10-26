@@ -6,7 +6,8 @@ const http = require('http'), fs = require('fs'), path = require('path'), crypto
 const PORT = +process.env.PORT || 8765;
 const ISOLATED = !!process.env.TJ_ISOLATED; // tests: never read or write the project's real data folder
 const HOST = '127.0.0.1';
-const ROOT = __dirname;
+const ROOT = path.join(__dirname, '..');
+const SRC = __dirname;
 function getWritableDataDir() {
   if (process.env.TJ_DATA && !process.env.TJ_DATA.includes('app.asar')) {
     return process.env.TJ_DATA;
@@ -757,9 +758,10 @@ const server = http.createServer(async (req, res) => {
     }
     let rel = decodeURIComponent(url.pathname); if (rel === '/') rel = '/index.html';
     const cleanRel = rel.replace(/^[/\\]+/, '');
-    const publicFile = ['index.html','auth-boot.js','auth.css','auth.js','settings.js','settings.css','daily-journal.js','daily-journal.css','hero.js','hero.css','analytics.js','analytics.css','guide.js','guide.css'].includes(cleanRel) || /^fonts[\\/][^\\/]+\.(css|woff2|woff)$/.test(cleanRel) || /^media[\\/][^\\/]+\.(mp4|webm|jpg|png|mp3)$/.test(cleanRel);
-    if (!publicFile) { res.writeHead(404); return res.end('Not found'); }
-    const file = path.normalize(path.join(ROOT, cleanRel));
+    const isPublicSource = ['index.html','auth-boot.js','auth.css','auth.js','settings.js','settings.css','daily-journal.js','daily-journal.css','hero.js','hero.css','analytics.js','analytics.css','guide.js','guide.css'].includes(cleanRel);
+    const isAsset = /^fonts[\\/][^\\/]+\.(css|woff2|woff)$/.test(cleanRel) || /^media[\\/][^\\/]+\.(mp4|webm|jpg|png|mp3)$/.test(cleanRel);
+    if (!isPublicSource && !isAsset) { res.writeHead(404); return res.end('Not found'); }
+    const file = isPublicSource ? path.normalize(path.join(SRC, cleanRel)) : path.normalize(path.join(ROOT, cleanRel));
     const ext = path.extname(file).toLowerCase();
     const contentType = MIME[ext] || 'application/octet-stream';
     if (ext === '.mp4' || ext === '.webm') {

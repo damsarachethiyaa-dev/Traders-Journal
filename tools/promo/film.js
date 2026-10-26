@@ -120,6 +120,10 @@ function sceneView(T,t,sc,idx){
   const cities=['SYDNEY','TOKYO','LONDON','NEW YORK'];
   cities.forEach((v,i)=>{const p=ease((t-1-i*.12)/.7);ctx.save();ctx.globalAlpha=p;box(710+i*267,834+(1-p)*20,247,62,'#101d1bee',sc.accent+'4c',12);circle(730+i*267,865,4,sc.accent);text(v,748+i*267,872,16,C.white,600);ctx.restore();});
  }
+ if(sc.id==='login'){
+  ctx.save();ctx.globalAlpha=ease((t-1)/.8);
+  box(83,850,465,66,'#111b14',sc.accent+'55',12);text('LOCAL PC LOGIN',109,890,18,C.white,700,'left','Space Grotesk');text('100% PRIVATE',315,890,14,sc.accent,700,'left','Space Grotesk');ctx.restore();
+ }
  if(sc.id==='mt5'){
   const p=ease((t-1)/.8);ctx.save();ctx.globalAlpha=p;
   box(83,850,450,66,'#111b14',sc.accent+'55',12);text('MT5 TERMINAL',109,890,19,C.white,700,'left','Space Grotesk');text('DIRECT SYNC',335,890,17,sc.accent,700,'left','Space Grotesk');

@@ -20,7 +20,7 @@ slog('Single instance lock:', gotLock);
 if (!gotLock) { slog('Lock failed, quitting'); app.quit(); } else { boot(); }
 
 function boot() {
-  const localData = path.join(__dirname, 'data');
+  const localData = path.join(__dirname, '..', 'data');
   const userData = app.getPath('userData');
   const appData = path.join(userData, 'data');
   process.env.TJ_DATA = (!__dirname.includes('app.asar') && fs.existsSync(localData)) ? localData : appData;
@@ -37,7 +37,7 @@ function boot() {
   const LOGIN_W = 1430, LOGIN_H = 907;
   let loginMode = false;
   const startHidden = process.argv.includes('--hidden');
-  const iconPath = path.join(__dirname, 'build', 'icon.png');
+  const iconPath = path.join(__dirname, '..', 'build', 'icon.png');
   const icon = fs.existsSync(iconPath) ? nativeImage.createFromPath(iconPath) : undefined;
 
   app.on('second-instance', () => showWindow());
@@ -204,7 +204,7 @@ function boot() {
 
   function openFilm() {
     // Shell video players need a real file: export the bundled ASAR asset to app cache.
-    const bundledFilm = path.join(__dirname, 'media', 'traders-journal-promo.mp4');
+    const bundledFilm = path.join(__dirname, '..', 'media', 'traders-journal-promo.mp4');
     if (!fs.existsSync(bundledFilm)) return dialog.showMessageBox({ type: 'info', title: 'Traders Journal film', message: 'The app film is not included in this build.' });
     try {
       let film = bundledFilm;

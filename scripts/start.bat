@@ -1,5 +1,5 @@
 @echo off
-cd /d "%~dp0"
+cd /d "%~dp0\.."
 if exist "dist\win-unpacked\Traders Journal.exe" (
     start "" "dist\win-unpacked\Traders Journal.exe"
 ) else if exist "dist\video-edition\win-unpacked\Traders Journal.exe" (
