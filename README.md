@@ -17,10 +17,6 @@
     <img src="https://img.shields.io/badge/DOWNLOAD%20INSTALLER-.EXE%20(V1.0.9)-00C853?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows Installer" />
   </a>
   &nbsp;&nbsp;
-  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
-    <img src="https://img.shields.io/badge/PORTABLE%20EDITION-ZERO%20INSTALL-0078D6?style=for-the-badge&logo=electron&logoColor=white" alt="Download Portable" />
-  </a>
-  &nbsp;&nbsp;
   <a href="https://damsarachethiyaa-dev.github.io/github-portfolio/traders-journal/">
     <img src="https://img.shields.io/badge/LIVE%20SHOWCASE-INTERACTIVE%20DEMO-8B5CF6?style=for-the-badge&logo=safari&logoColor=white" alt="Interactive Web Demo" />
   </a>
@@ -37,14 +33,9 @@
   <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases">
     <img src="https://img.shields.io/github/downloads/damsarachethiyaa-dev/Traders-Journal/total?style=for-the-badge&logo=github&color=22c55e&label=VERIFIED%20DOWNLOADS" alt="Verified Real Downloads" />
   </a>
-  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases">
-    <img src="https://img.shields.io/badge/ACTIVE%20TRADERS-1%2C000%2B-F59E0B?style=for-the-badge&logo=discord&logoColor=white" alt="Active Traders" />
-  </a>
+  &nbsp;
   <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
     <img src="https://img.shields.io/badge/RELEASE-V1.0.9-0288D1?style=for-the-badge&logo=github&logoColor=white" alt="Release v1.0.9" />
-  </a>
-  <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/stargazers">
-    <img src="https://img.shields.io/badge/COMMUNITY-1%2C400%2B%20STARS-EAB308?style=for-the-badge&logo=github" alt="Stars" />
   </a>
 </p>
 
