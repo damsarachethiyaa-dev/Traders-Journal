@@ -31,7 +31,7 @@
 
 <p align="center">
   <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases">
-    <img src="https://img.shields.io/github/downloads/damsarachethiyaa-dev/Traders-Journal/total?style=for-the-badge&logo=github&color=22c55e&label=VERIFIED%20DOWNLOADS" alt="Verified Real Downloads" />
+    <img src="https://img.shields.io/github/downloads/damsarachethiyaa-dev/Traders-Journal/total.svg?style=for-the-badge&logo=github&color=22c55e&label=VERIFIED%20DOWNLOADS&v=1.6k" alt="Verified Real Downloads" />
   </a>
   &nbsp;
   <a href="https://github.com/damsarachethiyaa-dev/Traders-Journal/releases/latest">
