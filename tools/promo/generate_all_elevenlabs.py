@@ -10,8 +10,8 @@ ROOT = Path(r"C:\Users\LEGION\OneDrive\Desktop\Traders-Journal")
 AUDIO_DIR = ROOT / 'media' / 'promo-audio'
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
-# API Key
-API_KEY = "sk_0b102915c3a8ab65302ca77d3c8b57d9c3d5c970c37dc334"
+# API Key (loaded from environment variable)
+API_KEY = os.getenv("ELEVENLABS_API_KEY", "")
 VOICE_ID = "pNInz6obpgDQGcFmaJgB" # Adam - Cinematic Deep Voice
 MODEL_ID = "eleven_multilingual_v2"
 
